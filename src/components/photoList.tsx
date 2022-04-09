@@ -1,3 +1,4 @@
+import './photoList.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { PhotoList } from '../types'
