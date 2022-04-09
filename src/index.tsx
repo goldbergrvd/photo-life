@@ -1,13 +1,27 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import reducers from './reducers'
+import { State, Tab } from './types';
+import { createStore } from 'redux';
+
+const DEFAULT_STATE = {
+  tab: Tab.Images,
+  state: State.Browse,
+  photoList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+              '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+              '21', '22', '23', '24', '25']
+              .map(name => ({ name: `${name}.jpeg`, selected: false }))
+}
+
+const store = createStore(reducers, DEFAULT_STATE)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
