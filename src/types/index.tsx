@@ -11,6 +11,7 @@ export enum State {
 
 export interface Photo {
   name: string;
+  browsed: boolean;
   selected: boolean;
 }
 

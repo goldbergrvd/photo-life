@@ -5,6 +5,7 @@ import { faImages, faBook, faFileArrowUp } from '@fortawesome/free-solid-svg-ico
 
 import PhotoList from "./containers/photoList";
 import PhotoCount from "./containers/photoCount";
+import PhotoBrowse from './containers/photoBrowse';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <FontAwesomeIcon icon={faFileArrowUp} size="2x" />
         <input id="file" multiple type="file" />
       </div>
+      <PhotoBrowse />
     </div>
   );
 }
