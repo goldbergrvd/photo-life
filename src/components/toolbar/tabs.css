@@ -1,0 +1,17 @@
+.tabs {
+  height: calc(100% - 4px);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.tabs li {
+  width: 25%;
+  height: 100%;
+  padding-top: .25rem;
+  font-size: .5rem;
+  list-style: none;
+}

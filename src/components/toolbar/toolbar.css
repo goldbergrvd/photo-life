@@ -1,0 +1,8 @@
+.toolbar {
+  width: inherit;
+  height: 4rem;
+  background-color: rgb(255, 255, 255);
+  color: rgb(133, 133, 133);
+  position: fixed;
+  bottom: 0;
+}

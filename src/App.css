@@ -4,40 +4,6 @@
   text-align: center;
 }
 
-.toolbar {
-  width: inherit;
-  height: 4rem;
-  background-color: rgb(255, 255, 255);
-  color: rgb(133, 133, 133);
-  position: fixed;
-  bottom: 0;
-}
-
-.toolbar .progress {
-    width: 0;
-    height: 4px;
-    background-color: rgb(43, 166, 222);
-    transition: width .25s;
-}
-
-.toolbar ul {
-  height: calc(100% - 4px);
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.toolbar ul li {
-  width: 25%;
-  height: 100%;
-  padding-top: .25rem;
-  font-size: .5rem;
-  list-style: none;
-}
-
 .uploader {
   width: 40px;
   height: 40px;
