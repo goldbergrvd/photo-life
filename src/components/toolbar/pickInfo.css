@@ -1,0 +1,20 @@
+.pick-info {
+  width: inherit;
+  text-align: center;
+  line-height: 4rem;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.pick-info .handle,
+.pick-info .delete {
+  width: 10%
+}
+
+.pick-info .info {
+  width: 80%;
+  color: rgb(26, 42, 58);
+  font-weight: bold;
+}
