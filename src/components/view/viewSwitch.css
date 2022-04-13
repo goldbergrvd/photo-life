@@ -1,0 +1,8 @@
+.view-switch {
+  width: inherit;
+  height: inherit;
+}
+
+.view-switch.unscroll {
+  overflow: hidden;
+}

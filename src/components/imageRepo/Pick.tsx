@@ -1,4 +1,4 @@
-import "./pick.css";
+import "./setting.css";
 import { State } from "../../types";
 
 export interface Props {
@@ -33,7 +33,7 @@ function Pick({ state, setState, clearPhotoSelect }: Props) {
   }
 
   return (
-    <div className="pick" onClick={onClick}>{text(state)}</div>
+    <div className="setting pick" onClick={onClick}>{text(state)}</div>
   )
 }
 

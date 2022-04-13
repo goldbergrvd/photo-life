@@ -5,8 +5,9 @@ import PhotoBrowse from "../components/PhotoBrowse";
 import { StoreState } from "../types";
 
 function mapStateToProps(state: StoreState) {
+  const photo = state.photoList.filter(photo => photo.browsed)[0]
   return {
-    photoList: state.photoList
+    photo: photo
   }
 }
 

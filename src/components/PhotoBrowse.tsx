@@ -1,20 +1,18 @@
 import "./photoBrowse.css"
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PhotoList } from "../types";
+import { Photo } from "../types";
 
 export interface Props {
-  photoList: PhotoList,
+  photo: Photo | undefined,
   onClose: () => void
 }
 
-function PhotoBrowse({ photoList, onClose }: Props) {
-  const photoBrowse = photoList.filter(photo => photo.browsed)[0]
-
+function PhotoBrowse({ photo, onClose }: Props) {
   return (
-    <div className={'photo' + (photoBrowse ? '' : ' hide')}>
+    <div className={'photo' + (photo ? '' : ' hide')}>
       <FontAwesomeIcon icon={faXmark} size="2x" onClick={onClose} />
-      {photoBrowse ? <img src={`imgs/${photoBrowse.name}`} /> : ''}
+      {photo ? <img src={`imgs/${photo.name}`} /> : ''}
     </div>
   )
 }

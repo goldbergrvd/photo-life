@@ -1,0 +1,23 @@
+.setting {
+  line-height: 1.875rem;
+  color: rgb(255, 255, 255);
+  background-color: rgba(102, 102, 102, .8);
+  border-radius: 3rem;
+  font-size: .75rem;
+  font-weight: bold;
+  position: fixed;
+  top: 1rem;
+}
+
+.pick {
+  width: 3rem;
+  right: calc(1rem + 2.25rem);
+}
+
+.uploader {
+  width: 1.875rem;
+  right: 1rem;
+}
+.uploader input {
+  display: none;
+}

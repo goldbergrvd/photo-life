@@ -1,10 +1,13 @@
-import { Tab } from "../../types";
+import "./viewSwitch.css";
+
+import { State, Tab } from "../../types";
 import Album from "./Album";
 import ImageRepo from "./ImageRepo";
 import VideoRepo from "./VideoRepo";
 
 interface Props {
-  tab: Tab
+  tab: Tab;
+  browsed: boolean
 }
 
 function switchView(tab: Tab) {
@@ -18,9 +21,9 @@ function switchView(tab: Tab) {
   }
 }
 
-function ViewSwitch({ tab }: Props) {
+function ViewSwitch({ tab, browsed }: Props) {
   return (
-    <div className="view-switch">
+    <div className={'view-switch' + (browsed ? ' unscroll' : '')}>
       { switchView(tab) }
     </div>
   )
