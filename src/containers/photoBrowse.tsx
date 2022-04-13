@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { clearPhotoBrowse, PhotoListAction } from "../actions/photoList";
-import PhotoBrowse from "../components/photoBrowse";
+import PhotoBrowse from "../components/PhotoBrowse";
 import { StoreState } from "../types";
 
 function mapStateToProps(state: StoreState) {

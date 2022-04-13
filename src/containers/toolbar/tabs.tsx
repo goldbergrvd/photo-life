@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setTab, TabAction } from "../../actions";
-import Tabs from "../../components/toolbar/tabs";
+import Tabs from "../../components/toolbar/Tabs";
 import { StoreState, Tab } from "../../types";
 
 function mapStateToProps(state: StoreState) {

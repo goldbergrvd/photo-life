@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Toolbar from "../../components/toolbar/toolbar";
+import Toolbar from "../../components/toolbar/Toolbar";
 import { StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {

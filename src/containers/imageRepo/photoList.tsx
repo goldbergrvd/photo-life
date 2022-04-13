@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
 import { StoreState } from "../../types";
-import PhotoList from "../../components/imageRepo/photoList";
+import PhotoList from "../../components/imageRepo/PhotoList";
 
 function mapStateToProps(state: StoreState) {
   return {

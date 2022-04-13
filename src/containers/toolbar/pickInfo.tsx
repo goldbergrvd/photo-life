@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import PickInfo from "../../components/toolbar/pickInfo";
+import PickInfo from "../../components/toolbar/PickInfo";
 import { StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {

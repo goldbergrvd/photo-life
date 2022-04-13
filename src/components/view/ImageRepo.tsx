@@ -3,9 +3,9 @@ import "./imageRepo.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons'
 
-import PhotoList from "../../containers/imageRepo/photoList";
-import PhotoCount from "../../containers/imageRepo/photoCount";
-import Pick from '../../containers/settings/pick';
+import PhotoList from "../../containers/imageRepo/PhotoList";
+import PhotoCount from "../../containers/imageRepo/PhotoCount";
+import Pick from '../../containers/settings/Pick';
 
 function ImageRepo() {
   return (

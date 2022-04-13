@@ -1,7 +1,7 @@
 import { Tab } from "../../types";
-import Album from "./album";
-import ImageRepo from "../imageRepo/imageRepo";
-import VideoRepo from "./videoRepo";
+import Album from "./Album";
+import ImageRepo from "./ImageRepo";
+import VideoRepo from "./VideoRepo";
 
 interface Props {
   tab: Tab

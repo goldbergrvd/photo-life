@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setState, StateAction } from "../../actions";
 import { clearPhotoSelect, PhotoListAction } from "../../actions/photoList";
-import Pick from "../../components/settings/pick";
+import Pick from "../../components/settings/Pick";
 import { State, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {

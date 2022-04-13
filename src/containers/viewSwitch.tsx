@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { StoreState } from "../types";
 
-import ViewSwitch from "../components/view/viewSwitch";
+import ViewSwitch from "../components/view/ViewSwitch";
 
 function mapStateToProps(state: StoreState) {
   return {

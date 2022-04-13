@@ -1,8 +1,8 @@
 import './App.css';
 
-import PhotoBrowse from './containers/photoBrowse';
-import Toolbar from './containers/toolbar/toolbar';
-import ViewSwitch from './containers/viewSwitch';
+import PhotoBrowse from './containers/PhotoBrowse';
+import Toolbar from './containers/toolbar/Toolbar';
+import ViewSwitch from './containers/ViewSwitch';
 
 function App() {
   return (
