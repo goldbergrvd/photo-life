@@ -1,7 +1,7 @@
 import './photoList.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { PhotoList, State } from '../types'
+import { PhotoList, State } from '../../types'
 
 export interface Props {
   photoList: PhotoList,

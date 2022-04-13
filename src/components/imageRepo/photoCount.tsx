@@ -1,5 +1,5 @@
 import "./photoCount.css"
-import { PhotoList } from "../types";
+import { PhotoList } from "../../types";
 
 export interface Props {
   photoList: PhotoList

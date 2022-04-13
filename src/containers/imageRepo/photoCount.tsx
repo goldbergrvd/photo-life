@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import PhotoCount from "../../components/photoCount";
+import PhotoCount from "../../components/imageRepo/photoCount";
 import { StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {
