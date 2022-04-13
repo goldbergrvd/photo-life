@@ -1,21 +1,29 @@
 import "./tabs.css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faImages } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faFileVideo, faImages } from "@fortawesome/free-solid-svg-icons";
+import { Tab } from "../../types";
 
-function Tabs() {
+interface Props {
+  tab: Tab;
+  setTab: (tab: Tab) => void
+}
+
+function Tabs({ tab, setTab }: Props) {
   return (
     <ul className="tabs">
-      <li>
+      <li className={tab === Tab.ImageRepo ? 'on' : ''} onClick={ () => setTab(Tab.ImageRepo) }>
         <FontAwesomeIcon icon={faImages} size="4x" />
         <div>圖庫</div>
       </li>
-      <li>
+      <li className={tab === Tab.VideoRepo ? 'on' : ''} onClick={ () => setTab(Tab.VideoRepo) }>
+        <FontAwesomeIcon icon={faFileVideo} size="4x" />
+        <div>影片</div>
+      </li>
+      <li className={tab === Tab.Album ? 'on' : ''} onClick={ () => setTab(Tab.Album) }>
         <FontAwesomeIcon icon={faBook} size="4x" />
         <div>相簿</div>
       </li>
-      <li id="de">-</li>
-      <li id="in">+</li>
     </ul>
   )
 }

@@ -1,6 +1,4 @@
 .photo-list {
-  width: inherit;
-  padding-bottom: 4rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

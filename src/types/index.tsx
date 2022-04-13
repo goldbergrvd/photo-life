@@ -1,6 +1,7 @@
 export enum Tab {
-  Images = 1,
-  Album = 2
+  ImageRepo = 1,
+  VideoRepo = 2,
+  Album = 3
 }
 
 export enum State {

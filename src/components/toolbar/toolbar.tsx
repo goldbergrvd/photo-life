@@ -1,7 +1,7 @@
 import PickInfo from "../../containers/toolbar/pickInfo"
 import { State } from "../../types"
 import Progress from "./progress"
-import Tabs from "./tabs"
+import Tabs from "../../containers/toolbar/tabs"
 import "./toolbar.css"
 
 export interface Props {

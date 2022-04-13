@@ -1,3 +1,3 @@
 
 export * from './state'
-// export * from './tabs'
+export * from './tab'

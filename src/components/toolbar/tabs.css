@@ -9,9 +9,13 @@
 }
 
 .tabs li {
-  width: 25%;
+  width: calc(100% / 3);
   height: 100%;
   padding-top: .25rem;
   font-size: .5rem;
   list-style: none;
+}
+
+.tabs li.on {
+  color: rgb(51, 153, 204);
 }
