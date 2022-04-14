@@ -1,8 +1,9 @@
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
+import { addPhotos, openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
 import { StoreState } from "../../types";
 import PhotoList from "../../components/imageRepo/PhotoList";
+import axios from "axios";
 
 function mapStateToProps(state: StoreState) {
   return {
@@ -14,7 +15,16 @@ function mapStateToProps(state: StoreState) {
 function mapDispatchToProps(dispatch: Dispatch<PhotoListAction>) {
   return {
     onTogglePhotoSelect: (index: number) => dispatch(togglePhotoSelect(index)),
-    onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index))
+    onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index)),
+    fetchPhotos: () => {
+      axios.get("./images")
+           .then(res => {
+             dispatch(addPhotos(res.data))
+           })
+           .catch(err => {
+             console.log(err)
+           })
+    }
   }
 }
 

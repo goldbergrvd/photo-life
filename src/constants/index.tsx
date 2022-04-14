@@ -4,8 +4,8 @@ export type SET_TAB = typeof SET_TAB;
 export const SET_STATE = 'SET_STATE';
 export type SET_STATE = typeof SET_STATE;
 
-export const ADD_PHOTO = 'ADD_PHOTO';
-export type ADD_PHOTO = typeof ADD_PHOTO;
+export const ADD_PHOTOS = 'ADD_PHOTOS';
+export type ADD_PHOTOS = typeof ADD_PHOTOS;
 
 export const OPEN_PHOTO_BROWSE = 'OPEN_PHOTO_BROWSE';
 export type OPEN_PHOTO_BROWSE = typeof OPEN_PHOTO_BROWSE;

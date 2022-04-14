@@ -1,18 +1,37 @@
-import './photoList.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { PhotoList, State } from '../../types'
+import "./photoList.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { PhotoList, State } from "../../types";
+import React from "react";
 
 export interface Props {
-  photoList: PhotoList,
-  state: State,
-  onTogglePhotoSelect: (index: number) => void
-  onOpenPhotoBrowse: (index: number) => void
+  photoList: PhotoList;
+  state: State;
+  onTogglePhotoSelect: (index: number) => void;
+  onOpenPhotoBrowse: (index: number) => void;
+  fetchPhotos: () => void;
 }
 
-function PhotoListComponent ({ photoList = [], state, onTogglePhotoSelect, onOpenPhotoBrowse }: Props) {
+class PhotoListComponent extends React.Component<Props, object> {
 
-  function onImgClick(i: number) {
+  componentDidMount() {
+    const {
+      photoList,
+      fetchPhotos
+    } = this.props
+
+    if (photoList.length === 0) {
+      fetchPhotos()
+    }
+  }
+
+  onImgClick(i: number) {
+    const {
+      state,
+      onTogglePhotoSelect,
+      onOpenPhotoBrowse
+    } = this.props
+
     if (state === State.Select) {
       onTogglePhotoSelect(i)
     }
@@ -22,18 +41,47 @@ function PhotoListComponent ({ photoList = [], state, onTogglePhotoSelect, onOpe
     }
   }
 
-  return (
-    <div className="photo-list img-3">
-      {
-        photoList.map((photo, i) => (
-          <div className="img" key={i} onClick={() => onImgClick(i)}>
-            <img src={`imgs/${photo.name}`}/>
-            { photo.selected ? (<div className="mask"><FontAwesomeIcon icon={faCircleCheck} /></div>) : '' }
-          </div>
-        ))
-      }
-    </div>
-  )
+  render() {
+    const { photoList } = this.props
+
+    return (
+      <div className="photo-list img-3">
+        {
+          photoList.map((photo, i) => (
+            <div className="img" key={i} onClick={() => this.onImgClick(i)}>
+              <img src={`image/${photo.name}`}/>
+              { photo.selected ? (<div className="mask"><FontAwesomeIcon icon={faCircleCheck} /></div>) : '' }
+            </div>
+          ))
+        }
+      </div>
+    )
+  }
 }
+// function PhotoListComponent ({ photoList = [], state, onTogglePhotoSelect, onOpenPhotoBrowse }: Props) {
+
+//   function onImgClick(i: number) {
+//     if (state === State.Select) {
+//       onTogglePhotoSelect(i)
+//     }
+
+//     if (state === State.Browse) {
+//       onOpenPhotoBrowse(i)
+//     }
+//   }
+
+//   return (
+//     <div className="photo-list img-3">
+//       {
+//         photoList.map((photo, i) => (
+//           <div className="img" key={i} onClick={() => onImgClick(i)}>
+//             <img src={`image/${photo.name}`}/>
+//             { photo.selected ? (<div className="mask"><FontAwesomeIcon icon={faCircleCheck} /></div>) : '' }
+//           </div>
+//         ))
+//       }
+//     </div>
+//   )
+// }
 
 export default PhotoListComponent;

@@ -1,9 +1,9 @@
-import { ADD_PHOTO, CLEAR_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT, CLEAR_PHOTO_SELECT } from "../constants";
-import { Photo } from "../types";
+import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT, CLEAR_PHOTO_SELECT } from "../constants";
+import { PhotoList } from "../types";
 
-export interface AddPhoto {
-  type: ADD_PHOTO,
-  payload: Photo
+export interface AddPhotos {
+  type: ADD_PHOTOS,
+  payload: PhotoList
 }
 
 export interface OpenPhotoBrowse {
@@ -24,16 +24,16 @@ export interface ClearPhotoSelect {
   type: CLEAR_PHOTO_SELECT,
 }
 
-export type PhotoListAction = AddPhoto | OpenPhotoBrowse | ClearPhotoBrowse | TogglePhotoSelect | ClearPhotoSelect;
+export type PhotoListAction = AddPhotos | OpenPhotoBrowse | ClearPhotoBrowse | TogglePhotoSelect | ClearPhotoSelect;
 
-export function addPhoto(name: string): AddPhoto {
+export function addPhotos(names: string[]): AddPhotos {
   return {
-    type: ADD_PHOTO,
-    payload: {
+    type: ADD_PHOTOS,
+    payload: names.map(name => ({
       name,
       browsed: false,
       selected: false
-    }
+    }))
   }
 }
 

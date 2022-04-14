@@ -1,20 +1,16 @@
-import "./setting.css"
+import "./setting.css";
 
-import { faSpinner, faPlus } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent } from "react";
 import { State } from "../../types";
 
 interface Props {
   state: State;
-  uploadProgress: number;
   upload: (formData: FormData) => void;
 }
 
-function Uploader({ state, uploadProgress, upload }: Props) {
-  console.log(uploadProgress)
-
-
+function Uploader({ state, upload }: Props) {
   let _input: HTMLInputElement;
 
   function onClick() {
