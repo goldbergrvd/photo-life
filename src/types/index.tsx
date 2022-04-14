@@ -22,4 +22,5 @@ export interface StoreState {
   tab: Tab;
   state: State;
   photoList: PhotoList;
+  uploadProgress: number;
 }

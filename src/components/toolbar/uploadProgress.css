@@ -1,0 +1,26 @@
+.upload-progress {
+  width: inherit;
+  height: inherit;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+}
+
+.progress {
+  width: 0;
+  height: inherit;
+  background-color: rgb(51, 153, 255);
+  transition: width .25s;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.message {
+  width: inherit;
+  height: inherit;
+  line-height: 4rem;;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

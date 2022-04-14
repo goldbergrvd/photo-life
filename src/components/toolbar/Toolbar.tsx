@@ -1,6 +1,6 @@
 import PickInfo from "../../containers/toolbar/PickInfo"
 import { State } from "../../types"
-import Progress from "./Progress"
+import UploadProgress from "../../containers/toolbar/UploadProgress"
 import Tabs from "../../containers/toolbar/Tabs"
 import "./toolbar.css"
 
@@ -15,7 +15,7 @@ function switchToolbar(state: State) {
     case State.Select:
       return <PickInfo />
     case State.Upload:
-      return <Progress />
+      return <UploadProgress />
   }
 }
 

@@ -3,7 +3,7 @@ import "./imageRepo.css";
 import PhotoList from "../../containers/imageRepo/PhotoList";
 import PhotoCount from "../../containers/imageRepo/PhotoCount";
 import Pick from "../../containers/imageRepo/Pick";
-import Uploader from "../imageRepo/Uploader";
+import Uploader from "../../containers/imageRepo/Uploader";
 
 function ImageRepo() {
   return (
