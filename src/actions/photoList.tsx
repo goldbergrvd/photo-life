@@ -1,4 +1,4 @@
-import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT, CLEAR_PHOTO_SELECT } from "../constants";
+import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT, CLEAR_PHOTO_SELECT, NEXT_PHOTO_BROWSE, PREV_PHOTO_BROWSE } from "../constants";
 import { PhotoList } from "../types";
 
 export interface AddPhotos {
@@ -15,6 +15,14 @@ export interface ClearPhotoBrowse {
   type: CLEAR_PHOTO_BROWSE
 }
 
+export interface PrevPhotoBrowse {
+  type: PREV_PHOTO_BROWSE
+}
+
+export interface NextPhotoBrowse {
+  type: NEXT_PHOTO_BROWSE
+}
+
 export interface TogglePhotoSelect {
   type: TOGGLE_PHOTO_SELECT,
   payload: number
@@ -24,7 +32,7 @@ export interface ClearPhotoSelect {
   type: CLEAR_PHOTO_SELECT,
 }
 
-export type PhotoListAction = AddPhotos | OpenPhotoBrowse | ClearPhotoBrowse | TogglePhotoSelect | ClearPhotoSelect;
+export type PhotoListAction = AddPhotos | OpenPhotoBrowse | ClearPhotoBrowse | PrevPhotoBrowse | NextPhotoBrowse | TogglePhotoSelect | ClearPhotoSelect;
 
 export function addPhotos(names: string[]): AddPhotos {
   return {
@@ -47,6 +55,18 @@ export function openPhotoBrowse(index: number): OpenPhotoBrowse {
 export function clearPhotoBrowse(): ClearPhotoBrowse {
   return {
     type: CLEAR_PHOTO_BROWSE
+  }
+}
+
+export function prevPhotoBrowse(): PrevPhotoBrowse {
+  return {
+    type: PREV_PHOTO_BROWSE
+  }
+}
+
+export function nextPhotoBrowse(): NextPhotoBrowse {
+  return {
+    type: NEXT_PHOTO_BROWSE
   }
 }
 

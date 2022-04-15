@@ -1,9 +1,9 @@
 import { PhotoListAction } from "../actions/photoList";
-import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, CLEAR_PHOTO_SELECT, OPEN_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT } from "../constants";
+import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, CLEAR_PHOTO_SELECT, NEXT_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, PREV_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT } from "../constants";
 import { PhotoList } from "../types";
 
 export default function (photoList: PhotoList = [], action: PhotoListAction): PhotoList {
-  let newPhotoList
+  let newPhotoList, browsedIndex
 
   switch(action.type) {
     case ADD_PHOTOS:
@@ -19,6 +19,26 @@ export default function (photoList: PhotoList = [], action: PhotoListAction): Ph
         photo.browsed = false
         return photo
       })
+
+    case PREV_PHOTO_BROWSE:
+      browsedIndex = photoList.findIndex(photo => photo.browsed)
+      if (browsedIndex > 0) {
+        newPhotoList = [...photoList]
+        newPhotoList[browsedIndex].browsed = false
+        newPhotoList[browsedIndex - 1].browsed = true
+        return newPhotoList
+      }
+      return photoList
+
+    case NEXT_PHOTO_BROWSE:
+      browsedIndex = photoList.findIndex(photo => photo.browsed)
+      if (browsedIndex < photoList.length - 1) {
+        newPhotoList = [...photoList]
+        newPhotoList[browsedIndex].browsed = false
+        newPhotoList[browsedIndex + 1].browsed = true
+        return newPhotoList
+      }
+      return photoList
 
     case TOGGLE_PHOTO_SELECT:
       newPhotoList = [...photoList]

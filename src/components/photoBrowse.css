@@ -13,6 +13,15 @@
   display: none;
 }
 
+.photo .index {
+  font-weight: bold;
+  font-size: 1.25rem;
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .photo svg {
   position: absolute;
   top: 1rem;
