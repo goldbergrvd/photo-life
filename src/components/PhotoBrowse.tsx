@@ -49,7 +49,7 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
         </div>
       )} */}
       <FontAwesomeIcon icon={faXmark} size="2x" onClick={onClose} />
-      {photoList[photoIndex] ? <img src={api.image(photoList[photoIndex].name)} /> : ''}
+      {photoList[photoIndex] ? <img src={api.image(photoList[photoIndex].name)} crossOrigin="anonymous" /> : ''}
     </div>
   )
 }

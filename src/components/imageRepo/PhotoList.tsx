@@ -50,7 +50,7 @@ class PhotoListComponent extends React.Component<Props, object> {
         {
           photoList.map((photo, i) => (
             <div className="img" key={i} onClick={() => this.onImgClick(i)}>
-              <img src={api.image(photo.name)}/>
+              <img src={api.image(photo.name)} crossOrigin="anonymous" />
               { photo.selected ? (<div className="mask"><FontAwesomeIcon icon={faCircleCheck} /></div>) : '' }
             </div>
           ))
