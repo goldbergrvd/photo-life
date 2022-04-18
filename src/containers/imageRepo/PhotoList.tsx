@@ -4,6 +4,7 @@ import { addPhotos, openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "
 import { StoreState } from "../../types";
 import PhotoList from "../../components/imageRepo/PhotoList";
 import axios from "axios";
+import api from "../../api";
 
 function mapStateToProps(state: StoreState) {
   return {
@@ -17,7 +18,7 @@ function mapDispatchToProps(dispatch: Dispatch<PhotoListAction>) {
     onTogglePhotoSelect: (index: number) => dispatch(togglePhotoSelect(index)),
     onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index)),
     fetchPhotos: () => {
-      axios.get("./images")
+      axios.get(api.images)
            .then(res => {
              dispatch(addPhotos(res.data))
            })

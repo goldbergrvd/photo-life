@@ -3,6 +3,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PhotoList } from "../types";
 import { useSwipeable } from "react-swipeable";
+import api from "../api";
 
 export interface Props {
   photoList: PhotoList;
@@ -48,7 +49,7 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
         </div>
       )} */}
       <FontAwesomeIcon icon={faXmark} size="2x" onClick={onClose} />
-      {photoList[photoIndex] ? <img src={`image/${photoList[photoIndex].name}`} /> : ''}
+      {photoList[photoIndex] ? <img src={api.image(photoList[photoIndex].name)} /> : ''}
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { Dispatch } from "redux";
 import { setUploadProgress, UploadProgressAction } from "../../actions";
 import { addPhotos, PhotoListAction } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
+import api from "../../api";
 import Uploader from "../../components/imageRepo/Uploader";
 import { State, StoreState } from "../../types";
 
@@ -25,7 +26,7 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
         }
       }
 
-      axios.post('/upload', formData, config)
+      axios.post(api.upload, formData, config)
           .then(res => {
             dispatch(addPhotos(res.data))
           })

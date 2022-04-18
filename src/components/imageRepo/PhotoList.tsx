@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { PhotoList, State } from "../../types";
 import React from "react";
+import api from "../../api";
 
 export interface Props {
   photoList: PhotoList;
@@ -49,7 +50,7 @@ class PhotoListComponent extends React.Component<Props, object> {
         {
           photoList.map((photo, i) => (
             <div className="img" key={i} onClick={() => this.onImgClick(i)}>
-              <img src={`image/${photo.name}`}/>
+              <img src={api.image(photo.name)}/>
               { photo.selected ? (<div className="mask"><FontAwesomeIcon icon={faCircleCheck} /></div>) : '' }
             </div>
           ))
