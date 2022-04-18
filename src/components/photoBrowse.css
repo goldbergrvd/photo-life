@@ -9,10 +9,6 @@
   z-index: 1;
 }
 
-.photo.hide {
-  display: none;
-}
-
 .photo .index {
   font-weight: bold;
   font-size: 1.25rem;

@@ -4,8 +4,14 @@ export type SET_TAB = typeof SET_TAB;
 export const SET_STATE = 'SET_STATE';
 export type SET_STATE = typeof SET_STATE;
 
+export const SET_ALERT = 'SET_ALERT';
+export type SET_ALERT = typeof SET_ALERT;
+
 export const ADD_PHOTOS = 'ADD_PHOTOS';
 export type ADD_PHOTOS = typeof ADD_PHOTOS;
+
+export const DELETE_PHOTOS = 'DELETE_PHOTOS';
+export type DELETE_PHOTOS = typeof DELETE_PHOTOS;
 
 export const OPEN_PHOTO_BROWSE = 'OPEN_PHOTO_BROWSE';
 export type OPEN_PHOTO_BROWSE = typeof OPEN_PHOTO_BROWSE;

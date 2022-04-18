@@ -1,5 +1,5 @@
 import { PhotoListAction } from "../actions/photoList";
-import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, CLEAR_PHOTO_SELECT, NEXT_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, PREV_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT } from "../constants";
+import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, CLEAR_PHOTO_SELECT, DELETE_PHOTOS, NEXT_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, PREV_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT } from "../constants";
 import { PhotoList } from "../types";
 
 export default function (photoList: PhotoList = [], action: PhotoListAction): PhotoList {
@@ -8,6 +8,11 @@ export default function (photoList: PhotoList = [], action: PhotoListAction): Ph
   switch(action.type) {
     case ADD_PHOTOS:
       return action.payload.concat([...photoList])
+
+    case DELETE_PHOTOS:
+      return photoList.filter(photo => {
+        return !action.payload.get(photo.name)
+      })
 
     case OPEN_PHOTO_BROWSE:
       newPhotoList = [...photoList]

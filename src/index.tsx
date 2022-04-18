@@ -4,12 +4,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import reducers from './reducers'
-import { State, Tab } from './types';
+import { Alert, State, Tab } from './types';
 import { createStore } from 'redux';
 
 const DEFAULT_STATE = {
   tab: Tab.ImageRepo,
   state: State.Browse,
+  alert: Alert.None,
   photoList: [],
   uploadProgress: 0
 }
