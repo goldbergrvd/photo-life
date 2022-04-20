@@ -1,14 +1,14 @@
-import "./imageRepo.css";
+import "./repo.css";
 
-import PhotoList from "../../containers/imageRepo/PhotoList";
-import PhotoCount from "../../containers/imageRepo/PhotoCount";
-import Pick from "../../containers/imageRepo/Pick";
-import Uploader from "../../containers/imageRepo/Uploader";
+import PhotoList from "../../containers/fileRepo/PhotoList";
+import FileCount from "../../containers/fileRepo/FileCount";
+import Pick from "../../containers/fileRepo/Pick";
+import Uploader from "../../containers/fileRepo/Uploader";
 
 function ImageRepo() {
   return (
     <div className="image-repo">
-      <PhotoCount />
+      <FileCount />
       <PhotoList />
       <Uploader />
       <Pick />

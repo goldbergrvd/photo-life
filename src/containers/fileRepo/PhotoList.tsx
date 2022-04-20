@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { addPhotos, openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
 import { StoreState } from "../../types";
-import PhotoList from "../../components/imageRepo/PhotoList";
+import PhotoList from "../../components/fileRepo/PhotoList";
 import axios from "axios";
 import api from "../../api";
 

@@ -5,7 +5,7 @@ import { setUploadProgress, UploadProgressAction } from "../../actions";
 import { addPhotos, PhotoListAction } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
 import api from "../../api";
-import Uploader from "../../components/imageRepo/Uploader";
+import Uploader from "../../components/fileRepo/Uploader";
 import { State, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {

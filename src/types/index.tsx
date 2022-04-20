@@ -26,10 +26,22 @@ export interface Photo {
 
 export type PhotoList = Array<Photo>
 
+export interface Video {
+  name: string;
+  play: boolean;
+  fullscreen: boolean;
+  selected: boolean;
+  currentTime: number;
+  duration: number;
+}
+
+export type VideoList = Array<Video>
+
 export interface StoreState {
   tab: Tab;
   state: State;
   alert: Alert;
   photoList: PhotoList;
+  videoList: VideoList;
   uploadProgress: number;
 }
