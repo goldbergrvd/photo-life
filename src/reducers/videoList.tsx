@@ -3,14 +3,14 @@ import { ADD_VIDEOS, CLEAR_VIDEO_SELECT, CLOSE_VIDEO_FULLSCREEN, DELETE_VIDEOS, 
 import { VideoList } from "../types";
 
 export default function (videoList: VideoList = [], action: VideoAction): VideoList {
-  const newVideoList = [...videoList]
+  let newVideoList = [...videoList]
 
   switch (action.type) {
     case ADD_VIDEOS:
       return newVideoList.concat(action.payload)
 
     case UPDATE_VIDEOS:
-      newVideoList.concat(action.payload)
+      newVideoList = newVideoList.concat(action.payload)
       newVideoList.sort((a, b) => {
         if (a.name > b.name) return -1
         if (a.name < b.name) return 1

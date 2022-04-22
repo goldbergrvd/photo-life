@@ -1,5 +1,5 @@
 export const IMAGE_EXT_LIST = ['.jpg', '.jpeg', '.png']
-export const VIDEO_EXT_LIST = ['.mp4']
+export const VIDEO_EXT_LIST = ['.mp4', '.mov']
 
 export const isImage = (filename: string) => (
   IMAGE_EXT_LIST.includes(filename.substring(filename.lastIndexOf('.')).toLowerCase())

@@ -11,7 +11,7 @@ export default function (photoList: PhotoList = [], action: PhotoListAction): Ph
 
     case UPDATE_PHOTOS:
       newPhotoList = [...photoList]
-      newPhotoList.concat(action.payload)
+      newPhotoList = newPhotoList.concat(action.payload)
       newPhotoList.sort((a, b) => {
         if (a.name > b.name) return -1
         if (a.name < b.name) return 1
