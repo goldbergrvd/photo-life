@@ -2,10 +2,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setUploadProgress, UploadProgressAction } from "../../actions";
-import { addPhotos, PhotoListAction } from "../../actions/photoList";
+import { PhotoListAction, updatePhotos } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
+import { updateVideos, VideoAction } from "../../actions/videoList";
 import api from "../../api";
 import Uploader from "../../components/fileRepo/Uploader";
+import { isImage, isVideo } from "../../constants";
 import { State, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {
@@ -14,7 +16,7 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressAction | PhotoListAction>) {
+function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressAction | PhotoListAction | VideoAction>) {
   return {
     upload: (formData: FormData) => {
       dispatch(setState(State.Upload))
@@ -28,7 +30,18 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
 
       axios.post(api.upload, formData, config)
           .then(res => {
-            dispatch(addPhotos(res.data))
+            let datas = res.data.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
+              if (isImage(d)) {
+                acc.photos.push(d)
+              }
+              if (isVideo(d)) {
+                acc.videos.push(d)
+              }
+              return acc
+            }, { photos: [], videos: [] })
+
+            dispatch(updatePhotos(datas.photos))
+            dispatch(updateVideos(datas.videos))
           })
           .catch(err => {
             console.log(err)

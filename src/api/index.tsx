@@ -11,9 +11,9 @@ switch (process.env.NODE_ENV) {
 
 export default {
   image: (name: string) => `${URL}/image/${name}`,
-  images: `${URL}/images`,
+  images: (lastPhotoName: string) => `${URL}/images?fromName=${lastPhotoName}`,
   video: (name: string) => `${URL}/video/${name}`,
-  videos: `${URL}/videos`,
+  videos: (lastVideoName: string) => `${URL}/videos?fromName=${lastVideoName}`,
   upload: `${URL}/upload`,
   delete: `${URL}/delete`
 }

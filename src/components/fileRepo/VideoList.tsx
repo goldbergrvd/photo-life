@@ -2,17 +2,21 @@ import "./videoList.css";
 
 import React from "react";
 import api from "../../api";
-import { Video, VideoList } from "../../types";
+import { State, Video, VideoList } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompress, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import SelectMask from "./SelectMask";
 
 interface Props {
   videoList: VideoList;
+  state: State;
+  onToggleVideoSelect: (index: number) => void;
   playVideo: (index: number) => void;
   pauseVideo: (index: number) => void;
   openVideoFullscreen: (index: number) => void;
   closeVideoFullscreen: (index: number) => void;
   setVideoTime: (index: number, currentTime: number, duration: number) => void;
+  fetchVideos: (lastVideoName: string) => void;
 }
 
 let isPlaying: boolean
@@ -20,10 +24,6 @@ let isPlaying: boolean
 class VideoListComponent extends React.Component<Props, object> {
 
   videoElements: HTMLVideoElement[] = []
-
-  onVideo(index: number, video: HTMLVideoElement) {
-    this.props.setVideoTime(index, video.currentTime, video.duration)
-  }
 
   videoTotalTime(video: Video) {
     return this.time(video.duration)
@@ -52,30 +52,6 @@ class VideoListComponent extends React.Component<Props, object> {
     return `calc(${this.videoProcess(video)} - 6px)`
   }
 
-  onVideoClick(index: number) {
-    const { videoList, playVideo, pauseVideo, openVideoFullscreen } = this.props
-    let video = videoList[index]
-    if (!video.fullscreen) {
-      if (!video.play) {
-        playVideo(index)
-      } else {
-        openVideoFullscreen(index)
-      }
-    } else {
-      if (!video.play) {
-        playVideo(index)
-      } else {
-        pauseVideo(index)
-      }
-    }
-  }
-
-  onTimeLineTouchDown(index: number) {
-    isPlaying = this.props.videoList[index].play
-    this.props.pauseVideo(index)
-    document.ontouchmove = evt => this.setVideoCurrentTime(evt.touches[0].clientX, index)
-  }
-
   setVideoCurrentTime(xPos: number, index: number) {
     let video = this.videoElements[index]
     let width = window.innerWidth
@@ -88,10 +64,62 @@ class VideoListComponent extends React.Component<Props, object> {
     }
   }
 
+  onVideoUpdate(index: number, video: HTMLVideoElement) {
+    this.props.setVideoTime(index, video.currentTime, video.duration)
+  }
+
+  onVideoContainerClick(index: number) {
+    const { state, onToggleVideoSelect } = this.props
+
+    if (state === State.Select) {
+      onToggleVideoSelect(index)
+    }
+  }
+
+  onVideoClick(index: number) {
+    const { state, videoList, playVideo, pauseVideo, openVideoFullscreen } = this.props
+
+    if (state === State.Browse) {
+      let video = videoList[index]
+      if (!video.fullscreen) {
+        if (!video.play) {
+          playVideo(index)
+        } else {
+          openVideoFullscreen(index)
+        }
+      } else {
+        if (!video.play) {
+          playVideo(index)
+        } else {
+          pauseVideo(index)
+        }
+      }
+    }
+
+  }
+
+  onTimeLineTouchDown(index: number) {
+    const { videoList, pauseVideo } = this.props
+    isPlaying = videoList[index].play
+    pauseVideo(index)
+    document.ontouchmove = evt => this.setVideoCurrentTime(evt.touches[0].clientX, index)
+  }
+
   onTimeLineTouchUp(index: number) {
     document.ontouchmove = null
     if (isPlaying) {
       this.props.playVideo(index)
+    }
+  }
+
+  componentDidMount() {
+    const { videoList, fetchVideos } = this.props
+
+    if (videoList.length == 0) {
+      fetchVideos('')
+    } else {
+      let lastVideoName = videoList[videoList.length - 1].name
+      fetchVideos(lastVideoName)
     }
   }
 
@@ -114,9 +142,9 @@ class VideoListComponent extends React.Component<Props, object> {
       <div className="video-list">
         {
           videoList.map((video, i) => (
-            <div className={'video' + (video.fullscreen ? ' fullscreen' : '')} key={i}>
-              <video onTimeUpdate={evt => this.onVideo(i, evt.target as HTMLVideoElement)}
-                     onLoadedMetadata={evt => this.onVideo(i, evt.target as HTMLVideoElement)}
+            <div className={'video' + (video.fullscreen ? ' fullscreen' : '')} key={video.name} onClick={() => this.onVideoContainerClick(i)}>
+              <video onTimeUpdate={evt => this.onVideoUpdate(i, evt.target as HTMLVideoElement)}
+                     onLoadedMetadata={evt => this.onVideoUpdate(i, evt.target as HTMLVideoElement)}
                      onClick={() => this.onVideoClick(i)}
                      ref={v => this.videoElements[i] = v as HTMLVideoElement}>
                 <source src={api.video(video.name)} type="video/mp4" />
@@ -143,6 +171,7 @@ class VideoListComponent extends React.Component<Props, object> {
                   <span className={'paulse' + (video.play ? '' : ' hide')} ><FontAwesomeIcon icon={faPause} onClick={() => pauseVideo(i)} /></span>
                 </div>
               </div>
+              <SelectMask show={video.selected} />
             </div>
           ))
         }

@@ -12,13 +12,7 @@ const DEFAULT_STATE = {
   state: State.Browse,
   alert: Alert.None,
   photoList: [],
-  videoList: [
-    { name: "20220419141650303.mp4", play: false, fullscreen: false, selected: false, currentTime: 0, duration: 0 },
-    { name: "20220419141650290.mp4", play: false, fullscreen: false, selected: false, currentTime: 0, duration: 0 },
-    { name: "20220419141650283.mp4", play: false, fullscreen: false, selected: false, currentTime: 0, duration: 0 },
-    { name: "20220419141650190.mp4", play: false, fullscreen: false, selected: false, currentTime: 0, duration: 0 },
-    { name: "20220419134253138.mp4", play: false, fullscreen: false, selected: false, currentTime: 0, duration: 0 }
-  ],
+  videoList: [],
   uploadProgress: 0
 }
 

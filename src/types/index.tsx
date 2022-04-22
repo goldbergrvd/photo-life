@@ -13,9 +13,10 @@ export enum State {
 export enum Alert {
   None = 1,
   DeletePhotoCheck = 2,
-  DeletePhoto = 3,
-  AddAlbumCheck = 4,
-  AddAlbum = 5
+  DeleteVideoCheck = 3,
+  Deleting = 4,
+  AddAlbumCheck = 5,
+  AddAlbum = 6
 }
 
 export interface Photo {

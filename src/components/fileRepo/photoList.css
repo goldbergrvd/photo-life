@@ -39,22 +39,6 @@
   margin: 0;
 }
 
-.photo-list .img .mask {
-  width: inherit;
-  height: inherit;
-  background-color: rgba(255, 255, 255, .4);
-  color: rgb(0, 0,255);
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.photo-list .img .mask svg {
-  position: absolute;
-  right: .5rem;
-  bottom: .5rem;
-}
-
 .photo-list .img img{
   object-fit: cover;
   width: 100%;

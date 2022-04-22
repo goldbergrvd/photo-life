@@ -1,10 +1,12 @@
 import "./setting.css";
-import { State } from "../../types";
+import { State, Tab } from "../../types";
 
 export interface Props {
-  state: State,
-  setState: (state: State) => void,
-  clearPhotoSelect: () => void
+  tab: Tab;
+  state: State;
+  setState: (state: State) => void;
+  clearPhotoSelect: () => void;
+  clearVideoSelect: () => void;
 }
 
 function text(state: State) {
@@ -18,7 +20,7 @@ function text(state: State) {
   }
 }
 
-function Pick({ state, setState, clearPhotoSelect }: Props) {
+function Pick({ tab, state, setState, clearPhotoSelect, clearVideoSelect }: Props) {
 
   function onClick() {
     switch (state) {
@@ -27,7 +29,12 @@ function Pick({ state, setState, clearPhotoSelect }: Props) {
         return
       case State.Select:
         setState(State.Browse)
-        clearPhotoSelect()
+        if (tab === Tab.ImageRepo) {
+          clearPhotoSelect()
+        }
+        if (tab === Tab.VideoRepo) {
+          clearVideoSelect()
+        }
         return
     }
   }

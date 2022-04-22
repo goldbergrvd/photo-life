@@ -6,13 +6,15 @@ import { Alert, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {
   return {
-    photoList: state.photoList
+    tab: state.tab,
+    photoList: state.photoList,
+    videoList: state.videoList
   }
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AlertAction>) {
   return {
-    deleteAlert: () => dispatch(setAlert(Alert.DeletePhotoCheck))
+    deleteAlert: (alert: Alert) => dispatch(setAlert(alert))
   }
 }
 

@@ -17,8 +17,8 @@ function mapDispatchToProps(dispatch: Dispatch<PhotoListAction>) {
   return {
     onTogglePhotoSelect: (index: number) => dispatch(togglePhotoSelect(index)),
     onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index)),
-    fetchPhotos: () => {
-      axios.get(api.images)
+    fetchPhotos: (lastPhotoName: string) => {
+      axios.get(api.images(lastPhotoName))
            .then(res => {
              dispatch(addPhotos(res.data))
            })

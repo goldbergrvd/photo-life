@@ -1,28 +1,27 @@
 import "./photoList.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { PhotoList, State } from "../../types";
 import React from "react";
 import api from "../../api";
+import SelectMask from "./SelectMask";
 
 export interface Props {
   photoList: PhotoList;
   state: State;
   onTogglePhotoSelect: (index: number) => void;
   onOpenPhotoBrowse: (index: number) => void;
-  fetchPhotos: () => void;
+  fetchPhotos: (lastPhotoName: string) => void;
 }
 
 class PhotoListComponent extends React.Component<Props, object> {
 
   componentDidMount() {
-    const {
-      photoList,
-      fetchPhotos
-    } = this.props
+    const { photoList, fetchPhotos } = this.props
 
     if (photoList.length === 0) {
-      fetchPhotos()
+      fetchPhotos('')
+    } else {
+      let lastPhotoName = photoList[photoList.length - 1].name
+      fetchPhotos(lastPhotoName)
     }
   }
 
@@ -49,9 +48,9 @@ class PhotoListComponent extends React.Component<Props, object> {
       <div className="photo-list img-3">
         {
           photoList.map((photo, i) => (
-            <div className="img" key={i} onClick={() => this.onImgClick(i)}>
+            <div className="img" key={photo.name} onClick={() => this.onImgClick(i)}>
               <img src={api.image(photo.name)} crossOrigin="anonymous" />
-              { photo.selected ? (<div className="mask"><FontAwesomeIcon icon={faCircleCheck} /></div>) : '' }
+              <SelectMask show={photo.selected} />
             </div>
           ))
         }

@@ -1,3 +1,13 @@
+export const IMAGE_EXT_LIST = ['.jpg', '.jpeg', '.png']
+export const VIDEO_EXT_LIST = ['.mp4']
+
+export const isImage = (filename: string) => (
+  IMAGE_EXT_LIST.includes(filename.substring(filename.lastIndexOf('.')).toLowerCase())
+);
+export const isVideo = (filename: string) => (
+  VIDEO_EXT_LIST.includes(filename.substring(filename.lastIndexOf('.')).toLowerCase())
+);
+
 export const SET_TAB = 'SET_TAB';
 export type SET_TAB = typeof SET_TAB;
 
@@ -9,6 +19,9 @@ export type SET_ALERT = typeof SET_ALERT;
 
 export const ADD_PHOTOS = 'ADD_PHOTOS';
 export type ADD_PHOTOS = typeof ADD_PHOTOS;
+
+export const UPDATE_PHOTOS = 'UPDATE_PHOTOS';
+export type UPDATE_PHOTOS = typeof UPDATE_PHOTOS;
 
 export const DELETE_PHOTOS = 'DELETE_PHOTOS';
 export type DELETE_PHOTOS = typeof DELETE_PHOTOS;
@@ -34,6 +47,15 @@ export type CLEAR_PHOTO_SELECT = typeof CLEAR_PHOTO_SELECT;
 export const SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS';
 export type SET_UPLOAD_PROGRESS = typeof SET_UPLOAD_PROGRESS;
 
+export const ADD_VIDEOS = 'ADD_VIDEOS';
+export type ADD_VIDEOS = typeof ADD_VIDEOS;
+
+export const UPDATE_VIDEOS = 'UPDATE_VIDEOS';
+export type UPDATE_VIDEOS = typeof UPDATE_VIDEOS;
+
+export const DELETE_VIDEOS = 'DELETE_VIDEOS';
+export type DELETE_VIDEOS = typeof DELETE_VIDEOS;
+
 export const PLAY_VIDEO = 'PLAY_VIDEO';
 export type PLAY_VIDEO = typeof PLAY_VIDEO;
 
@@ -48,3 +70,9 @@ export type CLOSE_VIDEO_FULLSCREEN = typeof CLOSE_VIDEO_FULLSCREEN;
 
 export const SET_VIDEO_TIME = 'SET_VIDEO_TIME';
 export type SET_VIDEO_TIME = typeof SET_VIDEO_TIME;
+
+export const TOGGLE_VIDEO_SELECT = 'TOGGLE_VIDEO_SELECT';
+export type TOGGLE_VIDEO_SELECT = typeof TOGGLE_VIDEO_SELECT;
+
+export const CLEAR_VIDEO_SELECT = 'CLEAR_VIDEO_SELECT';
+export type CLEAR_VIDEO_SELECT = typeof CLEAR_VIDEO_SELECT;
