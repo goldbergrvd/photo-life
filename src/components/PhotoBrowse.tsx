@@ -50,6 +50,7 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
       )} */}
       <FontAwesomeIcon icon={faXmark} size="2x" onClick={onClose} />
       {photoList[photoIndex] ? <img src={api.image(photoList[photoIndex].name)} crossOrigin="anonymous" /> : ''}
+      {photoList[photoIndex] ? <div className="file-name">{photoList[photoIndex].name}</div> :  ''}
     </div>
   )
 }

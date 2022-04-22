@@ -9,13 +9,21 @@
   z-index: 1;
 }
 
-.photo .index {
+.photo .index,
+.photo .file-name {
   font-weight: bold;
   font-size: 1.25rem;
   position: absolute;
-  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.photo .index {
+  top: 1rem;
+}
+
+.photo .file-name {
+  bottom: 1rem;
 }
 
 .photo svg {

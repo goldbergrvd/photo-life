@@ -6,6 +6,8 @@ import PhotoList from "../../components/fileRepo/PhotoList";
 import axios from "axios";
 import api from "../../api";
 
+let isFetching = false
+
 function mapStateToProps(state: StoreState) {
   return {
     photoList: state.photoList,
@@ -18,12 +20,19 @@ function mapDispatchToProps(dispatch: Dispatch<PhotoListAction>) {
     onTogglePhotoSelect: (index: number) => dispatch(togglePhotoSelect(index)),
     onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index)),
     fetchPhotos: (lastPhotoName: string) => {
+      if (isFetching) {
+        return
+      }
+      isFetching = true
       axios.get(api.images(lastPhotoName))
            .then(res => {
              dispatch(addPhotos(res.data))
            })
            .catch(err => {
              console.log(err)
+           })
+           .finally(() => {
+             isFetching = false
            })
     }
   }

@@ -44,3 +44,18 @@
   width: 100%;
   height: 100%;
 }
+
+.photo-list .img .date-tag {
+  padding: .25rem .5rem;
+  font-size: .85rem;
+  font-weight: bold;
+  border-radius: .5rem;
+  background-color: rgba(255, 255, 255, .75);
+  position: absolute;
+  top: -.6rem;
+  left: .5rem;
+}
+
+.photo-list .img .date-tag .year {
+  color: rgb(102, 102, 102);
+}
