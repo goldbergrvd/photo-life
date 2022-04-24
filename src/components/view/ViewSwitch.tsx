@@ -7,7 +7,6 @@ import VideoRepo from "./VideoRepo";
 
 interface Props {
   tab: Tab;
-  unscroll: boolean
 }
 
 function switchView(tab: Tab) {
@@ -21,9 +20,9 @@ function switchView(tab: Tab) {
   }
 }
 
-function ViewSwitch({ tab, unscroll }: Props) {
+function ViewSwitch({ tab }: Props) {
   return (
-    <div className={'view-switch' + (unscroll ? ' unscroll' : '')}>
+    <div className="view-switch">
       { switchView(tab) }
     </div>
   )

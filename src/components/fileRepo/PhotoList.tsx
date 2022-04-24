@@ -3,6 +3,7 @@ import { PhotoList, State } from "../../types";
 import React from "react";
 import api from "../../api";
 import SelectMask from "./SelectMask";
+import { rootEle } from "../../native-dom"
 
 export interface Props {
   photoList: PhotoList;
@@ -17,11 +18,11 @@ let prevFetchTime = new Date()
 let prevScrollY: number
 
 function isRemainOneScreenHeight () {
-  return ele.offsetHeight - window.scrollY < window.innerHeight * 2
+  return ele.offsetHeight - rootEle.scrollTop < window.innerHeight * 2
 }
 
 function isScrollDown () {
-  return prevScrollY < window.scrollY
+  return prevScrollY < rootEle.scrollTop
 }
 
 function isPassTwoSecond () {
@@ -54,7 +55,7 @@ class PhotoListComponent extends React.Component<Props, object> {
       let lastPhotoName = photoList[photoList.length - 1].name
       fetchPhotos(lastPhotoName)
     }
-    prevScrollY = window.scrollY
+    prevScrollY = rootEle.scrollTop
   }
 
   onImgClick(i: number) {
@@ -80,12 +81,12 @@ class PhotoListComponent extends React.Component<Props, object> {
       fetchPhotos('')
     }
 
-    document.onscroll = this.onScroll.bind(this)
-    window.scrollTo(0, prevScrollY)
+    rootEle.onscroll = this.onScroll.bind(this)
+    rootEle.scrollTo(0, prevScrollY)
   }
 
   componentWillUnmount() {
-    document.onscroll = null
+    rootEle.onscroll = null
   }
 
   render() {

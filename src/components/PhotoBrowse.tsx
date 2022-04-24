@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PhotoList } from "../types";
 import { useSwipeable } from "react-swipeable";
 import api from "../api";
+import { setThemeColor } from "../native-dom";
 
 export interface Props {
   photoList: PhotoList;
@@ -18,6 +19,12 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
   const photoIndex = photoList.findIndex(photo => photo.browsed)
   // const screenWidth = window.innerWidth
   // const slideContainerWidth = photoList.length * screenWidth
+
+  if (photoIndex < 0) {
+    setThemeColor('#ffffff')
+  } else {
+    setThemeColor('#000000')
+  }
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => nextPhotoBrowse(),
