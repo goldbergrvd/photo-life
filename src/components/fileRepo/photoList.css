@@ -46,6 +46,7 @@
 }
 
 .photo-list .img .date-tag {
+  width: 100%;
   padding: .25rem .5rem;
   font-size: .85rem;
   font-weight: bold;
@@ -54,6 +55,7 @@
   position: absolute;
   top: -.6rem;
   left: .5rem;
+  z-index: 2;
 }
 
 .photo-list .img .date-tag .year {

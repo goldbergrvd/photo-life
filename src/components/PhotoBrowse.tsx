@@ -34,6 +34,20 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
     // }
   })
 
+  function fileName() {
+    if (photoIndex < 0) {
+      return ''
+    }
+    let photoName = photoList[photoIndex].name
+
+    return photoName.substring(0, 4) + '/' +
+           photoName.substring(4, 6) + '/' +
+           photoName.substring(6, 8) + ' ' +
+           photoName.substring(8, 10) + ':' +
+           photoName.substring(10, 12) + ':' +
+           photoName.substring(12, 14)
+  }
+
   return (
     <div className={'photo' + (photoIndex !== -1 ? '' : ' hide')} {...swipeHandlers}>
       <div className="index">{photoIndex + 1 + '/' + photoList.length}</div>
@@ -50,7 +64,7 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
       )} */}
       <FontAwesomeIcon icon={faXmark} size="2x" onClick={onClose} />
       {photoList[photoIndex] ? <img src={api.image(photoList[photoIndex].name)} crossOrigin="anonymous" /> : ''}
-      {photoList[photoIndex] ? <div className="file-name">{photoList[photoIndex].name}</div> :  ''}
+      {photoList[photoIndex] ? <div className="file-name">{fileName()}</div> :  ''}
     </div>
   )
 }

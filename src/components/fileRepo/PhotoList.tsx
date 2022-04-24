@@ -96,7 +96,7 @@ class PhotoListComponent extends React.Component<Props, object> {
         {
           photoList.map((photo, i) => (
             <div className="img" key={photo.name} onClick={() => this.onImgClick(i)}>
-              <img src={api.image(photo.name)} crossOrigin="anonymous" />
+              <img src={api.imageXs(photo.name)} crossOrigin="anonymous" />
               {this.dateTag(i, photo.name)}
               <SelectMask show={photo.selected} />
             </div>
