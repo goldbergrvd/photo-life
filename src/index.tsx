@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import reducers from './reducers'
 import { Alert, State, Tab } from './types';
 import { createStore } from 'redux';
+import { COLOR_BLACK } from './constants';
 
 const DEFAULT_STATE = {
   tab: Tab.ImageRepo,
@@ -13,7 +14,8 @@ const DEFAULT_STATE = {
   alert: Alert.None,
   photoList: [],
   videoList: [],
-  uploadProgress: 0
+  uploadProgress: 0,
+  fileCountColor: COLOR_BLACK
 }
 
 const store = createStore(reducers, DEFAULT_STATE)

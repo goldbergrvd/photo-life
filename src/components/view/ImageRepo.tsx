@@ -8,8 +8,8 @@ import Uploader from "../../containers/fileRepo/Uploader";
 function ImageRepo() {
   return (
     <div className="image-repo">
-      <FileCount />
       <PhotoList />
+      <FileCount />
       <Uploader />
       <Pick />
     </div>

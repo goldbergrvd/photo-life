@@ -45,4 +45,5 @@ export interface StoreState {
   photoList: PhotoList;
   videoList: VideoList;
   uploadProgress: number;
+  fileCountColor: string;
 }

@@ -33,6 +33,11 @@ let currentDate: string
 
 class PhotoListComponent extends React.Component<Props, object> {
 
+  constructor(props: Props) {
+    super(props)
+    this.onScroll = this.onScroll.bind(this)
+  }
+
   dateTag(index: number, name: string) {
     let date = name.substring(0, 8)
     if (index % 3 === 0 && date != currentDate) {
@@ -81,12 +86,12 @@ class PhotoListComponent extends React.Component<Props, object> {
       fetchPhotos('')
     }
 
-    rootEle.onscroll = this.onScroll.bind(this)
+    rootEle.addEventListener('scroll', this.onScroll)
     rootEle.scrollTo(0, prevScrollY)
   }
 
   componentWillUnmount() {
-    rootEle.onscroll = null
+    rootEle.removeEventListener('scroll', this.onScroll)
   }
 
   render() {
