@@ -4,8 +4,9 @@ import React from "react";
 import api from "../../api";
 import { State, Video, VideoList } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCompress, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faCompress, faExpand, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import SelectMask from "./SelectMask";
+import { ScrollTrigger } from "../../native-dom";
 
 interface Props {
   videoList: VideoList;
@@ -19,6 +20,7 @@ interface Props {
   fetchVideos: (lastVideoName: string) => void;
 }
 
+let scrollTrigger: ScrollTrigger
 let isPlaying: boolean
 
 class VideoListComponent extends React.Component<Props, object> {
@@ -64,6 +66,24 @@ class VideoListComponent extends React.Component<Props, object> {
     }
   }
 
+  setVideoFullscreen(index: number) {
+    const { state, videoList, openVideoFullscreen } = this.props
+
+    if (state === State.Browse) {
+      let video = videoList[index]
+      if (!video.fullscreen) {
+        openVideoFullscreen(index)
+      }
+    }
+  }
+
+  fetchNewVideos() {
+    const { videoList, fetchVideos } = this.props
+
+    let lastPhotoName = videoList[videoList.length - 1].name
+    fetchVideos(lastPhotoName)
+  }
+
   onVideoUpdate(index: number, video: HTMLVideoElement) {
     this.props.setVideoTime(index, video.currentTime, video.duration)
   }
@@ -77,25 +97,16 @@ class VideoListComponent extends React.Component<Props, object> {
   }
 
   onVideoClick(index: number) {
-    const { state, videoList, playVideo, pauseVideo, openVideoFullscreen } = this.props
+    const { state, videoList, playVideo, pauseVideo } = this.props
 
     if (state === State.Browse) {
       let video = videoList[index]
-      if (!video.fullscreen) {
-        if (!video.play) {
-          playVideo(index)
-        } else {
-          openVideoFullscreen(index)
-        }
+      if (video.play) {
+        pauseVideo(index)
       } else {
-        if (!video.play) {
-          playVideo(index)
-        } else {
-          pauseVideo(index)
-        }
+        playVideo(index)
       }
     }
-
   }
 
   onTimeLineTouchDown(index: number) {
@@ -117,10 +128,14 @@ class VideoListComponent extends React.Component<Props, object> {
 
     if (videoList.length == 0) {
       fetchVideos('')
-    } else {
-      let lastVideoName = videoList[videoList.length - 1].name
-      fetchVideos(lastVideoName)
     }
+
+    scrollTrigger.on(this.fetchNewVideos.bind(this))
+    scrollTrigger.scrollToPrevY()
+  }
+
+  componentWillUnmount() {
+    scrollTrigger.off()
   }
 
   componentDidUpdate() {
@@ -139,7 +154,7 @@ class VideoListComponent extends React.Component<Props, object> {
     const { videoList, playVideo, pauseVideo, closeVideoFullscreen } = this.props
 
     return (
-      <div className="video-list">
+      <div className="video-list" ref={c => scrollTrigger = scrollTrigger || new ScrollTrigger(c as HTMLDivElement)}>
         {
           videoList.map((video, i) => (
             <div className={'video' + (video.fullscreen ? ' fullscreen' : '')} key={video.name} onClick={() => this.onVideoContainerClick(i)}>
@@ -150,6 +165,7 @@ class VideoListComponent extends React.Component<Props, object> {
                 <source src={api.video(video.name)} type="video/mp4" />
               </video>
               <div className={'preview-info' + (video.fullscreen ? ' hide' : '')}>
+                <div className="expand" onClick={() => this.setVideoFullscreen(i)}><FontAwesomeIcon icon={faExpand} /></div>
                 <div className="time">{this.videoCurrentTime(video)}</div>
                 <div className="time-line" style={{ width: this.videoProcess(video) }}></div>
               </div>

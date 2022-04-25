@@ -3,7 +3,7 @@ import { PhotoList, State } from "../../types";
 import React from "react";
 import api from "../../api";
 import SelectMask from "./SelectMask";
-import { rootEle } from "../../native-dom"
+import { ScrollTrigger } from "../../native-dom"
 
 export interface Props {
   photoList: PhotoList;
@@ -13,30 +13,10 @@ export interface Props {
   fetchPhotos: (lastPhotoName: string) => void;
 }
 
-let ele: HTMLDivElement
-let prevFetchTime = new Date()
-let prevScrollY: number
-
-function isRemainOneScreenHeight () {
-  return ele.offsetHeight - rootEle.scrollTop < window.innerHeight * 2
-}
-
-function isScrollDown () {
-  return prevScrollY < rootEle.scrollTop
-}
-
-function isPassTwoSecond () {
-  return new Date().getTime() - prevFetchTime.getTime() > 2000
-}
-
+let scrollTrigger: ScrollTrigger
 let currentDate: string
 
 class PhotoListComponent extends React.Component<Props, object> {
-
-  constructor(props: Props) {
-    super(props)
-    this.onScroll = this.onScroll.bind(this)
-  }
 
   dateTag(index: number, name: string) {
     let date = name.substring(0, 8)
@@ -52,15 +32,11 @@ class PhotoListComponent extends React.Component<Props, object> {
     }
   }
 
-  onScroll() {
+  fetchNewPhotos() {
     const { photoList, fetchPhotos } = this.props
 
-    if (isRemainOneScreenHeight() && isScrollDown() && isPassTwoSecond()) {
-      prevFetchTime = new Date()
-      let lastPhotoName = photoList[photoList.length - 1].name
-      fetchPhotos(lastPhotoName)
-    }
-    prevScrollY = rootEle.scrollTop
+    let lastPhotoName = photoList[photoList.length - 1].name
+    fetchPhotos(lastPhotoName)
   }
 
   onImgClick(i: number) {
@@ -86,19 +62,19 @@ class PhotoListComponent extends React.Component<Props, object> {
       fetchPhotos('')
     }
 
-    rootEle.addEventListener('scroll', this.onScroll)
-    rootEle.scrollTo(0, prevScrollY)
+    scrollTrigger.on(this.fetchNewPhotos.bind(this))
+    scrollTrigger.scrollToPrevY()
   }
 
   componentWillUnmount() {
-    rootEle.removeEventListener('scroll', this.onScroll)
+    scrollTrigger.off()
   }
 
   render() {
     const { photoList } = this.props
 
     return (
-      <div className="photo-list img-3" ref={c => ele = c as HTMLDivElement}>
+      <div className="photo-list img-3" ref={c => scrollTrigger = scrollTrigger || new ScrollTrigger(c as HTMLDivElement)}>
         {
           photoList.map((photo, i) => (
             <div className="img" key={photo.name} onClick={() => this.onImgClick(i)}>
