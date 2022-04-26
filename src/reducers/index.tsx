@@ -5,7 +5,6 @@ import alert from "./alert";
 import photoList from "./photoList"
 import uploadProgress from "./uploadProgress"
 import videoList from "./videoList";
-import fileCountColor from "./fileCountColor";
 import messages from "./messages";
 
 export default combineReducers({
@@ -15,6 +14,5 @@ export default combineReducers({
   photoList,
   videoList,
   uploadProgress,
-  fileCountColor,
   messages
 })

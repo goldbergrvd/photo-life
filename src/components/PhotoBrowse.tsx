@@ -20,12 +20,6 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
   // const screenWidth = window.innerWidth
   // const slideContainerWidth = photoList.length * screenWidth
 
-  if (photoIndex < 0) {
-    setThemeColor('#ffffff')
-  } else {
-    setThemeColor('#000000')
-  }
-
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => nextPhotoBrowse(),
     onSwipedRight: () => prevPhotoBrowse(),

@@ -28,7 +28,7 @@ class MessagesComponent extends React.Component<Props, object> {
     setTimeout(() => { messageEle.style.left = '0' }, 0)
 
     if (message.type === MessageType.Info && this._messageEles.has(index)) {
-      let timeoutId = window.setTimeout(() => this.onDeleteMessage(index), 3000)
+      let timeoutId = window.setTimeout(() => this.onDeleteMessage(index), 5000)
       this._messageEles.get(index)!.timeoutId = timeoutId
     }
   }

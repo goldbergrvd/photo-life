@@ -8,9 +8,6 @@ export const isVideo = (filename: string) => (
   VIDEO_EXT_LIST.includes(filename.substring(filename.lastIndexOf('.')).toLowerCase())
 );
 
-export const COLOR_BLACK = 'rgb(26, 42, 58)';
-export const COLOR_WHITE = 'rgb(255, 255, 255)';
-
 
 export const SET_TAB = 'SET_TAB';
 export type SET_TAB = typeof SET_TAB;
@@ -62,9 +59,6 @@ export type CLEAR_PHOTO_SELECT = typeof CLEAR_PHOTO_SELECT;
 
 export const SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS';
 export type SET_UPLOAD_PROGRESS = typeof SET_UPLOAD_PROGRESS;
-
-export const SET_FILE_COUNT_COLOR = 'SET_FILE_COUNT_COLOR';
-export type SET_FILE_COUNT_COLOR = typeof SET_FILE_COUNT_COLOR;
 
 
 export const ADD_VIDEOS = 'ADD_VIDEOS';
