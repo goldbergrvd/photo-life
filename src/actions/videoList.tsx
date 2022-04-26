@@ -1,5 +1,5 @@
-import { ADD_VIDEOS, CLEAR_VIDEO_SELECT, CLOSE_VIDEO_FULLSCREEN, DELETE_VIDEOS, OPEN_VIDEO_FULLSCREEN, PAUSE_VIDEO, PLAY_VIDEO, SET_VIDEO_TIME, TOGGLE_VIDEO_SELECT, UPDATE_VIDEOS } from "../constants";
-import { VideoList } from "../types";
+import { ADD_VIDEOS, CLEAR_VIDEO_SELECT, CLOSE_VIDEO_FULLSCREEN, DELETE_VIDEOS, OPEN_VIDEO_FULLSCREEN, PAUSE_VIDEO, PLAY_VIDEO, SET_VIDEO_BUFFERS, SET_VIDEO_TIME, TOGGLE_VIDEO_SELECT, UPDATE_VIDEOS } from "../constants";
+import { VideoList, VideoBuffer } from "../types";
 
 export interface AddVideos {
   type: ADD_VIDEOS;
@@ -45,6 +45,14 @@ export interface SetVideoTime {
   }
 }
 
+export interface SetVideoBuffers {
+  type: SET_VIDEO_BUFFERS,
+  payload: {
+    index: number,
+    buffers: Array<VideoBuffer>
+  }
+}
+
 export interface ToggleVideoSelect {
   type: TOGGLE_VIDEO_SELECT;
   payload: number;
@@ -54,7 +62,7 @@ export interface ClearVideoSelect {
   type: CLEAR_VIDEO_SELECT;
 }
 
-export type VideoAction = AddVideos | UpdateVideos | DeleteVideos | PlayVideo | PauseVideo | OpenVideoFullscreen | CloseVideoFullscreen | SetVideoTime | ToggleVideoSelect | ClearVideoSelect;
+export type VideoAction = AddVideos | UpdateVideos | DeleteVideos | PlayVideo | PauseVideo | OpenVideoFullscreen | CloseVideoFullscreen | SetVideoTime | SetVideoBuffers | ToggleVideoSelect | ClearVideoSelect;
 
 export function addVideos (names: string[]): AddVideos {
   return {
@@ -65,7 +73,8 @@ export function addVideos (names: string[]): AddVideos {
       fullscreen: false,
       selected: false,
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      buffers: []
     }))
   }
 }
@@ -79,7 +88,8 @@ export function updateVideos (names: string[]): UpdateVideos {
       fullscreen: false,
       selected: false,
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      buffers: []
     }))
   }
 }
@@ -126,6 +136,16 @@ export function setVideoTime(index: number, currentTime: number, duration: numbe
       index,
       currentTime,
       duration
+    }
+  }
+}
+
+export function setVideoBuffers(index: number, buffers: Array<VideoBuffer>): SetVideoBuffers {
+  return {
+    type: SET_VIDEO_BUFFERS,
+    payload: {
+      index,
+      buffers
     }
   }
 }

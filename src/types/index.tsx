@@ -27,6 +27,11 @@ export interface Photo {
 
 export type PhotoList = Array<Photo>
 
+export interface VideoBuffer {
+  start: number;
+  end: number
+}
+
 export interface Video {
   name: string;
   play: boolean;
@@ -34,6 +39,7 @@ export interface Video {
   selected: boolean;
   currentTime: number;
   duration: number;
+  buffers: Array<VideoBuffer>
 }
 
 export type VideoList = Array<Video>

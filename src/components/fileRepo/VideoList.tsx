@@ -2,7 +2,7 @@ import "./videoList.css";
 
 import React from "react";
 import api from "../../api";
-import { State, Video, VideoList } from "../../types";
+import { State, Video, VideoBuffer, VideoList } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompress, faExpand, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import SelectMask from "./SelectMask";
@@ -17,6 +17,7 @@ interface Props {
   openVideoFullscreen: (index: number) => void;
   closeVideoFullscreen: (index: number) => void;
   setVideoTime: (index: number, currentTime: number, duration: number) => void;
+  setVideoBuffers: (index: number, buffers: Array<VideoBuffer>) => void;
   fetchVideos: (lastVideoName: string) => void;
 }
 
@@ -54,6 +55,30 @@ class VideoListComponent extends React.Component<Props, object> {
     return `calc(${this.videoProcess(video)} - 6px)`
   }
 
+  videoBufferLeft(buffer: VideoBuffer, video: Video) {
+    return (buffer.start * 100 / video.duration) + '%'
+  }
+
+  videoBufferWidth(buffer: VideoBuffer, video: Video) {
+    return ((buffer.end - buffer.start) * 100 / video.duration) + '%'
+  }
+
+  videoBufferBackground(buffer: VideoBuffer, video: Video) {
+    let playedPercentage = (video.currentTime - buffer.start) * 100 / (buffer.end - buffer.start)
+
+    playedPercentage = Math.min(100, playedPercentage)
+    if (playedPercentage === 100) {
+      return 'rgba(255, 51, 51, 1)'
+    }
+
+    playedPercentage = Math.max(0, playedPercentage)
+    if (playedPercentage === 0) {
+      return 'rgba(255, 255, 255, .8)'
+    }
+
+    return `linear-gradient(to right, rgba(255, 51, 51, 1) ${playedPercentage}%, rgba(255, 255, 255, .8) ${playedPercentage}% 100%`
+  }
+
   setVideoCurrentTime(xPos: number, index: number) {
     let video = this.videoElements[index]
     let width = window.innerWidth
@@ -86,6 +111,17 @@ class VideoListComponent extends React.Component<Props, object> {
 
   onVideoUpdate(index: number, video: HTMLVideoElement) {
     this.props.setVideoTime(index, video.currentTime, video.duration)
+  }
+
+  onVideoProgress(index: number, video: HTMLVideoElement) {
+    let buffers = []
+    for (let i = 0; i < video.buffered.length; i++) {
+      buffers.push({
+        start: video.buffered.start(i),
+        end: video.buffered.end(i)
+      })
+    }
+    this.props.setVideoBuffers(index, buffers)
   }
 
   onVideoContainerClick(index: number) {
@@ -126,7 +162,7 @@ class VideoListComponent extends React.Component<Props, object> {
   componentDidMount() {
     const { videoList, fetchVideos } = this.props
 
-    if (videoList.length == 0) {
+    if (videoList.length === 0) {
       fetchVideos('')
     }
 
@@ -161,6 +197,7 @@ class VideoListComponent extends React.Component<Props, object> {
               <video onTimeUpdate={evt => this.onVideoUpdate(i, evt.target as HTMLVideoElement)}
                      onLoadedMetadata={evt => this.onVideoUpdate(i, evt.target as HTMLVideoElement)}
                      onClick={() => this.onVideoClick(i)}
+                     onProgress={(evt) => this.onVideoProgress(i, evt.target as HTMLVideoElement)}
                      ref={v => this.videoElements[i] = v as HTMLVideoElement}>
                 <source src={api.video(video.name)} type="video/mp4" />
               </video>
@@ -171,7 +208,16 @@ class VideoListComponent extends React.Component<Props, object> {
               </div>
               <div className={'fullscreen-controls' + (video.fullscreen ? '' : ' hide')}>
                 <div className="time-line" onClick={evt => this.setVideoCurrentTime(evt.pageX, i)}>
-                  <div className="current-line" style={{ width: this.videoProcess(video) }}></div>
+                  {
+                    video.buffers.map((buffer, i) => (
+                      <div className="buffer-line" key={i}
+                           style={{
+                             left: this.videoBufferLeft(buffer, video),
+                             width: this.videoBufferWidth(buffer, video),
+                             background: this.videoBufferBackground(buffer, video)
+                           }}></div>
+                    ))
+                  }
                   <div className="current-point" style={{ left: this.videoPointProcess(video) }}
                        onTouchStart={() => this.onTimeLineTouchDown(i)}
                        onTouchEnd={() => this.onTimeLineTouchUp(i)}></div>

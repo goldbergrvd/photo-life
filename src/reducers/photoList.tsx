@@ -2,7 +2,7 @@ import { PhotoListAction } from "../actions/photoList";
 import { ADD_PHOTOS, CLEAR_PHOTO_BROWSE, CLEAR_PHOTO_SELECT, DELETE_PHOTOS, NEXT_PHOTO_BROWSE, OPEN_PHOTO_BROWSE, PREV_PHOTO_BROWSE, TOGGLE_PHOTO_SELECT, UPDATE_PHOTOS } from "../constants";
 import { PhotoList } from "../types";
 
-export default function (photoList: PhotoList = [], action: PhotoListAction): PhotoList {
+export default function photoListReducer (photoList: PhotoList = [], action: PhotoListAction): PhotoList {
   let newPhotoList, browsedIndex
 
   switch(action.type) {

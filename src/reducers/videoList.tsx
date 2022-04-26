@@ -1,8 +1,8 @@
 import { VideoAction } from "../actions/videoList";
-import { ADD_VIDEOS, CLEAR_VIDEO_SELECT, CLOSE_VIDEO_FULLSCREEN, DELETE_VIDEOS, OPEN_VIDEO_FULLSCREEN, PAUSE_VIDEO, PLAY_VIDEO, SET_VIDEO_TIME, TOGGLE_VIDEO_SELECT, UPDATE_VIDEOS } from "../constants";
+import { ADD_VIDEOS, CLEAR_VIDEO_SELECT, CLOSE_VIDEO_FULLSCREEN, DELETE_VIDEOS, OPEN_VIDEO_FULLSCREEN, PAUSE_VIDEO, PLAY_VIDEO, SET_VIDEO_BUFFERS, SET_VIDEO_TIME, TOGGLE_VIDEO_SELECT, UPDATE_VIDEOS } from "../constants";
 import { VideoList } from "../types";
 
-export default function (videoList: VideoList = [], action: VideoAction): VideoList {
+export default function videoListReducer (videoList: VideoList = [], action: VideoAction): VideoList {
   let newVideoList = [...videoList]
 
   switch (action.type) {
@@ -47,6 +47,10 @@ export default function (videoList: VideoList = [], action: VideoAction): VideoL
     case SET_VIDEO_TIME:
       newVideoList[action.payload.index].currentTime = action.payload.currentTime
       newVideoList[action.payload.index].duration = action.payload.duration
+      return newVideoList
+
+    case SET_VIDEO_BUFFERS:
+      newVideoList[action.payload.index].buffers = action.payload.buffers
       return newVideoList
 
     case TOGGLE_VIDEO_SELECT:
