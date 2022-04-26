@@ -16,7 +16,7 @@ const DEFAULT_STATE = {
   videoList: [],
   uploadProgress: 0,
   fileCountColor: COLOR_BLACK,
-  messages: []
+  messages: new Map()
 }
 
 const store = createStore(reducers, DEFAULT_STATE)

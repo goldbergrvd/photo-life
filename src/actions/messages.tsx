@@ -1,5 +1,5 @@
 import { ADD_ERROR_MESSAGE, ADD_INFO_MESSAGE, DELETE_MESSAGE } from "../constants"
-import { Message, MessageType } from "../types";
+import { Message, MessageType, Timestamp } from "../types";
 
 export interface AddInfoMessage {
   type: ADD_INFO_MESSAGE;
@@ -13,7 +13,7 @@ export interface AddErrorMessage {
 
 export interface DeleteMessage {
   type: DELETE_MESSAGE;
-  payload: number;
+  payload: Timestamp;
 }
 
 export type MessagesAction = AddInfoMessage | AddErrorMessage | DeleteMessage
@@ -42,7 +42,7 @@ export function addErrorMessage(title: string, content: string): MessagesAction 
   }
 }
 
-export function deleteMessage(index: number): MessagesAction {
+export function deleteMessage(index: Timestamp): MessagesAction {
   return {
     type: DELETE_MESSAGE,
     payload: index

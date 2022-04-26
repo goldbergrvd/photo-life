@@ -1,18 +1,18 @@
 import { MessagesAction } from "../actions";
 import { ADD_ERROR_MESSAGE, ADD_INFO_MESSAGE, DELETE_MESSAGE } from "../constants";
-import { Message } from "../types";
+import { Messages } from "../types";
 
-export default function messages(messages: Array<Message> = [], action: MessagesAction) {
-  const newMessages = [...messages]
+export default function messages(messages: Messages = new Map(), action: MessagesAction) {
+  const newMessages = new Map(messages)
 
   switch(action.type) {
     case ADD_INFO_MESSAGE:
     case ADD_ERROR_MESSAGE:
-      newMessages.unshift(action.payload)
+      newMessages.set(action.payload.time.getTime(), action.payload)
       return newMessages
 
     case DELETE_MESSAGE:
-      newMessages.splice(action.payload, 1)
+      newMessages.delete(action.payload)
       return newMessages
 
     default:

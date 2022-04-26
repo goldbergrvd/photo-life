@@ -31,7 +31,9 @@ export interface Message {
   time: Date;
 }
 
-export type Messages = Array<Message>
+export type Timestamp = number
+
+export type Messages = Map<Timestamp, Message>
 
 export interface Photo {
   name: string;
