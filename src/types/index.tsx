@@ -19,6 +19,20 @@ export enum Alert {
   AddAlbum = 6
 }
 
+export enum MessageType {
+  Info = 1,
+  Error = 2
+}
+
+export interface Message {
+  type: MessageType;
+  title: string;
+  content: string;
+  time: Date;
+}
+
+export type Messages = Array<Message>
+
 export interface Photo {
   name: string;
   browsed: boolean;
@@ -52,4 +66,5 @@ export interface StoreState {
   videoList: VideoList;
   uploadProgress: number;
   fileCountColor: string;
+  messages: Messages;
 }

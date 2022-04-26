@@ -1,4 +1,4 @@
-import { VideoAction } from "../actions/videoList";
+import { VideoAction } from "../actions";
 import { ADD_VIDEOS, CLEAR_VIDEO_SELECT, CLOSE_VIDEO_FULLSCREEN, DELETE_VIDEOS, OPEN_VIDEO_FULLSCREEN, PAUSE_VIDEO, PLAY_VIDEO, SET_VIDEO_BUFFERS, SET_VIDEO_TIME, TOGGLE_VIDEO_SELECT, UPDATE_VIDEOS } from "../constants";
 import { VideoList } from "../types";
 

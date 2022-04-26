@@ -1,0 +1,55 @@
+.messages {
+  position: fixed;
+  bottom: 4rem;
+  right: 0;
+}
+
+.messages .message {
+  width: 58vw;
+  margin: .5rem;
+  padding: .5rem;
+  border: 2px solid rgb(204, 204, 255);
+  border-radius: .5rem;
+  background: rgba(26, 26, 26, .75);
+  backdrop-filter: blur(1px);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  text-align: left;
+  position: relative;
+  left: 100%;
+  transition: left .25s;
+}
+
+.messages .message .title,
+.messages .message .time {
+  color: rgb(230, 230, 230);
+}
+
+.messages .message .content {
+  margin: .5rem 0;
+}
+
+.messages .message .time {
+  text-align: right;
+  font-size: .75rem;
+  font-style: italic;
+}
+
+.messages .message .close {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+}
+
+.messages .message .title .icon {
+  color: rgb(102, 255, 102);
+}
+
+.messages .message.error {
+  background: rgba(76, 26, 26, .75);
+  border-color: rgb(178, 102, 102);
+}
+
+.messages .message.error .title .icon {
+  color: rgb(255, 102, 102);
+}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { addErrorMessage, MessagesAction } from "../../actions";
 import { addVideos, closeVideoFullscreen, openVideoFullscreen, pauseVideo, playVideo, setVideoBuffers, setVideoTime, toggleVideoSelect, VideoAction } from "../../actions/videoList";
 import api from "../../api";
 import VideoListComponent from "../../components/fileRepo/VideoList";
@@ -13,7 +14,7 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<VideoAction>) {
+function mapDispatchToProps(dispatch: Dispatch<VideoAction | MessagesAction>) {
   return {
     onToggleVideoSelect: (index: number) => dispatch(toggleVideoSelect(index)),
     playVideo: (index: number) => dispatch(playVideo(index)),
@@ -29,6 +30,7 @@ function mapDispatchToProps(dispatch: Dispatch<VideoAction>) {
            })
            .catch(err => {
              console.log(err)
+             dispatch(addErrorMessage('讀取影片時發生異常', err.response.data))
            })
     }
   }

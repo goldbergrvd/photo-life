@@ -5,6 +5,7 @@ import { StoreState } from "../../types";
 import PhotoList from "../../components/fileRepo/PhotoList";
 import axios from "axios";
 import api from "../../api";
+import { addErrorMessage, MessagesAction } from "../../actions";
 
 let isFetching = false
 
@@ -15,7 +16,7 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<PhotoListAction>) {
+function mapDispatchToProps(dispatch: Dispatch<PhotoListAction | MessagesAction>) {
   return {
     onTogglePhotoSelect: (index: number) => dispatch(togglePhotoSelect(index)),
     onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index)),
@@ -30,6 +31,7 @@ function mapDispatchToProps(dispatch: Dispatch<PhotoListAction>) {
            })
            .catch(err => {
              console.log(err)
+             dispatch(addErrorMessage('讀取照片時發生異常', err.response.data))
            })
            .finally(() => {
              isFetching = false

@@ -6,7 +6,7 @@
   position: relative;
 }
 
-.progress {
+.upload-progress .progress {
   width: 0;
   height: inherit;
   background-color: rgb(51, 153, 255);
@@ -16,7 +16,7 @@
   left: 0;
 }
 
-.message {
+.upload-progress .message {
   width: inherit;
   height: inherit;
   line-height: 4rem;;

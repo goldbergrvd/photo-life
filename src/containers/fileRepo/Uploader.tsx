@@ -1,7 +1,7 @@
 import axios from "axios";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { setUploadProgress, UploadProgressAction } from "../../actions";
+import { addErrorMessage, addInfoMessage, MessagesAction, setUploadProgress, UploadProgressAction } from "../../actions";
 import { PhotoListAction, updatePhotos } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
 import { updateVideos, VideoAction } from "../../actions/videoList";
@@ -16,7 +16,7 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressAction | PhotoListAction | VideoAction>) {
+function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressAction | PhotoListAction | VideoAction | MessagesAction>) {
   return {
     upload: (formData: FormData) => {
       dispatch(setState(State.Upload))
@@ -40,11 +40,19 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
               return acc
             }, { photos: [], videos: [] })
 
-            dispatch(updatePhotos(datas.photos))
-            dispatch(updateVideos(datas.videos))
+
+            if (datas.photos.length) {
+              dispatch(updatePhotos(datas.photos))
+              dispatch(addInfoMessage('上傳成功', `上傳了${datas.photos.length}張相片`))
+            }
+            if (datas.videos.length) {
+              dispatch(updateVideos(datas.videos))
+              dispatch(addInfoMessage('上傳成功', `上傳了${datas.videos.length}部影片`))
+            }
           })
           .catch(err => {
             console.log(err)
+            dispatch(addErrorMessage('上傳檔案時發生異常', err.response.data))
           })
           .finally(() => {
             setTimeout(() => {

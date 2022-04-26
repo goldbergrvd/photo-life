@@ -15,7 +15,8 @@ const DEFAULT_STATE = {
   photoList: [],
   videoList: [],
   uploadProgress: 0,
-  fileCountColor: COLOR_BLACK
+  fileCountColor: COLOR_BLACK,
+  messages: []
 }
 
 const store = createStore(reducers, DEFAULT_STATE)
