@@ -2,9 +2,8 @@ import "./photoBrowse.css";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PhotoList } from "../types";
-import { useSwipeable } from "react-swipeable";
+import { DOWN, LEFT, RIGHT, UP, useSwipeable } from "react-swipeable";
 import api from "../api";
-import { setThemeColor } from "../native-dom";
 
 export interface Props {
   photoList: PhotoList;
@@ -13,27 +12,89 @@ export interface Props {
   nextPhotoBrowse: () => void;
 }
 
+let _slider: HTMLDivElement
+const PREV_PHOTO_LEFT = -16
+const NEXT_PHOTO_LEFT = -window.innerWidth * 2 - 16 * 5
+const TRANSITION_LEFT = 'left .1s ease'
+const TRANSITION_TOP = 'top .1s ease'
+const REVERT_POSITION_TIME = 100
+
+
 function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: Props) {
-  // let _slideContainer: HTMLDivElement;
 
   const photoIndex = photoList.findIndex(photo => photo.browsed)
-  // const screenWidth = window.innerWidth
-  // const slideContainerWidth = photoList.length * screenWidth
+  const hasBrowsed = photoIndex >= 0
+  const isFirst = photoIndex === 0
+  const isLast = photoIndex === photoList.length - 1
 
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => nextPhotoBrowse(),
-    onSwipedRight: () => prevPhotoBrowse(),
-    onSwipedUp: () => onClose(),
-    onSwipedDown: () => onClose(),
-    // onSwiping: (evt) => {
-    //   let v = -(screenWidth * photoIndex) + evt.deltaX
-    //   if (v > 0 || v < -slideContainerWidth + screenWidth) {
-    //     return
-    //   }
-    //   _slideContainer.style.left = v + 'px'
-    //   console.log(evt)
-    // }
+    onSwiping: (evt) => {
+      switch (evt.dir) {
+        case LEFT:
+        case RIGHT:
+          let startLeft = (-window.innerWidth - 16 * 5)
+          _slider.style.left = startLeft + evt.deltaX + 'px'
+          break
+        case UP:
+        case DOWN:
+          _slider.style.top = evt.deltaY + 'px'
+          break
+      }
+    },
+    onSwiped: (evt) => {
+
+      if (evt.velocity < 0.4) {
+        if (evt.dir === LEFT || evt.dir === RIGHT) {
+          if (evt.absX < window.innerWidth / 4) {
+            revertSlider('left')
+            return
+          }
+        }
+        if (evt.dir === UP || evt.dir === DOWN) {
+          if (evt.absY < window.innerHeight / 5) {
+            revertSlider('top')
+            return
+          }
+        }
+      }
+
+      if (evt.dir === LEFT && isLast || evt.dir === RIGHT && isFirst) {
+        revertSlider('left')
+        return
+      }
+
+      if (evt.dir === LEFT) {
+        slide('left', NEXT_PHOTO_LEFT, nextPhotoBrowse)
+      }
+      if (evt.dir === RIGHT) {
+        slide('left', PREV_PHOTO_LEFT, prevPhotoBrowse)
+      }
+      if (evt.dir === UP) {
+        slide('top', -window.innerHeight, onClose)
+      }
+      if (evt.dir === DOWN) {
+        slide('top', window.innerHeight, onClose)
+      }
+    }
   })
+
+  function slide(dir: 'left' | 'top', val: number, callback: () => void) {
+    _slider.style.transition = (dir === 'left' ? TRANSITION_LEFT : TRANSITION_TOP)
+    _slider.style[dir] = val + 'px'
+    setTimeout(() => {
+      callback()
+      _slider.style.transition = ''
+      _slider.style[dir] = ''
+    }, REVERT_POSITION_TIME)
+  }
+
+  function revertSlider(dir: 'left' | 'top') {
+    _slider.style.transition = (dir === 'left' ? TRANSITION_LEFT : TRANSITION_TOP)
+    _slider.style[dir] = ''
+    setTimeout(() => {
+      _slider.style.transition = ''
+    }, REVERT_POSITION_TIME)
+  }
 
   function fileName() {
     if (photoIndex < 0) {
@@ -52,20 +113,13 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
   return (
     <div className={'photo' + (photoIndex !== -1 ? '' : ' hide')} {...swipeHandlers}>
       <div className="index">{photoIndex + 1 + '/' + photoList.length}</div>
-      {/* {photoIndex === -1 ? '' : (
-        <div className="slide-container"
-             style={{width: slideContainerWidth, left: -(screenWidth * photoIndex)}}
-             ref={c => _slideContainer = c as HTMLDivElement}>
-          {
-            photoList.map(photo => (
-              <img src={`image/${photo.name}`} style={{width: screenWidth}} />
-            ))
-          }
-        </div>
-      )} */}
-      <FontAwesomeIcon icon={faXmark} size="2x" onClick={onClose} />
-      {photoList[photoIndex] ? <img src={api.image(photoList[photoIndex].name)} crossOrigin="anonymous" /> : ''}
+      <div className="slider" ref={c => _slider = c as HTMLDivElement}>
+        {hasBrowsed && !isFirst ? <img className="prev-img" src={api.image(photoList[photoIndex - 1].name)} crossOrigin="anonymous" /> : ''}
+        {hasBrowsed ? <img className="curr-img" src={api.image(photoList[photoIndex].name)} crossOrigin="anonymous" /> : ''}
+        {hasBrowsed && !isLast ? <img className="next-img" src={api.image(photoList[photoIndex + 1].name)} crossOrigin="anonymous" /> : ''}
+      </div>
       {photoList[photoIndex] ? <div className="file-name">{fileName()}</div> :  ''}
+      <FontAwesomeIcon className="close" icon={faXmark} size="2x" onClick={onClose} />
     </div>
   )
 }
