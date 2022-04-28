@@ -1,6 +1,6 @@
 import "./messages.css";
 
-import { faCircleInfo, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faCircleInfo, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Message, Messages, MessageType, Timestamp } from "../types";
@@ -10,36 +10,43 @@ interface Props {
   deleteMessage: (index: Timestamp) => void;
 }
 
+const AUTO_DELETE_TIME = 5000
+const TRANSITIO_TIME = 250
+
 class MessagesComponent extends React.Component<Props, object> {
 
-  _messageEles: Map<Timestamp, { messageEle: HTMLDivElement, timeoutId: number }> = new Map();
+  _messageMap: Map<Timestamp, { element: HTMLDivElement, timeoutId: number }> = new Map();
 
   time(date: Date) {
-    return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+    let hour = (date.getHours() < 10 ? '0' : '') + date.getHours()
+    let minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+    let second = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds()
+    return hour + ':' + minute + ':' + second
   }
 
   onMessageMount(index: Timestamp, message: Message, messageEle: HTMLDivElement) {
     if (messageEle === null) {
-      this._messageEles.delete(index)
+      this._messageMap.delete(index)
       return
     }
 
-    this._messageEles.set(index, { messageEle, timeoutId: 0 })
+    this._messageMap.set(index, { element: messageEle, timeoutId: 0 })
     setTimeout(() => { messageEle.style.left = '0' }, 0)
 
-    if (message.type === MessageType.Info && this._messageEles.has(index)) {
-      let timeoutId = window.setTimeout(() => this.onDeleteMessage(index), 5000)
-      this._messageEles.get(index)!.timeoutId = timeoutId
+    if (message.type === MessageType.Info && this._messageMap.has(index)) {
+      let timeoutId = window.setTimeout(() => this.onDeleteMessage(index), AUTO_DELETE_TIME)
+      this._messageMap.get(index)!.timeoutId = timeoutId
     }
   }
 
   onDeleteMessage(index: Timestamp) {
     const { deleteMessage } = this.props
 
-    this._messageEles.get(index)!.messageEle.style.left = '100%'
-    setTimeout(() => { deleteMessage(index) }, 250)
-    if (this._messageEles.has(index)) {
-      clearTimeout(this._messageEles.get(index)!.timeoutId)
+    if (this._messageMap.has(index)) {
+      let messageEle = this._messageMap.get(index)
+      messageEle!.element.style.left = '100%'
+      setTimeout(() => { deleteMessage(index) }, TRANSITIO_TIME)
+      clearTimeout(messageEle!.timeoutId)
     }
   }
 
@@ -53,7 +60,10 @@ class MessagesComponent extends React.Component<Props, object> {
             <div className={'message' + (message.type === MessageType.Error ? ' error' : '')}
                  key={message.time.getTime()}
                  ref={c => this.onMessageMount(index, message, c as HTMLDivElement)}>
-              <div className="title"><FontAwesomeIcon className="icon" icon={faCircleInfo} /> {message.title}</div>
+              <div className="title">
+                <FontAwesomeIcon className="icon" icon={message.type === MessageType.Error ? faCircleExclamation : faCircleInfo} />
+                {' ' + message.title}
+              </div>
               <p className="content">{message.content}</p>
               <div className="time">{this.time(message.time)}</div>
               <FontAwesomeIcon className="close" icon={faClose} onClick={() => this.onDeleteMessage(index)} />
