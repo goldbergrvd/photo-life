@@ -9,30 +9,6 @@
   z-index: 3;
 }
 
-.photo .index,
-.photo .file-name {
-  font-weight: bold;
-  font-size: 1.25rem;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.photo .index {
-  top: 1rem;
-}
-
-.photo .file-name {
-  width: 100%;
-  bottom: 2rem;
-}
-
-.photo .close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
 .photo .slider {
   width: calc(300% + 6rem);
   height: 100%;
@@ -59,4 +35,33 @@
 .photo .slider .next-img {
   width: calc(100vw * .7);
   left: calc(100vw * 2 + 5rem + 100vw * (1 - .7) / 2);
+}
+
+.photo .header,
+.photo .footer {
+  width: inherit;
+  height: 4rem;
+  background-color: rgba(0, 0, 0, .3);
+  font-size: 1.25rem;
+  font-weight: bold;
+  position: absolute;
+}
+
+.photo .header {
+  top: 0;
+}
+
+.photo .footer {
+  bottom: 0;
+}
+
+.photo .header .index {
+  margin-top: 1rem;
+}
+
+.photo .header .close {
+  font-size: 1.75rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }

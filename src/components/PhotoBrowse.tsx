@@ -7,6 +7,8 @@ import api from "../api";
 
 export interface Props {
   photoList: PhotoList;
+  showInfo: boolean;
+  toggleShowInfo: () => void;
   onClose: () => void;
   prevPhotoBrowse: () => void;
   nextPhotoBrowse: () => void;
@@ -50,7 +52,7 @@ const PREV_IMG_SLIDE_LEFT = () => BASE_PREV_LEFT()
 const NEXT_IMG_SLIDE_LEFT = () => BASE_NEXT_LEFT()
 
 
-function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: Props) {
+function PhotoBrowse({ photoList, showInfo, toggleShowInfo, onClose, prevPhotoBrowse, nextPhotoBrowse }: Props) {
 
   const photoIndex = photoList.findIndex(photo => photo.browsed)
   const hasBrowsed = photoIndex >= 0
@@ -254,7 +256,7 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
   }
 
   return (
-    <div className={'photo' + (photoIndex !== -1 ? '' : ' hide')} {...swipeHandlers}>
+    <div className={'photo' + (photoIndex !== -1 ? '' : ' hide')} onClick={toggleShowInfo} {...swipeHandlers}>
       <div className="slider" ref={c => _slider = c as HTMLDivElement}>
         {
           hasBrowsed && !isFirst
@@ -278,9 +280,13 @@ function PhotoBrowse({ photoList, onClose, prevPhotoBrowse, nextPhotoBrowse }: P
           ''
         }
       </div>
-      <div className="index">{photoIndex + 1 + '/' + photoList.length}</div>
-      {photoList[photoIndex] ? <div className="file-name">{fileName()}</div> :  ''}
-      <FontAwesomeIcon className="close" icon={faXmark} size="2x" onClick={onClose} />
+      <div className={`header` + (showInfo ? '' : ' hide')}>
+        <div className="index">{photoIndex + 1 + '/' + photoList.length}</div>
+        <FontAwesomeIcon className="close" icon={faXmark} onClick={onClose} />
+      </div>
+      <div className={`footer` + (showInfo ? '' : ' hide')}>
+        {photoList[photoIndex] ? <div className="file-name">{fileName()}</div> :  ''}
+      </div>
     </div>
   )
 }

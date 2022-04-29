@@ -67,5 +67,6 @@ export interface StoreState {
   photoList: PhotoList;
   videoList: VideoList;
   uploadProgress: number;
+  showPhotoBrowseInfo: boolean;
   messages: Messages;
 }
