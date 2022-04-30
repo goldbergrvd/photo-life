@@ -11,11 +11,14 @@ import { ScrollTrigger } from "../../native-dom";
 interface Props {
   videoList: VideoList;
   state: State;
+  showVideoControls: boolean;
   onToggleVideoSelect: (index: number) => void;
   playVideo: (index: number) => void;
   pauseVideo: (index: number) => void;
   openVideoFullscreen: (index: number) => void;
   closeVideoFullscreen: (index: number) => void;
+  openVideoControls: () => void,
+  closeVideoControls: () => void,
   setVideoTime: (index: number, currentTime: number, duration: number) => void;
   setVideoBuffers: (index: number, buffers: Array<VideoBuffer>) => void;
   fetchVideos: (lastVideoName: string) => void;
@@ -198,8 +201,9 @@ class VideoListComponent extends React.Component<Props, object> {
                      onLoadedMetadata={evt => this.onVideoUpdate(i, evt.target as HTMLVideoElement)}
                      onClick={() => this.onVideoClick(i)}
                      onProgress={(evt) => this.onVideoProgress(i, evt.target as HTMLVideoElement)}
+                     playsInline
                      ref={v => this.videoElements[i] = v as HTMLVideoElement}>
-                <source src={api.video(video.name)} type="video/mp4" />
+                <source src={api.video(video.name) + '#t=0.01'} type="video/mp4" />
               </video>
               <div className={'preview-info' + (video.fullscreen ? ' hide' : '')}>
                 <div className="expand" onClick={() => this.setVideoFullscreen(i)}><FontAwesomeIcon icon={faExpand} /></div>
@@ -207,6 +211,16 @@ class VideoListComponent extends React.Component<Props, object> {
                 <div className="time-line" style={{ width: this.videoProcess(video) }}></div>
               </div>
               <div className={'fullscreen-controls' + (video.fullscreen ? '' : ' hide')}>
+                <div className="controls">
+                  <span className="time">
+                    <span className="current">{this.videoCurrentTime(video)}</span>
+                    <span className="sep"> / </span>
+                    <span className="total">{this.videoTotalTime(video)}</span>
+                  </span>
+                  <span className="compress"><FontAwesomeIcon icon={faCompress} onClick={() => closeVideoFullscreen(i)} /></span>
+                  <span className={'play' + (video.play ? ' hide' : '')} ><FontAwesomeIcon icon={faPlay} onClick={() => playVideo(i)} /></span>
+                  <span className={'pause' + (video.play ? '' : ' hide')} ><FontAwesomeIcon icon={faPause} onClick={() => pauseVideo(i)} /></span>
+                </div>
                 <div className="time-line" onClick={evt => this.setVideoCurrentTime(evt.pageX, i)}>
                   {
                     video.buffers.map((buffer, i) => (
@@ -221,16 +235,6 @@ class VideoListComponent extends React.Component<Props, object> {
                   <div className="current-point" style={{ left: this.videoPointProcess(video) }}
                        onTouchStart={() => this.onTimeLineTouchDown(i)}
                        onTouchEnd={() => this.onTimeLineTouchUp(i)}></div>
-                </div>
-                <div className="controls">
-                  <span className="time">
-                    <span className="current">{this.videoCurrentTime(video)}</span>
-                    <span className="sep"> / </span>
-                    <span className="total">{this.videoTotalTime(video)}</span>
-                  </span>
-                  <span className="compress"><FontAwesomeIcon icon={faCompress} onClick={() => closeVideoFullscreen(i)} /></span>
-                  <span className={'play' + (video.play ? ' hide' : '')} ><FontAwesomeIcon icon={faPlay} onClick={() => playVideo(i)} /></span>
-                  <span className={'paulse' + (video.play ? '' : ' hide')} ><FontAwesomeIcon icon={faPause} onClick={() => pauseVideo(i)} /></span>
                 </div>
               </div>
               <SelectMask show={video.selected} />

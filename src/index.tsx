@@ -14,7 +14,10 @@ const DEFAULT_STATE = {
   photoList: [],
   videoList: [],
   uploadProgress: 0,
-  showPhotoBrowseInfo: false,
+  display: {
+    photoBrowseInfo: true,
+    videoControls: true
+  },
   messages: new Map()
 }
 

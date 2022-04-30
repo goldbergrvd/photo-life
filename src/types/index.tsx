@@ -60,6 +60,11 @@ export interface Video {
 
 export type VideoList = Array<Video>
 
+export interface Display {
+  photoBrowseInfo: boolean;
+  videoControls: boolean;
+}
+
 export interface StoreState {
   tab: Tab;
   state: State;
@@ -67,6 +72,6 @@ export interface StoreState {
   photoList: PhotoList;
   videoList: VideoList;
   uploadProgress: number;
-  showPhotoBrowseInfo: boolean;
+  display: Display;
   messages: Messages;
 }

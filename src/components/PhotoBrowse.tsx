@@ -9,6 +9,7 @@ export interface Props {
   photoList: PhotoList;
   showInfo: boolean;
   toggleShowInfo: () => void;
+  openShowInfo: () => void;
   onClose: () => void;
   prevPhotoBrowse: () => void;
   nextPhotoBrowse: () => void;
@@ -52,12 +53,16 @@ const PREV_IMG_SLIDE_LEFT = () => BASE_PREV_LEFT()
 const NEXT_IMG_SLIDE_LEFT = () => BASE_NEXT_LEFT()
 
 
-function PhotoBrowse({ photoList, showInfo, toggleShowInfo, onClose, prevPhotoBrowse, nextPhotoBrowse }: Props) {
+function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClose, prevPhotoBrowse, nextPhotoBrowse }: Props) {
 
   const photoIndex = photoList.findIndex(photo => photo.browsed)
   const hasBrowsed = photoIndex >= 0
   const isFirst = photoIndex === 0
   const isLast = photoIndex === photoList.length - 1
+
+  if (photoIndex < 0) {
+    openShowInfo()
+  }
 
   const swipeHandlers = useSwipeable({
     onSwipeStart: (evt) => {

@@ -5,6 +5,19 @@ export function setThemeColor(colorCode: string) {
   document.head.querySelector('meta[name=apple-mobile-web-app-status-bar-style]')?.setAttribute('content', colorCode)
 }
 
+export function detectBrowser() {
+  if (navigator.userAgent.indexOf("Chrome") != -1 ) {
+    return 'chrome'
+  }
+  if (navigator.userAgent.indexOf("Safari") != -1) {
+    return 'safari'
+  }
+  if (navigator.userAgent.indexOf("Firefox") != -1 ){
+    return 'firefox'
+  }
+  return ''
+}
+
 export class ScrollTrigger {
   private ele: HTMLDivElement
   private prevFetchTime = new Date()

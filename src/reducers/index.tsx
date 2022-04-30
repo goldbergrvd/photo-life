@@ -6,7 +6,7 @@ import photoList from "./photoList"
 import uploadProgress from "./uploadProgress"
 import videoList from "./videoList";
 import messages from "./messages";
-import showPhotoBrowseInfo from "./photoBrowse";
+import display from "./display";
 
 export default combineReducers({
   tab,
@@ -15,6 +15,6 @@ export default combineReducers({
   photoList,
   videoList,
   uploadProgress,
-  showPhotoBrowseInfo,
+  display,
   messages
 })
