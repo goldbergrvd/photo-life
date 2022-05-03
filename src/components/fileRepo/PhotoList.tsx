@@ -20,7 +20,7 @@ class PhotoListComponent extends React.Component<Props, object> {
 
   dateTag(index: number, name: string) {
     let date = name.substring(0, 8)
-    if (index % 3 === 0 && date != currentDate) {
+    if (index % 3 === 0 && date !== currentDate) {
       currentDate = date
       return (
         <div className="date-tag">
@@ -78,7 +78,7 @@ class PhotoListComponent extends React.Component<Props, object> {
         {
           photoList.map((photo, i) => (
             <div className="img" key={photo.name} onClick={() => this.onImgClick(i)}>
-              <img src={api.imageXs(photo.name)} crossOrigin="anonymous" />
+              <img src={api.imageXs(photo.name)} crossOrigin="anonymous" alt="" />
               {this.dateTag(i, photo.name)}
               <SelectMask show={photo.selected} />
             </div>

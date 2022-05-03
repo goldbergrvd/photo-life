@@ -25,9 +25,11 @@ function PickInfo({ tab, photoList, deleteAlert }: Props) {
   return (
     <div className="pick-info">
       <div className="handle">
-      <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
       </div>
-      <div className="info">{amount === 0 ? '選取項目' : `已選取${amount}個項目`}</div>
+      <div className="info">
+        {amount === 0 ? '選取項目' : `已選取${amount}個項目`}
+      </div>
       <div className="delete" onClick={onDeleteClick}>
         <FontAwesomeIcon icon={faTrashCan} />
       </div>

@@ -6,13 +6,13 @@ export function setThemeColor(colorCode: string) {
 }
 
 export function detectBrowser() {
-  if (navigator.userAgent.indexOf("Chrome") != -1 ) {
+  if (navigator.userAgent.indexOf("Chrome") !== -1 ) {
     return 'chrome'
   }
-  if (navigator.userAgent.indexOf("Safari") != -1) {
+  if (navigator.userAgent.indexOf("Safari") !== -1) {
     return 'safari'
   }
-  if (navigator.userAgent.indexOf("Firefox") != -1 ){
+  if (navigator.userAgent.indexOf("Firefox") !== -1 ){
     return 'firefox'
   }
   return ''

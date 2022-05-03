@@ -9,7 +9,7 @@ switch (process.env.NODE_ENV) {
     break;
 }
 
-export default {
+const APIS = {
   image: (name: string) => `${URL}/image/${name}`,
   imageXs: (name: string) => `${URL}/image-xs/${name}`,
   images: (lastPhotoName: string) => `${URL}/images?fromName=${lastPhotoName}`,
@@ -18,3 +18,5 @@ export default {
   upload: `${URL}/upload`,
   delete: `${URL}/delete`
 }
+
+export default APIS;

@@ -98,14 +98,14 @@
 
 .video-list .video .fullscreen-controls .controls {
   width: calc(100% - 1rem);
-  height: calc(4rem - 1.5rem);
+  height: 3.5rem;
   padding: .5rem .5rem 1rem;
   text-align: right;
   color: rgb(229, 229, 229);
   font-size: 1.25rem;
   background-color: rgba(0, 0, 0, .3);
   position: absolute;
-  bottom: 1rem;
+  bottom: 0;
 }
 
 .video-list .video .fullscreen-controls .controls > span {

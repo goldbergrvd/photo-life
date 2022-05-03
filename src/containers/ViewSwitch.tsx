@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Alert, StoreState } from "../types";
+import { StoreState } from "../types";
 
 import ViewSwitch from "../components/view/ViewSwitch";
 
