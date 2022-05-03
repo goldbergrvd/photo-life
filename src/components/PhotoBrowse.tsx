@@ -3,7 +3,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PhotoList } from "../types";
 import { DOWN, LEFT, RIGHT, UP, useSwipeable } from "react-swipeable";
-import api from "../api";
+import PhotoLoader from "./PhotoLoader";
 
 export interface Props {
   photoList: PhotoList;
@@ -16,9 +16,9 @@ export interface Props {
 }
 
 let _slider: HTMLDivElement
-let _currImg: HTMLImageElement
-let _prevImg: HTMLImageElement
-let _nextImg: HTMLImageElement
+let _currImg: HTMLDivElement
+let _prevImg: HTMLDivElement
+let _nextImg: HTMLDivElement
 let swipeDir: 'vertical' | 'horizontal' | null = null
 let transitioning = false
 
@@ -266,21 +266,27 @@ function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClos
         {
           hasBrowsed && !isFirst
           ?
-          <img className="prev-img" src={api.image(photoList[photoIndex - 1].name)} crossOrigin="anonymous" alt="" ref={c => _prevImg = c as HTMLImageElement} />
+          <div className="prev-img" ref={c => _prevImg = c as HTMLDivElement}>
+            <PhotoLoader name={photoList[photoIndex - 1].name} />
+          </div>
           :
           ''
         }
         {
           hasBrowsed
           ?
-          <img className="curr-img" src={api.image(photoList[photoIndex].name)} crossOrigin="anonymous" alt="" ref={c => _currImg = c as HTMLImageElement} />
+          <div className="curr-img" ref={c => _currImg = c as HTMLDivElement}>
+            <PhotoLoader name={photoList[photoIndex].name} />
+          </div>
           :
           ''
         }
         {
           hasBrowsed && !isLast
           ?
-          <img className="next-img" src={api.image(photoList[photoIndex + 1].name)} crossOrigin="anonymous" alt="" ref={c => _nextImg = c as HTMLImageElement} />
+          <div className="next-img" ref={c => _nextImg = c as HTMLDivElement}>
+            <PhotoLoader name={photoList[photoIndex + 1].name} />
+          </div>
           :
           ''
         }

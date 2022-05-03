@@ -16,8 +16,9 @@
   left: calc(-100% - 3rem);
 }
 
-.photo .slider img {
-  object-fit: contain;
+.photo .slider .prev-img,
+.photo .slider .curr-img,
+.photo .slider .next-img {
   height: 100%;
   position: absolute;
 }
