@@ -41,8 +41,9 @@ function PhotoLoader ({ name }: Props) {
 
   return (
     <div className="photo-loader">
-      <img src={api.imageXs(name)} crossOrigin="anonymous" alt="" ref={c => imgEle = c as HTMLImageElement} />
+      <img className="image" src={api.imageXs(name)} crossOrigin="anonymous" alt="" ref={c => imgEle = c as HTMLImageElement} />
       <div className="load-info" ref={c => loadInfoEle = c as HTMLDivElement}>
+        <img className="loading" src="static/loading.gif" alt="" />
         <div className="progress">
           <div className="loaded" ref={c => progressLoadedEle = c as HTMLDivElement}></div>
         </div>
