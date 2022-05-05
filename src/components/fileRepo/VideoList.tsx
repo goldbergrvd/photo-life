@@ -4,7 +4,7 @@ import React from "react";
 import api from "../../api";
 import { State, Video, VideoBuffer, VideoList } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCompress, faExpand, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faExpand, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import SelectMask from "./SelectMask";
 import { ScrollTrigger } from "../../native-dom";
 
@@ -31,12 +31,26 @@ class VideoListComponent extends React.Component<Props, object> {
 
   videoElements: HTMLVideoElement[] = []
 
+  fileName(name: string) {
+    return name.substring(0, 4) + '/' +
+           name.substring(4, 6) + '/' +
+           name.substring(6, 8) + ' ' +
+           name.substring(8, 10) + ':' +
+           name.substring(10, 12) + ':' +
+           name.substring(12, 14)
+  }
+
   videoTotalTime(video: Video) {
     return this.time(video.duration)
   }
 
   videoCurrentTime(video: Video) {
-    let duration = Math.floor(video.duration - video.currentTime)
+    let currentTime = Math.floor(video.currentTime)
+    return this.time(currentTime)
+  }
+
+  videoRestTime(video: Video) {
+    let duration = Math.floor(video.duration) - Math.floor(video.currentTime)
     return this.time(duration)
   }
 
@@ -54,8 +68,8 @@ class VideoListComponent extends React.Component<Props, object> {
     return (video.currentTime * 100 / video.duration) + '%'
   }
 
-  videoPointProcess(video: Video) {
-    return `calc(${this.videoProcess(video)} - 6px)`
+  videoPointProcess(video: Video, offset: string) {
+    return `calc(${this.videoProcess(video)} - ${offset})`
   }
 
   videoBufferLeft(buffer: VideoBuffer, video: Video) {
@@ -82,15 +96,22 @@ class VideoListComponent extends React.Component<Props, object> {
     return `linear-gradient(to right, rgba(255, 51, 51, 1) ${playedPercentage}%, rgba(255, 255, 255, .8) ${playedPercentage}% 100%`
   }
 
-  setVideoCurrentTime(xPos: number, index: number) {
+  setVideoCurrentTime(xPos: number, index: number, target: HTMLDivElement) {
+    while (target.className !== 'time-axis') {
+      target = target.parentNode as HTMLDivElement
+    }
+    let rect = target.getBoundingClientRect()
+
     let video = this.videoElements[index]
-    let width = window.innerWidth
-    if (xPos > width) {
+    let width = rect.width
+    let x = xPos - rect.x
+
+    if (x > width) {
       video.currentTime = video.duration
-    } else if (xPos < 0) {
+    } else if (x < 0) {
       video.currentTime = 0
     } else {
-      video.currentTime = xPos * video.duration / width
+      video.currentTime = x * video.duration / width
     }
   }
 
@@ -152,7 +173,7 @@ class VideoListComponent extends React.Component<Props, object> {
     const { videoList, pauseVideo } = this.props
     isPlaying = videoList[index].play
     pauseVideo(index)
-    document.ontouchmove = evt => this.setVideoCurrentTime(evt.touches[0].clientX, index)
+    document.ontouchmove = evt => this.setVideoCurrentTime(evt.touches[0].clientX, index, evt.target as HTMLDivElement)
   }
 
   onTimeLineTouchUp(index: number) {
@@ -207,34 +228,26 @@ class VideoListComponent extends React.Component<Props, object> {
               </video>
               <div className={'preview-info' + (video.fullscreen ? ' hide' : '')}>
                 <div className="expand" onClick={() => this.setVideoFullscreen(i)}><FontAwesomeIcon icon={faExpand} /></div>
-                <div className="time">{this.videoCurrentTime(video)}</div>
+                <div className="time">{this.videoRestTime(video)}</div>
                 <div className="time-line" style={{ width: this.videoProcess(video) }}></div>
               </div>
               <div className={'fullscreen-controls' + (video.fullscreen ? '' : ' hide')}>
-                <div className="controls">
-                  <span className="time">
-                    <span className="current">{this.videoCurrentTime(video)}</span>
-                    <span className="sep"> / </span>
-                    <span className="total">{this.videoTotalTime(video)}</span>
-                  </span>
-                  <span className="compress"><FontAwesomeIcon icon={faCompress} onClick={() => closeVideoFullscreen(i)} /></span>
+                <div className="top">
+                  {this.fileName(video.name)}
+                  <div className="close"><FontAwesomeIcon icon={faClose} onClick={() => closeVideoFullscreen(i)} /></div>
+                </div>
+                <div className="bottom">
                   <span className={'play' + (video.play ? ' hide' : '')} ><FontAwesomeIcon icon={faPlay} onClick={() => playVideo(i)} /></span>
                   <span className={'pause' + (video.play ? '' : ' hide')} ><FontAwesomeIcon icon={faPause} onClick={() => pauseVideo(i)} /></span>
-                </div>
-                <div className="time-line" onClick={evt => this.setVideoCurrentTime(evt.pageX, i)}>
-                  {
-                    video.buffers.map((buffer, i) => (
-                      <div className="buffer-line" key={i}
-                           style={{
-                             left: this.videoBufferLeft(buffer, video),
-                             width: this.videoBufferWidth(buffer, video),
-                             background: this.videoBufferBackground(buffer, video)
-                           }}></div>
-                    ))
-                  }
-                  <div className="current-point" style={{ left: this.videoPointProcess(video) }}
-                       onTouchStart={() => this.onTimeLineTouchDown(i)}
-                       onTouchEnd={() => this.onTimeLineTouchUp(i)}></div>
+                  <span className="curr-time">{this.videoCurrentTime(video)}</span>
+                  <div className="time-axis" onClick={evt => this.setVideoCurrentTime(evt.pageX, i, evt.target as HTMLDivElement)}>
+                    <div className="line" />
+                    <div className="curr-point" style={{ left: this.videoPointProcess(video, '3px') }} />
+                    <div className="touch-point" style={{ left: this.videoPointProcess(video, '1rem')}}
+                         onTouchStart={() => this.onTimeLineTouchDown(i)}
+                         onTouchEnd={() => this.onTimeLineTouchUp(i)} />
+                  </div>
+                  <span className="rest-time">-{this.videoRestTime(video)}</span>
                 </div>
               </div>
               <SelectMask show={video.selected} />
