@@ -40,10 +40,6 @@ class VideoListComponent extends React.Component<Props, object> {
            name.substring(12, 14)
   }
 
-  videoTotalTime(video: Video) {
-    return this.time(video.duration)
-  }
-
   videoCurrentTime(video: Video) {
     let currentTime = Math.floor(video.currentTime)
     return this.time(currentTime)
@@ -70,30 +66,6 @@ class VideoListComponent extends React.Component<Props, object> {
 
   videoPointProcess(video: Video, offset: string) {
     return `calc(${this.videoProcess(video)} - ${offset})`
-  }
-
-  videoBufferLeft(buffer: VideoBuffer, video: Video) {
-    return (buffer.start * 100 / video.duration) + '%'
-  }
-
-  videoBufferWidth(buffer: VideoBuffer, video: Video) {
-    return ((buffer.end - buffer.start) * 100 / video.duration) + '%'
-  }
-
-  videoBufferBackground(buffer: VideoBuffer, video: Video) {
-    let playedPercentage = (video.currentTime - buffer.start) * 100 / (buffer.end - buffer.start)
-
-    playedPercentage = Math.min(100, playedPercentage)
-    if (playedPercentage === 100) {
-      return 'rgba(255, 51, 51, 1)'
-    }
-
-    playedPercentage = Math.max(0, playedPercentage)
-    if (playedPercentage === 0) {
-      return 'rgba(255, 255, 255, .8)'
-    }
-
-    return `linear-gradient(to right, rgba(255, 51, 51, 1) ${playedPercentage}%, rgba(255, 255, 255, .8) ${playedPercentage}% 100%`
   }
 
   setVideoCurrentTime(xPos: number, index: number, target: HTMLDivElement) {
