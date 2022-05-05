@@ -16,10 +16,18 @@
   left: 0;
 }
 
+.upload-progress .progress img {
+  height: 95%;
+  position: absolute;
+  top: 0;
+  right: 1px;
+}
+
 .upload-progress .message {
   width: inherit;
   height: inherit;
-  line-height: 4rem;;
+  line-height: 4rem;
+  color: rgb(26, 42, 58);
   position: absolute;
   top: 0;
   left: 0;
