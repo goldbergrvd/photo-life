@@ -1,5 +1,6 @@
 export * from './state'
 export * from './tab'
+export * from './viewType'
 export * from './alert'
 export * from './uploadProgress'
 export * from './messages'

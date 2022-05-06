@@ -18,6 +18,9 @@ export type SET_STATE = typeof SET_STATE;
 export const SET_ALERT = 'SET_ALERT';
 export type SET_ALERT = typeof SET_ALERT;
 
+export const SET_VIEW_TYPE = 'SET_VIEW_TYPE';
+export type SET_VIEW_TYPE = typeof SET_VIEW_TYPE;
+
 
 export const ADD_INFO_MESSAGE = 'ADD_INFO_MESSAGE';
 export type ADD_INFO_MESSAGE = typeof ADD_INFO_MESSAGE;

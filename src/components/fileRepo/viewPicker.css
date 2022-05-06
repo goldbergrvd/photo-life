@@ -1,0 +1,43 @@
+.view-picker {
+  width: 90%;
+  line-height: 3rem;
+  backdrop-filter: blur(1px);
+  background-color: rgba(233, 233, 233, .75);
+  border-radius: 3rem;
+  color: rgb(26, 58, 90);
+  font-weight: bold;
+  user-select: none;
+  position: fixed;
+  bottom: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.view-picker .year,
+.view-picker .month,
+.view-picker .day {
+  width: calc(100% / 3);
+  display: inline-block;
+}
+
+.view-picker .picked {
+  width: calc(100% / 3 - 8px);
+  height: calc(3rem - 8px);
+  line-height: calc(3rem - 8px);
+  background-color: rgb(127, 127, 127);
+  border-radius: calc(3rem - 8px);
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: 4px;
+  transition: left .1s ease;
+}
+.view-picker .picked.year {
+  left: 4px;
+}
+.view-picker .picked.month {
+  left: calc(100% / 3 + 4px);
+}
+.view-picker .picked.day {
+  left: calc(100% / 3 * 2 + 4px);
+}

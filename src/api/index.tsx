@@ -12,7 +12,7 @@ switch (process.env.NODE_ENV) {
 const APIS = {
   image: (name: string) => `${URL}/image/${name}`,
   imageXs: (name: string) => `${URL}/image-xs/${name}`,
-  images: (lastPhotoName: string) => `${URL}/images?fromName=${lastPhotoName}`,
+  images: (lastPhotoName: string, amount: number) => `${URL}/images?fromName=${lastPhotoName}&amount=${amount}`,
   video: (name: string) => `${URL}/video/${name}`,
   videos: (lastVideoName: string) => `${URL}/videos?fromName=${lastVideoName}`,
   upload: `${URL}/upload`,

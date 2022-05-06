@@ -12,7 +12,8 @@ let isFetching = false
 function mapStateToProps(state: StoreState) {
   return {
     photoList: state.photoList,
-    state: state.state
+    state: state.state,
+    viewType: state.viewType
   }
 }
 
@@ -20,12 +21,12 @@ function mapDispatchToProps(dispatch: Dispatch<PhotoListAction | MessagesAction>
   return {
     onTogglePhotoSelect: (index: number) => dispatch(togglePhotoSelect(index)),
     onOpenPhotoBrowse: (index: number) => dispatch(openPhotoBrowse(index)),
-    fetchPhotos: (lastPhotoName: string) => {
+    fetchPhotos: (lastPhotoName: string, amount: number) => {
       if (isFetching) {
         return
       }
       isFetching = true
-      axios.get(api.images(lastPhotoName))
+      axios.get(api.images(lastPhotoName, amount))
            .then(res => {
              dispatch(addPhotos(res.data))
            })

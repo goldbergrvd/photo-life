@@ -10,6 +10,12 @@ export enum State {
   Select = 3
 }
 
+export enum ViewType {
+  Year = 1,
+  Month = 2,
+  Day = 3
+}
+
 export enum Alert {
   None = 1,
   DeletePhotoCheck = 2,
@@ -68,6 +74,7 @@ export interface Display {
 export interface StoreState {
   tab: Tab;
   state: State;
+  viewType: ViewType;
   alert: Alert;
   photoList: PhotoList;
   videoList: VideoList;
