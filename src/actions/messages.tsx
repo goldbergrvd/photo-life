@@ -11,12 +11,22 @@ export interface AddErrorMessage {
   payload: Message
 }
 
+export interface AddInfoMessageMultiline {
+  type: ADD_INFO_MESSAGE;
+  payload: Message
+}
+
+export interface AddErrorMessageMultiline {
+  type: ADD_ERROR_MESSAGE;
+  payload: Message
+}
+
 export interface DeleteMessage {
   type: DELETE_MESSAGE;
   payload: Timestamp;
 }
 
-export type MessagesAction = AddInfoMessage | AddErrorMessage | DeleteMessage
+export type MessagesAction = AddInfoMessage | AddErrorMessage | AddInfoMessageMultiline | AddErrorMessageMultiline | DeleteMessage
 
 export function addInfoMessage(title: string, content: string): MessagesAction {
   return {
@@ -24,7 +34,7 @@ export function addInfoMessage(title: string, content: string): MessagesAction {
     payload: {
       type: MessageType.Info,
       title,
-      content,
+      contents: [content],
       time: new Date()
     }
   }
@@ -36,7 +46,31 @@ export function addErrorMessage(title: string, content: string): MessagesAction 
     payload: {
       type: MessageType.Error,
       title,
-      content,
+      contents: [content],
+      time: new Date()
+    }
+  }
+}
+
+export function addInfoMessageMultiline(title: string, contents: Array<string>): MessagesAction {
+  return {
+    type: ADD_INFO_MESSAGE,
+    payload: {
+      type: MessageType.Info,
+      title,
+      contents,
+      time: new Date()
+    }
+  }
+}
+
+export function addErrorMessageMultiline(title: string, contents: Array<string>): MessagesAction {
+  return {
+    type: ADD_ERROR_MESSAGE,
+    payload: {
+      type: MessageType.Error,
+      title,
+      contents,
       time: new Date()
     }
   }

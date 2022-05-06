@@ -64,7 +64,11 @@ class MessagesComponent extends React.Component<Props, object> {
                 <FontAwesomeIcon className="icon" icon={message.type === MessageType.Error ? faCircleExclamation : faCircleInfo} />
                 {' ' + message.title}
               </div>
-              <p className="content">{message.content}</p>
+              {
+                message.contents.map((content, i) => (
+                  <p className="content" key={i}>{content}</p>
+                ))
+              }
               <div className="time">{this.time(message.time)}</div>
               <FontAwesomeIcon className="close" icon={faClose} onClick={() => this.onDeleteMessage(index)} />
             </div>

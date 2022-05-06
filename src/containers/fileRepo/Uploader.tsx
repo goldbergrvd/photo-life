@@ -1,7 +1,7 @@
 import axios from "axios";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { addErrorMessage, addInfoMessage, MessagesAction, setUploadProgress, UploadProgressAction } from "../../actions";
+import { addErrorMessage, addErrorMessageMultiline, addInfoMessage, MessagesAction, setUploadProgress, UploadProgressAction } from "../../actions";
 import { PhotoListAction, updatePhotos } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
 import { updateVideos, VideoAction } from "../../actions/videoList";
@@ -30,7 +30,7 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
 
       axios.post(api.upload, formData, config)
           .then(res => {
-            let datas = res.data.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
+            let datas = res.data.successResults.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
               if (isImage(d)) {
                 acc.photos.push(d)
               }
@@ -48,6 +48,10 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
             if (datas.videos.length) {
               dispatch(updateVideos(datas.videos))
               dispatch(addInfoMessage('上傳成功', `上傳了${datas.videos.length}部影片`))
+            }
+
+            if (res.data.errorFiles.length) {
+              dispatch(addErrorMessageMultiline('部分檔案上傳失敗', res.data.errorFiles as Array<string>))
             }
           })
           .catch(err => {

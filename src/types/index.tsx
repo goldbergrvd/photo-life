@@ -27,7 +27,7 @@ export enum MessageType {
 export interface Message {
   type: MessageType;
   title: string;
-  content: string;
+  contents: Array<string>;
   time: Date;
 }
 
