@@ -11,7 +11,7 @@ interface Props {
 }
 
 const AUTO_DELETE_TIME = 5000
-const TRANSITIO_TIME = 250
+const TRANSITION_TIME = 250
 
 class MessagesComponent extends React.Component<Props, object> {
 
@@ -45,7 +45,7 @@ class MessagesComponent extends React.Component<Props, object> {
     if (this._messageMap.has(index)) {
       let messageEle = this._messageMap.get(index)
       messageEle!.element.style.left = '100%'
-      setTimeout(() => { deleteMessage(index) }, TRANSITIO_TIME)
+      setTimeout(() => { deleteMessage(index) }, TRANSITION_TIME)
       clearTimeout(messageEle!.timeoutId)
     }
   }
