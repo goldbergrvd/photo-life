@@ -13,13 +13,14 @@ function mapStateToProps(state: StoreState) {
   return {
     alertState: state.alert,
     photoList: state.photoList,
-    videoList: state.videoList
+    videoList: state.videoList,
+    album: state.albumList.find(album => album.willDelete) || null
   }
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AlertAction | PhotoListAction | VideoAction | StateAction | MessagesAction>) {
   return {
-    onDelete: (names: string[]) => {
+    deleteFiles: (names: string[]) => {
       dispatch(setAlert(AlertState.Deleting))
 
       axios.delete(api.delete, {
@@ -59,7 +60,10 @@ function mapDispatchToProps(dispatch: Dispatch<AlertAction | PhotoListAction | V
         }, 500)
       })
     },
-    onCancel: () => dispatch(setAlert(AlertState.None))
+    deleteAlbum: (id: number) => {
+      console.log(id)
+    },
+    cancel: () => dispatch(setAlert(AlertState.None))
   }
 }
 

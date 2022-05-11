@@ -11,6 +11,8 @@ export interface Props {
 function switchToolbar(state: State) {
   switch(state) {
     case State.Browse:
+    case State.AddAlbum:
+    case State.DeleteAlbum:
       return <Tabs />
     case State.Select:
       return <PickInfo />

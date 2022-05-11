@@ -1,12 +1,13 @@
 import "./fileCount.css"
 
 export interface Props {
-  textContent: string
+  textContent: string;
+  isAlbum: boolean;
 }
 
-function FileCount({ textContent }: Props) {
+function FileCount({ textContent, isAlbum }: Props) {
   return (
-    <div className="file-count">{ textContent }</div>
+    <div className={`file-count ${isAlbum ? 'white' : 'black'}`}>{ textContent }</div>
   )
 }
 

@@ -1,0 +1,57 @@
+.album-creator {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, .25);
+  position: fixed;
+  top: 0;
+  z-index: 4;
+}
+
+.album-creator .modal {
+  width: fit-content;
+  background-color: rgb(240, 240, 240);
+  border-radius: .5rem;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.album-creator .modal .content {
+  padding: 1rem;
+  border-bottom: .5px solid rgb(133, 133, 133);
+}
+
+.album-creator .modal .content .title {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.album-creator .modal .content .input {
+  width: 70vw;
+  height: 2rem;
+  padding: 0 .5rem;
+  font-size: 1rem;
+  border: .5px solid rgb(133, 133, 133);
+  border-radius: .25rem;
+  outline: none;
+}
+
+.album-creator .modal .btn .submit,
+.album-creator .modal .btn .cancel {
+  width: calc(50% - .5px);
+  height: 3rem;
+  line-height: 3rem;
+  font-size: 1rem;
+  color: rgb(51, 153, 204);
+  display: inline-block;
+}
+
+.album-creator .modal .btn .submit {
+  border-left: .25px solid rgb(133, 133, 133);
+}
+
+.album-creator .modal .btn .cancel {
+  border-right: .25px solid rgb(133, 133, 133);
+}

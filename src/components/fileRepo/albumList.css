@@ -1,0 +1,62 @@
+.album-list {
+  padding: 4rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.album-list.unscroll {
+  overflow: hidden;
+  max-height: calc(100% - 8rem);
+}
+
+.album-list .item {
+  width: calc(50% - 5vw);
+  padding: .5rem 2.5vw;
+  position: relative;
+}
+
+.album-list .item .thumbnails {
+  width: 45vw;
+  height: 45vw;
+  border-radius: 5px;
+  background-color: gray;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.album-list .item .thumbnails img {
+  width: calc(45vw / 4);
+  height: calc(45vw / 4);
+  object-fit: cover;
+}
+.album-list .item .thumbnails img:nth-child(1) {
+  border-top-left-radius: 5px;
+}
+.album-list .item .thumbnails img:nth-child(4) {
+  border-top-right-radius: 5px;
+}
+.album-list .item .thumbnails img:nth-child(13) {
+  border-bottom-left-radius: 5px;
+}
+.album-list .item .thumbnails img:nth-child(16) {
+  border-bottom-right-radius: 5px;
+}
+
+.album-list .item .title {
+  margin: .15rem 0;
+}
+
+.album-list .item .count {
+  color: rgb(128, 128, 128);
+}
+
+.album-list .item .delete {
+  color: rgb(204, 51, 51);
+  font-size: 1.25rem;
+  position: absolute;
+  top: -.35rem;
+  left: .1rem;
+}

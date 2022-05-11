@@ -1,0 +1,8 @@
+.album {
+  width: inherit;
+  height: inherit;
+  font-weight: bold;
+  text-align: left;
+  position: relative;
+  overflow-x: hidden;
+}

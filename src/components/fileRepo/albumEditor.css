@@ -1,0 +1,29 @@
+.album-editor {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: rgb(51, 153, 204);
+  user-select: none;
+  position: fixed;
+  top:0;
+}
+
+.album-editor .add,
+.album-editor .delete,
+.album-editor .back,
+.album-editor .select {
+  line-height: 4rem;
+  padding: 0 1rem;
+  position: absolute;
+  top: 0;
+}
+
+.album-editor .add,
+.album-editor .select {
+  right: 0;
+}
+
+.album-editor .delete,
+.album-editor .back {
+  left: 0;
+}

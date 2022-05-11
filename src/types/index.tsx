@@ -7,7 +7,9 @@ export enum Tab {
 export enum State {
   Browse = 1,
   Upload = 2,
-  Select = 3
+  Select = 3,
+  AddAlbum = 4,
+  DeleteAlbum = 5
 }
 
 export enum ViewType {
@@ -22,7 +24,9 @@ export enum Alert {
   DeleteVideoCheck = 3,
   Deleting = 4,
   AddAlbumCheck = 5,
-  AddAlbum = 6
+  AddAlbum = 6,
+  DeleteAlbumCheck = 7,
+  DeleteAlbum = 8
 }
 
 export enum MessageType {
@@ -71,6 +75,16 @@ export interface Display {
   videoControls: boolean;
 }
 
+export interface Album {
+  id: number;
+  name: string;
+  photoList: PhotoList;
+  browsing: boolean;
+  willDelete: boolean;
+}
+
+export type AlbumList = Array<Album>
+
 export interface StoreState {
   tab: Tab;
   state: State;
@@ -78,6 +92,7 @@ export interface StoreState {
   alert: Alert;
   photoList: PhotoList;
   videoList: VideoList;
+  albumList: AlbumList;
   uploadProgress: number;
   display: Display;
   messages: Messages;

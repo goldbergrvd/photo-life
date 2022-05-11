@@ -1,4 +1,5 @@
 import './App.css';
+import AlbumCreator from './containers/AlbumCreator';
 
 import Alert from './containers/Alert';
 import Messages from './containers/Messages';
@@ -17,6 +18,7 @@ function App() {
       <Toolbar />
       <PhotoBrowse />
       <Alert />
+      <AlbumCreator />
     </div>
   );
 }

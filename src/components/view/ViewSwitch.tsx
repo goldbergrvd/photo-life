@@ -4,8 +4,6 @@ import { Tab } from "../../types";
 import Album from "./Album";
 import ImageRepo from "./ImageRepo";
 import VideoRepo from "./VideoRepo";
-import Pick from "../../containers/fileRepo/Pick";
-import Uploader from "../../containers/fileRepo/Uploader";
 
 interface Props {
   tab: Tab;
@@ -26,8 +24,6 @@ function ViewSwitch({ tab }: Props) {
   return (
     <div className="view-switch">
       { switchView(tab) }
-      <Uploader />
-      <Pick />
     </div>
   )
 }
