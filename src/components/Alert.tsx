@@ -1,4 +1,4 @@
-import "./Alert.css"
+import "./alert.css"
 import { Album, Alert as AlertState, PhotoList, VideoList } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";

@@ -1,4 +1,4 @@
-import "./SelectMask.css";
+import "./selectMask.css";
 
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
