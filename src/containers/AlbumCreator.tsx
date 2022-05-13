@@ -1,8 +1,10 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { setState, StateAction } from "../actions";
+import { addErrorMessage, addInfoMessage, MessagesAction, setState, StateAction } from "../actions";
+import { addAlbum, AlbumListAction } from "../actions/albumList";
+import requests from "../api";
 import AlbumCreator from "../components/AlbumCreator";
-import { State, StoreState } from "../types";
+import { Album, State, StoreState } from "../types";
 
 function mapStateToProps(state: StoreState) {
   return {
@@ -10,10 +12,30 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<StateAction>) {
+function mapDispatchToProps(dispatch: Dispatch<AlbumListAction | StateAction | MessagesAction>) {
   return {
     submit: (name: string) => {
-      console.log(name)
+      requests.addAlbum(name)
+        .then(res => {
+          let album: Album = {
+            id: res.data.id,
+            name: res.data.name,
+            photoList: res.data.photoList.map((photoName: string) => ({
+              name: photoName,
+              browsed: false,
+              selected: false
+            }))
+          }
+          dispatch(addAlbum([album]))
+          dispatch(addInfoMessage('新增成功', `相簿「${album.name}」被建立`))
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addErrorMessage('新增相簿時發生異常', err.response.data))
+        })
+        .finally(() => {
+          dispatch(setState(State.Browse))
+        })
     },
     cancel: () => dispatch(setState(State.Browse))
   }

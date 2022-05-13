@@ -112,6 +112,12 @@ export const CLEAR_VIDEO_SELECT = 'CLEAR_VIDEO_SELECT'; // eslint-disable-next-l
 export type CLEAR_VIDEO_SELECT = typeof CLEAR_VIDEO_SELECT;
 
 
+export const ADD_ALBUM = 'ADD_ALBUM'; // eslint-disable-next-line
+export type ADD_ALBUM = typeof ADD_ALBUM;
+
+export const DELETE_ALBUM = 'DELETE_ALBUM'; // eslint-disable-next-line
+export type DELETE_ALBUM = typeof DELETE_ALBUM;
+
 export const BROWSE_ALBUM = 'BROWSE_ALBUM'; // eslint-disable-next-line
 export type BROWSE_ALBUM = typeof BROWSE_ALBUM;
 

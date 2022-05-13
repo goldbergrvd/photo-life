@@ -8,27 +8,27 @@ interface Props {
   photoList: PhotoList;
   videoList: VideoList;
   album: Album | null;
-  deleteFiles: (names: string[]) => void;
-  deleteAlbum: (id: number) => void;
+  deleteMedias: (names: string[]) => void;
+  deleteAlbum: (album: Album) => void;
   cancel: () => void;
 }
 
 
-function Alert({ alertState, photoList, videoList, album, deleteFiles, deleteAlbum, cancel }: Props) {
+function Alert({ alertState, photoList, videoList, album, deleteMedias, deleteAlbum, cancel }: Props) {
 
   function onSubmitClick() {
     if (alertState === AlertState.DeletePhotoCheck) {
       const selectedPhotos = photoList.filter(photo => photo.selected)
-      deleteFiles(selectedPhotos.map(photo => photo.name))
+      deleteMedias(selectedPhotos.map(photo => photo.name))
     }
 
     if (alertState === AlertState.DeleteVideoCheck) {
       const selectedVideos = videoList.filter(video => video.selected)
-      deleteFiles(selectedVideos.map(video => video.name))
+      deleteMedias(selectedVideos.map(video => video.name))
     }
 
     if (alertState === AlertState.DeleteAlbumCheck) {
-      deleteAlbum(album!.id)
+      deleteAlbum(album!)
     }
   }
 
@@ -38,13 +38,10 @@ function Alert({ alertState, photoList, videoList, album, deleteFiles, deleteAlb
         return '刪除照片'
       case AlertState.DeleteVideoCheck:
         return '刪除影片'
-      case AlertState.AddAlbumCheck:
-        return '加入相簿'
       case AlertState.DeleteAlbumCheck:
         return '刪除' + album!.name
-      case AlertState.Deleting:
-      case AlertState.AddAlbum:
-      case AlertState.DeleteAlbum:
+      case AlertState.DeletingMedia:
+      case AlertState.DeletingAlbum:
         return <FontAwesomeIcon icon={faRefresh} spin />
     }
   }

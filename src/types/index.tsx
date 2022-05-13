@@ -22,11 +22,9 @@ export enum Alert {
   None = 1,
   DeletePhotoCheck = 2,
   DeleteVideoCheck = 3,
-  Deleting = 4,
-  AddAlbumCheck = 5,
-  AddAlbum = 6,
-  DeleteAlbumCheck = 7,
-  DeleteAlbum = 8
+  DeletingMedia = 4,
+  DeleteAlbumCheck = 5,
+  DeletingAlbum = 6
 }
 
 export enum MessageType {
@@ -76,11 +74,11 @@ export interface Display {
 }
 
 export interface Album {
-  id: number;
+  id: string;
   name: string;
   photoList: PhotoList;
-  browsing: boolean;
-  willDelete: boolean;
+  browsing?: boolean;
+  willDelete?: boolean;
 }
 
 export type AlbumList = Array<Album>

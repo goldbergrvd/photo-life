@@ -2,6 +2,12 @@ import axios from "axios";
 
 let URL = '.';
 
+const JSON_CONFIG = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
+
 switch (process.env.NODE_ENV) {
   case 'development':
     URL = 'http://127.0.0.1:8080'
@@ -38,16 +44,16 @@ export const REQUESTS = Object.freeze({
     data: names
   }),
   albums: () => axios.get(APIS.albums),
-  addAlbum: () => axios.post(APIS.addAlbum),
+  addAlbum: (name: string, photoList?: string[]) => axios.post(APIS.addAlbum, {
+    name, photoList
+  }, JSON_CONFIG),
   deleteAlbum: (id: string) => axios.delete(APIS.deleteAlbum(id)),
   addAlbumPhoto: (id: string, photoNames: string[]) => axios.put(APIS.addAlbumPhoto(id), {
-    headers: { 'Content-Type': 'application/json' },
-    data: photoNames
-  }),
+    photoNames
+  }, JSON_CONFIG),
   deleteAlbumPhoto: (id: string, photoNames: string[]) => axios.put(APIS.deleteAlbumPhoto(id), {
-    headers: { 'Content-Type': 'application/json' },
-    data: photoNames
-  })
+    photoNames
+  }, JSON_CONFIG)
 })
 
 export default REQUESTS;
