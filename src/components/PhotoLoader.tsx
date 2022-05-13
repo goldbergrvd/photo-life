@@ -1,5 +1,5 @@
 import "./photoLoader.css";
-import api from "../api";
+import { APIS as api } from "../api";
 import axios from "axios";
 import pikachu from "../assets/imgs/loading.gif";
 

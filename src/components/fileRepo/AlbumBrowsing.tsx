@@ -1,6 +1,6 @@
 import "./albumBrowsing.css";
 import { Album } from "../../types";
-import api from "../../api";
+import { APIS as api } from "../../api";
 import SelectMask from "./SelectMask";
 
 interface Props {

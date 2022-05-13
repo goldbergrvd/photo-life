@@ -1,6 +1,6 @@
 import "./albumList.css";
 
-import api from "../../api";
+import { APIS as api } from "../../api";
 import { AlbumList, Alert, State } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";

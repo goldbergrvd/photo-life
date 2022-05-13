@@ -1,11 +1,10 @@
-import axios from "axios";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { addErrorMessage, addErrorMessageMultiline, addInfoMessage, MessagesAction, setUploadProgress, UploadProgressAction } from "../../actions";
 import { PhotoListAction, updatePhotos } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
 import { updateVideos, VideoAction } from "../../actions/videoList";
-import api from "../../api";
+import requests from "../../api";
 import Uploader from "../../components/fileRepo/Uploader";
 import { isImage, isVideo } from "../../constants";
 import { State, StoreState } from "../../types";
@@ -21,49 +20,47 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
     upload: (formData: FormData) => {
       dispatch(setState(State.Upload))
 
-      const config = {
-        onUploadProgress: function(progressEvent: { loaded: number; total: number; }) {
-          var progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          dispatch(setUploadProgress(progress))
-        }
+      function onUploadProgress (progressEvent: { loaded: number; total: number; }) {
+        var progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        dispatch(setUploadProgress(progress))
       }
 
-      axios.post(api.upload, formData, config)
-          .then(res => {
-            let datas = res.data.successResults.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
-              if (isImage(d)) {
-                acc.photos.push(d)
-              }
-              if (isVideo(d)) {
-                acc.videos.push(d)
-              }
-              return acc
-            }, { photos: [], videos: [] })
+      requests.upload(formData, onUploadProgress)
+        .then(res => {
+          let datas = res.data.successResults.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
+            if (isImage(d)) {
+              acc.photos.push(d)
+            }
+            if (isVideo(d)) {
+              acc.videos.push(d)
+            }
+            return acc
+          }, { photos: [], videos: [] })
 
 
-            if (datas.photos.length) {
-              dispatch(updatePhotos(datas.photos))
-              dispatch(addInfoMessage('上傳成功', `上傳了${datas.photos.length}張相片`))
-            }
-            if (datas.videos.length) {
-              dispatch(updateVideos(datas.videos))
-              dispatch(addInfoMessage('上傳成功', `上傳了${datas.videos.length}部影片`))
-            }
+          if (datas.photos.length) {
+            dispatch(updatePhotos(datas.photos))
+            dispatch(addInfoMessage('上傳成功', `上傳了${datas.photos.length}張相片`))
+          }
+          if (datas.videos.length) {
+            dispatch(updateVideos(datas.videos))
+            dispatch(addInfoMessage('上傳成功', `上傳了${datas.videos.length}部影片`))
+          }
 
-            if (res.data.errorFiles.length) {
-              dispatch(addErrorMessageMultiline('部分檔案上傳失敗', res.data.errorFiles as Array<string>))
-            }
-          })
-          .catch(err => {
-            console.log(err)
-            dispatch(addErrorMessage('上傳檔案時發生異常', err.response.data))
-          })
-          .finally(() => {
-            setTimeout(() => {
-              dispatch(setUploadProgress(0))
-              dispatch(setState(State.Browse))
-            }, 1000)
-          })
+          if (res.data.errorFiles.length) {
+            dispatch(addErrorMessageMultiline('部分檔案上傳失敗', res.data.errorFiles as Array<string>))
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addErrorMessage('上傳檔案時發生異常', err.response.data))
+        })
+        .finally(() => {
+          setTimeout(() => {
+            dispatch(setUploadProgress(0))
+            dispatch(setState(State.Browse))
+          }, 1000)
+        })
     }
   }
 }

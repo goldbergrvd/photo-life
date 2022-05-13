@@ -1,7 +1,7 @@
 import "./photoList.css";
 import { PhotoList, State, ViewType } from "../../types";
 import React from "react";
-import api from "../../api";
+import { APIS as api } from "../../api";
 import SelectMask from "./SelectMask";
 import { ScrollTrigger } from "../../native-dom"
 

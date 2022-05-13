@@ -1,9 +1,8 @@
-import axios from "axios";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { addErrorMessage, closeVideoControls, DisplayAction, MessagesAction, openVideoControls } from "../../actions";
 import { addVideos, closeVideoFullscreen, openVideoFullscreen, pauseVideo, playVideo, setVideoBuffers, setVideoTime, toggleVideoSelect, VideoAction } from "../../actions/videoList";
-import api from "../../api";
+import requests from "../../api";
 import VideoListComponent from "../../components/fileRepo/VideoList";
 import { StoreState, VideoBuffer } from "../../types";
 
@@ -27,14 +26,14 @@ function mapDispatchToProps(dispatch: Dispatch<VideoAction | MessagesAction | Di
     setVideoTime: (index: number, currentTime: number, duration: number) => dispatch(setVideoTime(index, currentTime, duration)),
     setVideoBuffers: (index: number, buffers: Array<VideoBuffer>) => dispatch(setVideoBuffers(index, buffers)),
     fetchVideos: (lastVideoName: string) => {
-      axios.get(api.videos(lastVideoName))
-           .then(res => {
-             dispatch(addVideos(res.data))
-           })
-           .catch(err => {
-             console.log(err)
-             dispatch(addErrorMessage('讀取影片時發生異常', err.response.data))
-           })
+      requests.videos(lastVideoName)
+        .then(res => {
+          dispatch(addVideos(res.data))
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(addErrorMessage('讀取影片時發生異常', err.response.data))
+        })
     }
   }
 }
