@@ -9,7 +9,8 @@ export enum State {
   Upload = 2,
   Select = 3,
   AddAlbum = 4,
-  DeleteAlbum = 5
+  DeleteAlbum = 5,
+  PickAlbum = 6
 }
 
 export enum ViewType {

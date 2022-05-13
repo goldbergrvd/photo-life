@@ -6,10 +6,11 @@ import { faArrowUpRightFromSquare, faTrashCan } from "@fortawesome/free-solid-sv
 export interface Props {
   tab: Tab;
   photoList: PhotoList;
-  deleteAlert: (alert: Alert) => void
+  deleteAlert: (alert: Alert) => void;
+  pickAlbum: () => void;
 }
 
-function PickInfo({ tab, photoList, deleteAlert }: Props) {
+function PickInfo({ tab, photoList, deleteAlert, pickAlbum }: Props) {
   const amount = photoList.filter(photo => photo.selected).length
 
   function onDeleteClick() {
@@ -24,7 +25,7 @@ function PickInfo({ tab, photoList, deleteAlert }: Props) {
 
   return (
     <div className="pick-info">
-      <div className="handle">
+      <div className="pick-album" onClick={pickAlbum}>
         <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
       </div>
       <div className="info">

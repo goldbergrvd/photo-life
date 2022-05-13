@@ -1,5 +1,5 @@
-import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, WILL_DELETE_ALBUM } from "../constants"
-import { AlbumList } from "../types";
+import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants"
+import { Album, AlbumList } from "../types";
 
 export interface AddAlbum {
   type: ADD_ALBUM;
@@ -11,6 +11,11 @@ export interface DeleteAlbum {
   payload: {
     id: string
   }
+}
+
+export interface UpdateAlbum {
+  type: UPDATE_ALBUM;
+  payload: Album;
 }
 
 export interface BrowseAlbum {
@@ -31,7 +36,7 @@ export interface WillDeleteAlbum {
   }
 }
 
-export type AlbumListAction = AddAlbum | DeleteAlbum | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum;
+export type AlbumListAction = AddAlbum | DeleteAlbum | UpdateAlbum | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum;
 
 export function addAlbum(albums: AlbumList): AlbumListAction {
   albums.forEach(album => {
@@ -48,6 +53,13 @@ export function deleteAlbum(id: string): AlbumListAction {
   return {
     type: DELETE_ALBUM,
     payload: { id }
+  }
+}
+
+export function updateAlbum(album: Album): AlbumListAction {
+  return {
+    type: UPDATE_ALBUM,
+    payload: album
   }
 }
 

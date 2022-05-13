@@ -48,12 +48,8 @@ export const REQUESTS = Object.freeze({
     name, photoList
   }, JSON_CONFIG),
   deleteAlbum: (id: string) => axios.delete(APIS.deleteAlbum(id)),
-  addAlbumPhoto: (id: string, photoNames: string[]) => axios.put(APIS.addAlbumPhoto(id), {
-    photoNames
-  }, JSON_CONFIG),
-  deleteAlbumPhoto: (id: string, photoNames: string[]) => axios.put(APIS.deleteAlbumPhoto(id), {
-    photoNames
-  }, JSON_CONFIG)
+  addAlbumPhoto: (id: string, photoNames: string[]) => axios.put(APIS.addAlbumPhoto(id), photoNames, JSON_CONFIG),
+  deleteAlbumPhoto: (id: string, photoNames: string[]) => axios.put(APIS.deleteAlbumPhoto(id), photoNames, JSON_CONFIG)
 })
 
 export default REQUESTS;

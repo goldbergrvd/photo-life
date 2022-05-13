@@ -118,6 +118,9 @@ export type ADD_ALBUM = typeof ADD_ALBUM;
 export const DELETE_ALBUM = 'DELETE_ALBUM'; // eslint-disable-next-line
 export type DELETE_ALBUM = typeof DELETE_ALBUM;
 
+export const UPDATE_ALBUM = 'UPDATE_ALBUM'; // eslint-disable-next-line
+export type UPDATE_ALBUM = typeof UPDATE_ALBUM;
+
 export const BROWSE_ALBUM = 'BROWSE_ALBUM'; // eslint-disable-next-line
 export type BROWSE_ALBUM = typeof BROWSE_ALBUM;
 

@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { AlertAction, setAlert } from "../../actions";
+import { AlertAction, setAlert, setState, StateAction } from "../../actions";
 import PickInfo from "../../components/toolbar/PickInfo";
-import { Alert, StoreState } from "../../types";
+import { Alert, State, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {
   return {
@@ -12,9 +12,10 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AlertAction>) {
+function mapDispatchToProps(dispatch: Dispatch<AlertAction | StateAction>) {
   return {
-    deleteAlert: (alert: Alert) => dispatch(setAlert(alert))
+    deleteAlert: (alert: Alert) => dispatch(setAlert(alert)),
+    pickAlbum: () => dispatch(setState(State.PickAlbum))
   }
 }
 

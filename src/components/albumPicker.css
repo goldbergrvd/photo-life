@@ -1,0 +1,36 @@
+.album-picker {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, .5);
+  text-align: left;
+  position: fixed;
+  top: 0;
+  z-index: 4;
+}
+
+.album-picker .container {
+  width: inherit;
+  height: calc(100% - 6rem);
+  border-radius: 1rem 1rem 0 0;
+  background-color: white;
+  position: absolute;
+  top: 6rem;
+}
+
+.album-picker .btn {
+  border-radius: 1rem 1rem 0 0;
+  line-height: 3rem;
+  font-weight: bold;
+  color: rgb(51, 153, 204);
+}
+
+.album-picker .btn .cancel {
+  padding: 0 1rem;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
+.album-picker .albums {
+  padding-top: 3rem;
+}

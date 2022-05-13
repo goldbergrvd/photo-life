@@ -1,6 +1,6 @@
 import './App.css';
+import AlbumPicker from './containers/AlbumPicker';
 import AlbumCreator from './containers/AlbumCreator';
-
 import Alert from './containers/Alert';
 import Messages from './containers/Messages';
 import PhotoBrowse from './containers/PhotoBrowse';
@@ -19,6 +19,7 @@ function App() {
       <PhotoBrowse />
       <Alert />
       <AlbumCreator />
+      <AlbumPicker />
     </div>
   );
 }
