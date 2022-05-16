@@ -24,19 +24,7 @@ function mapDispatchToProps(dispatch: Dispatch<AlertAction | PhotoListAction | V
       dispatch(setAlert(AlertState.DeletingMedia))
 
       requests.delete(names)
-        .then(res => {
-          let deletedPhotosMap = new Map<string, boolean>()
-          let deletedVideosMap = new Map<string, boolean>()
-
-          for (let [k, v] of Object.entries(res.data)) {
-            if (isImage(k)) {
-              deletedPhotosMap.set(k, v as boolean)
-            }
-            if (isVideo(k)) {
-              deletedVideosMap.set(k, v as boolean)
-            }
-          }
-
+        .then(({ deletedPhotosMap, deletedVideosMap }) => {
           if (deletedPhotosMap.size) {
             dispatch(deletePhotos(deletedPhotosMap))
             dispatch(addInfoMessage('刪除成功', `刪除了${deletedPhotosMap.size}張相片`))
@@ -61,8 +49,8 @@ function mapDispatchToProps(dispatch: Dispatch<AlertAction | PhotoListAction | V
       dispatch(setAlert(AlertState.DeletingAlbum))
 
       requests.deleteAlbum(album.id)
-        .then(res => {
-          dispatch(deleteAlbum(res.data + ''))
+        .then(albumId => {
+          dispatch(deleteAlbum(albumId + ''))
           dispatch(addInfoMessage('刪除成功', `刪除了相簿「${album.name}」`))
         })
         .catch(err => {

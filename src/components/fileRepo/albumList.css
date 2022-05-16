@@ -35,18 +35,6 @@
 .album-list .item .thumbnails img {
   object-fit: cover;
 }
-.album-list .item .thumbnails img:nth-child(1) {
-  border-top-left-radius: 5px;
-}
-.album-list .item .thumbnails img:nth-child(4) {
-  border-top-right-radius: 5px;
-}
-.album-list .item .thumbnails img:nth-child(13) {
-  border-bottom-left-radius: 5px;
-}
-.album-list .item .thumbnails img:nth-child(16) {
-  border-bottom-right-radius: 5px;
-}
 .album-list .item .thumbnails-1 img {
   width: 45vw;
   height: 45vw;
@@ -62,6 +50,30 @@
 .album-list .item .thumbnails-16 img {
   width: calc(45vw / 4);
   height: calc(45vw / 4);
+}
+
+.album-list .item .thumbnails-1 img {
+  border-radius: 5px;
+}
+.album-list .item .thumbnails-4 img:nth-child(1),
+.album-list .item .thumbnails-9 img:nth-child(1),
+.album-list .item .thumbnails-16 img:nth-child(1) {
+  border-top-left-radius: 5px;
+}
+.album-list .item .thumbnails-4 img:nth-child(2),
+.album-list .item .thumbnails-9 img:nth-child(3),
+.album-list .item .thumbnails-16 img:nth-child(4) {
+  border-top-right-radius: 5px;
+}
+.album-list .item .thumbnails-4 img:nth-child(3),
+.album-list .item .thumbnails-9 img:nth-child(7),
+.album-list .item .thumbnails-16 img:nth-child(13) {
+  border-bottom-left-radius: 5px;
+}
+.album-list .item .thumbnails-4 img:nth-child(4),
+.album-list .item .thumbnails-9 img:nth-child(9),
+.album-list .item .thumbnails-16 img:nth-child(16) {
+  border-bottom-right-radius: 5px;
 }
 
 .album-list .item .title {

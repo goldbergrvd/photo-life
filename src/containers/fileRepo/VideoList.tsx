@@ -27,9 +27,7 @@ function mapDispatchToProps(dispatch: Dispatch<VideoAction | MessagesAction | Di
     setVideoBuffers: (index: number, buffers: Array<VideoBuffer>) => dispatch(setVideoBuffers(index, buffers)),
     fetchVideos: (lastVideoName: string) => {
       requests.videos(lastVideoName)
-        .then(res => {
-          dispatch(addVideos(res.data))
-        })
+        .then(videoNames => dispatch(addVideos(videoNames)))
         .catch(err => {
           console.log(err)
           dispatch(addErrorMessage('讀取影片時發生異常', err.response.data))

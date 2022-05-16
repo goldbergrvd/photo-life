@@ -26,9 +26,7 @@ function mapDispatchToProps(dispatch: Dispatch<PhotoListAction | MessagesAction>
       }
       isFetching = true
       requests.images(lastPhotoName, amount)
-        .then(res => {
-          dispatch(addPhotos(res.data))
-        })
+        .then(photoNames => dispatch(addPhotos(photoNames)))
         .catch(err => {
           console.log(err)
           dispatch(addErrorMessage('讀取照片時發生異常', err.response.data))

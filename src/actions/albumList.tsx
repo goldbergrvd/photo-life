@@ -39,10 +39,6 @@ export interface WillDeleteAlbum {
 export type AlbumListAction = AddAlbum | DeleteAlbum | UpdateAlbum | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum;
 
 export function addAlbum(albums: AlbumList): AlbumListAction {
-  albums.forEach(album => {
-    album.browsing = false
-    album.willDelete = false
-  })
   return {
     type: ADD_ALBUM,
     payload: albums

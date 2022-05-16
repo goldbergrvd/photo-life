@@ -4,7 +4,7 @@ import { addErrorMessage, addInfoMessage, MessagesAction, setState, StateAction 
 import { addAlbum, AlbumListAction } from "../actions/albumList";
 import requests from "../api";
 import AlbumCreator from "../components/AlbumCreator";
-import { Album, State, StoreState } from "../types";
+import { State, StoreState } from "../types";
 
 function mapStateToProps(state: StoreState) {
   return {
@@ -16,16 +16,7 @@ function mapDispatchToProps(dispatch: Dispatch<AlbumListAction | StateAction | M
   return {
     submit: (name: string) => {
       requests.addAlbum(name)
-        .then(res => {
-          let album: Album = {
-            id: res.data.id,
-            name: res.data.name,
-            photoList: res.data.photoList.map((photoName: string) => ({
-              name: photoName,
-              browsed: false,
-              selected: false
-            }))
-          }
+        .then(album => {
           dispatch(addAlbum([album]))
           dispatch(addInfoMessage('新增成功', `相簿「${album.name}」被建立`))
         })

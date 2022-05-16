@@ -6,7 +6,6 @@ import { setState, StateAction } from "../../actions/state";
 import { updateVideos, VideoAction } from "../../actions/videoList";
 import requests from "../../api";
 import Uploader from "../../components/fileRepo/Uploader";
-import { isImage, isVideo } from "../../constants";
 import { State, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {
@@ -26,29 +25,17 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
       }
 
       requests.upload(formData, onUploadProgress)
-        .then(res => {
-          let datas = res.data.successResults.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
-            if (isImage(d)) {
-              acc.photos.push(d)
-            }
-            if (isVideo(d)) {
-              acc.videos.push(d)
-            }
-            return acc
-          }, { photos: [], videos: [] })
-
-
-          if (datas.photos.length) {
-            dispatch(updatePhotos(datas.photos))
-            dispatch(addInfoMessage('上傳成功', `上傳了${datas.photos.length}張相片`))
+        .then(({photos, videos, errorFiles}) => {
+          if (photos.length) {
+            dispatch(updatePhotos(photos))
+            dispatch(addInfoMessage('上傳成功', `上傳了${photos.length}張相片`))
           }
-          if (datas.videos.length) {
-            dispatch(updateVideos(datas.videos))
-            dispatch(addInfoMessage('上傳成功', `上傳了${datas.videos.length}部影片`))
+          if (videos.length) {
+            dispatch(updateVideos(videos))
+            dispatch(addInfoMessage('上傳成功', `上傳了${videos.length}部影片`))
           }
-
-          if (res.data.errorFiles.length) {
-            dispatch(addErrorMessageMultiline('部分檔案上傳失敗', res.data.errorFiles as Array<string>))
+          if (errorFiles.length) {
+            dispatch(addErrorMessageMultiline('部分檔案上傳失敗', errorFiles as Array<string>))
           }
         })
         .catch(err => {
