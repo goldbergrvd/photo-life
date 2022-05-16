@@ -12,8 +12,9 @@ function AlbumPicker({ state, cancel }: Props) {
     return (
       <div className="album-picker">
         <div className="container">
-          <div className="btn" onClick={cancel}>
-            <div className="cancel">取消</div>
+          <div className="head">
+            <div className="title">加入相簿</div>
+            <div className="cancel" onClick={cancel}>取消</div>
           </div>
           <div className="albums">
             <AlbumList />

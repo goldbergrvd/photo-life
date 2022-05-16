@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { addErrorMessage, addInfoMessage, AlertAction, MessagesAction, setAlert, setState, StateAction } from "../actions";
-import { AlbumListAction, deleteAlbum } from "../actions/albumList";
+import { AlbumListAction, deleteAlbum, updateAlbum } from "../actions/albumList";
 import { deletePhotos, PhotoListAction } from "../actions/photoList";
 import { deleteVideos, VideoAction } from "../actions/videoList";
 import requests from "../api";
 import Alert from "../components/Alert";
-import { isImage, isVideo } from "../constants";
 import { Album, Alert as AlertState, State, StoreState } from "../types";
 
 function mapStateToProps(state: StoreState) {
@@ -14,7 +13,7 @@ function mapStateToProps(state: StoreState) {
     alertState: state.alert,
     photoList: state.photoList,
     videoList: state.videoList,
-    album: state.albumList.find(album => album.willDelete) || null
+    album: state.albumList.find(album => album.willDelete) || state.albumList.find(album => album.photoList.some(p => p.selected)) || null
   }
 }
 
@@ -55,6 +54,22 @@ function mapDispatchToProps(dispatch: Dispatch<AlertAction | PhotoListAction | V
         })
         .catch(err => {
           dispatch(addErrorMessage('刪除相簿時發生異常', err.response.data))
+        })
+        .finally(() => {
+          dispatch(setAlert(AlertState.None))
+          dispatch(setState(State.Browse))
+        })
+    },
+    deleteAlbumPhoto: (id: string, photoNames: string[]) => {
+      dispatch(setAlert(AlertState.DeletingAlbumPhoto))
+
+      requests.deleteAlbumPhoto(id, photoNames)
+        .then(album => {
+          dispatch(updateAlbum(album))
+          dispatch(addInfoMessage('刪除成功', `刪除了相簿「${album.name}」中的${photoNames.length}張照片`))
+        })
+        .catch(err => {
+          dispatch(addErrorMessage('刪除相簿照片時發生異常', err.response.data))
         })
         .finally(() => {
           dispatch(setAlert(AlertState.None))

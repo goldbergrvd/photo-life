@@ -121,6 +121,12 @@ export type DELETE_ALBUM = typeof DELETE_ALBUM;
 export const UPDATE_ALBUM = 'UPDATE_ALBUM'; // eslint-disable-next-line
 export type UPDATE_ALBUM = typeof UPDATE_ALBUM;
 
+export const TOGGLE_ALBUM_PHOTO_SELECT = 'TOGGLE_ALBUM_PHOTO_SELECT'; // eslint-disable-next-line
+export type TOGGLE_ALBUM_PHOTO_SELECT = typeof TOGGLE_ALBUM_PHOTO_SELECT;
+
+export const CLEAR_ALBUM_PHOTO_SELECT = 'CLEAR_ALBUM_PHOTO_SELECT'; // eslint-disable-next-line
+export type CLEAR_ALBUM_PHOTO_SELECT = typeof CLEAR_ALBUM_PHOTO_SELECT;
+
 export const BROWSE_ALBUM = 'BROWSE_ALBUM'; // eslint-disable-next-line
 export type BROWSE_ALBUM = typeof BROWSE_ALBUM;
 

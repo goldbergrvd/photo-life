@@ -25,7 +25,9 @@ export enum Alert {
   DeleteVideoCheck = 3,
   DeletingMedia = 4,
   DeleteAlbumCheck = 5,
-  DeletingAlbum = 6
+  DeletingAlbum = 6,
+  DeleteAlbumPhotoCheck = 7,
+  DeletingAlbumPhoto = 8
 }
 
 export enum MessageType {

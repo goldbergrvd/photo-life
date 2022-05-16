@@ -1,4 +1,4 @@
-import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants"
+import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_ALBUM_PHOTO_SELECT, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, TOGGLE_ALBUM_PHOTO_SELECT, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants"
 import { Album, AlbumList } from "../types";
 
 export interface AddAlbum {
@@ -16,6 +16,15 @@ export interface DeleteAlbum {
 export interface UpdateAlbum {
   type: UPDATE_ALBUM;
   payload: Album;
+}
+
+export interface ToggleAlbumPhotoSelect {
+  type: TOGGLE_ALBUM_PHOTO_SELECT;
+  payload: number;
+}
+
+export interface ClearAlbumPhotoSelect {
+  type: CLEAR_ALBUM_PHOTO_SELECT;
 }
 
 export interface BrowseAlbum {
@@ -36,7 +45,7 @@ export interface WillDeleteAlbum {
   }
 }
 
-export type AlbumListAction = AddAlbum | DeleteAlbum | UpdateAlbum | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum;
+export type AlbumListAction = AddAlbum | DeleteAlbum | UpdateAlbum | ToggleAlbumPhotoSelect | ClearAlbumPhotoSelect | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum;
 
 export function addAlbum(albums: AlbumList): AlbumListAction {
   return {
@@ -56,6 +65,19 @@ export function updateAlbum(album: Album): AlbumListAction {
   return {
     type: UPDATE_ALBUM,
     payload: album
+  }
+}
+
+export function toggleAlbumPhotoSelect(index: number): AlbumListAction {
+  return {
+    type: TOGGLE_ALBUM_PHOTO_SELECT,
+    payload: index
+  }
+}
+
+export function clearAlbumPhotoSelect(): AlbumListAction {
+  return {
+    type: CLEAR_ALBUM_PHOTO_SELECT
   }
 }
 

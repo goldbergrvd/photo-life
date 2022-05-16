@@ -10,11 +10,12 @@ interface Props {
   album: Album | null;
   deleteMedias: (names: string[]) => void;
   deleteAlbum: (album: Album) => void;
+  deleteAlbumPhoto: (id: string, photoNames: string[]) => void;
   cancel: () => void;
 }
 
 
-function Alert({ alertState, photoList, videoList, album, deleteMedias, deleteAlbum, cancel }: Props) {
+function Alert({ alertState, photoList, videoList, album, deleteMedias, deleteAlbum, deleteAlbumPhoto, cancel }: Props) {
 
   function onSubmitClick() {
     if (alertState === AlertState.DeletePhotoCheck) {
@@ -30,6 +31,11 @@ function Alert({ alertState, photoList, videoList, album, deleteMedias, deleteAl
     if (alertState === AlertState.DeleteAlbumCheck) {
       deleteAlbum(album!)
     }
+
+    if (alertState === AlertState.DeleteAlbumPhotoCheck) {
+      let deletedPhotoNames = album!.photoList.filter(p => p.selected).map(p => p.name)
+      deleteAlbumPhoto(album!.id, deletedPhotoNames)
+    }
   }
 
   function getSubmitBtn() {
@@ -40,8 +46,11 @@ function Alert({ alertState, photoList, videoList, album, deleteMedias, deleteAl
         return '刪除影片'
       case AlertState.DeleteAlbumCheck:
         return '刪除' + album!.name
+      case AlertState.DeleteAlbumPhotoCheck:
+        return '刪除相簿照片'
       case AlertState.DeletingMedia:
       case AlertState.DeletingAlbum:
+      case AlertState.DeletingAlbumPhoto:
         return <FontAwesomeIcon icon={faRefresh} spin />
     }
   }

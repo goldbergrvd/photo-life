@@ -21,6 +21,10 @@ function PickInfo({ tab, photoList, deleteAlert, pickAlbum }: Props) {
     if (tab === Tab.VideoRepo) {
       deleteAlert(Alert.DeleteVideoCheck)
     }
+
+    if (tab === Tab.Album) {
+      deleteAlert(Alert.DeleteAlbumPhotoCheck)
+    }
   }
 
   return (

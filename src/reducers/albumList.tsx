@@ -1,5 +1,5 @@
 import { AlbumListAction } from "../actions/albumList";
-import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants";
+import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_ALBUM_PHOTO_SELECT, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, TOGGLE_ALBUM_PHOTO_SELECT, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants";
 import { AlbumList } from "../types";
 
 export default function albumListReducer(albumList: AlbumList = [], action: AlbumListAction): AlbumList {
@@ -12,6 +12,26 @@ export default function albumListReducer(albumList: AlbumList = [], action: Albu
 
     case UPDATE_ALBUM:
       return albumList.map(album => album.id === action.payload.id ? action.payload : album)
+
+    case TOGGLE_ALBUM_PHOTO_SELECT:
+      return albumList.map(album => {
+        if (album.browsing) {
+          album.photoList[action.payload].selected = !album.photoList[action.payload].selected
+          return {...album}
+        }
+        return album
+      })
+
+    case CLEAR_ALBUM_PHOTO_SELECT:
+      return albumList.map(album => {
+        if (album.browsing) {
+          album.photoList.forEach(photo => {
+            photo.selected = false
+          })
+          return {...album}
+        }
+        return album
+      })
 
     case BROWSE_ALBUM:
       return albumList.map(album => {

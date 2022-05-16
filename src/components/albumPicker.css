@@ -17,20 +17,21 @@
   top: 6rem;
 }
 
-.album-picker .btn {
+.album-picker .head {
   border-radius: 1rem 1rem 0 0;
   line-height: 3rem;
   font-weight: bold;
-  color: rgb(51, 153, 204);
 }
 
-.album-picker .btn .cancel {
+.album-picker .head .title {
+  text-align: center;
+}
+
+.album-picker .head .cancel {
   padding: 0 1rem;
+  color: rgb(51, 153, 204);
   display: inline-block;
   position: absolute;
+  top: 0;
   right: 0;
-}
-
-.album-picker .albums {
-  padding-top: 3rem;
 }
