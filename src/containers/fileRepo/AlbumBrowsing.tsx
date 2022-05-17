@@ -1,20 +1,47 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { AlbumListAction, toggleAlbumPhotoSelect } from "../../actions/albumList";
+import { AlbumListAction, openAlbumPhotoBrowse, toggleAlbumPhotoSelect } from "../../actions/albumList";
 import AlbumBrowsing from "../../components/fileRepo/AlbumBrowsing";
-import { StoreState } from "../../types";
+import { Album, State, StoreState } from "../../types";
 
-function mapStateToProps(state: StoreState) {
+interface StateProps {
+  album: Album | null;
+  state: State;
+}
+
+interface DispatchProps {
+  toggleAlbumPhotoSelect: (index: number) => void;
+  openAlbumPhotoBrowse: (index: number) => void;
+}
+
+function mapStateToProps(state: StoreState): StateProps {
   return {
     album: state.albumList.find(album => album.browsing) || null,
     state: state.state
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AlbumListAction>) {
+function mapDispatchToProps(dispatch: Dispatch<AlbumListAction>): DispatchProps {
   return {
-    toggleAlbumPhotoSelect: (index: number) => dispatch(toggleAlbumPhotoSelect(index))
+    toggleAlbumPhotoSelect: (index: number) => dispatch(toggleAlbumPhotoSelect(index)),
+    openAlbumPhotoBrowse: (index: number) => dispatch(openAlbumPhotoBrowse(index))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumBrowsing);
+function mergeProps(stateProps: StateProps, dispatchProps: DispatchProps) {
+  return {
+    album: stateProps.album,
+    onImgClick: (index: number) => {
+      switch(stateProps.state) {
+        case State.Browse:
+          dispatchProps.openAlbumPhotoBrowse(index)
+          break
+        case State.Select:
+          dispatchProps.toggleAlbumPhotoSelect(index)
+          break
+      }
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(AlbumBrowsing);

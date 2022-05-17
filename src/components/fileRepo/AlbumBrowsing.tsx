@@ -1,5 +1,5 @@
 import "./albumBrowsing.css";
-import { Album, State } from "../../types";
+import { Album } from "../../types";
 import { APIS as api } from "../../api";
 import SelectMask from "./SelectMask";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,18 +7,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   album: Album | null;
-  state: State;
-  toggleAlbumPhotoSelect: (index: number) => void;
+  onImgClick: (index: number) => void;
 }
 
-function AlbumBrowsing({ album, state, toggleAlbumPhotoSelect }: Props) {
-
-  function onImgClick(index: number) {
-    if (state === State.Select) {
-      toggleAlbumPhotoSelect(index)
-    }
-  }
-
+function AlbumBrowsing({ album, onImgClick }: Props) {
   if (album) {
     return (
       <div className="album-browsing show">

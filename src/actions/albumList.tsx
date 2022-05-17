@@ -1,4 +1,4 @@
-import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_ALBUM_PHOTO_SELECT, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, TOGGLE_ALBUM_PHOTO_SELECT, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants"
+import { ADD_ALBUM, BROWSE_ALBUM, CLEAR_ALBUM_PHOTO_BROWSE, CLEAR_ALBUM_PHOTO_SELECT, CLEAR_BROWSE_ALBUM, DELETE_ALBUM, NEXT_ALBUM_PHOTO_BROWSE, OPEN_ALBUM_PHOTO_BROWSE, PREV_ALBUM_PHOTO_BROWSE, TOGGLE_ALBUM_PHOTO_SELECT, UPDATE_ALBUM, WILL_DELETE_ALBUM } from "../constants"
 import { Album, AlbumList } from "../types";
 
 export interface AddAlbum {
@@ -45,7 +45,24 @@ export interface WillDeleteAlbum {
   }
 }
 
-export type AlbumListAction = AddAlbum | DeleteAlbum | UpdateAlbum | ToggleAlbumPhotoSelect | ClearAlbumPhotoSelect | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum;
+export interface OpenAlbumPhotoBrowse {
+  type: OPEN_ALBUM_PHOTO_BROWSE;
+  payload: number;
+}
+
+export interface ClearAlbumPhotoBrowse {
+  type: CLEAR_ALBUM_PHOTO_BROWSE;
+}
+
+export interface PrevAlbumPhotoBrowse {
+  type: PREV_ALBUM_PHOTO_BROWSE;
+}
+
+export interface NextAlbumPhotoBrowse {
+  type: NEXT_ALBUM_PHOTO_BROWSE;
+}
+
+export type AlbumListAction = AddAlbum | DeleteAlbum | UpdateAlbum | ToggleAlbumPhotoSelect | ClearAlbumPhotoSelect | BrowseAlbum | ClearBrowseAlbum | WillDeleteAlbum | OpenAlbumPhotoBrowse | ClearAlbumPhotoBrowse | PrevAlbumPhotoBrowse | NextAlbumPhotoBrowse;
 
 export function addAlbum(albums: AlbumList): AlbumListAction {
   return {
@@ -98,5 +115,30 @@ export function willDeleteAlbum(id: string): AlbumListAction {
   return {
     type: WILL_DELETE_ALBUM,
     payload: { id }
+  }
+}
+
+export function openAlbumPhotoBrowse(index: number): AlbumListAction {
+  return {
+    type: OPEN_ALBUM_PHOTO_BROWSE,
+    payload: index
+  }
+}
+
+export function clearAlbumPhotoBrowse(): AlbumListAction {
+  return {
+    type: CLEAR_ALBUM_PHOTO_BROWSE
+  }
+}
+
+export function prevAlbumPhotoBrowse(): AlbumListAction {
+  return {
+    type: PREV_ALBUM_PHOTO_BROWSE
+  }
+}
+
+export function nextAlbumPhotoBrowse(): AlbumListAction {
+  return {
+    type: NEXT_ALBUM_PHOTO_BROWSE
   }
 }

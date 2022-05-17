@@ -135,3 +135,15 @@ export type CLEAR_BROWSE_ALBUM = typeof CLEAR_BROWSE_ALBUM;
 
 export const WILL_DELETE_ALBUM = 'WILL_DELETE_ALBUM'; // eslint-disable-next-line
 export type WILL_DELETE_ALBUM = typeof WILL_DELETE_ALBUM;
+
+export const OPEN_ALBUM_PHOTO_BROWSE = 'OPEN_ALBUM_PHOTO_BROWSE'; // eslint-disable-next-line
+export type OPEN_ALBUM_PHOTO_BROWSE = typeof OPEN_ALBUM_PHOTO_BROWSE;
+
+export const CLEAR_ALBUM_PHOTO_BROWSE = 'CLEAR_ALBUM_PHOTO_BROWSE'; // eslint-disable-next-line
+export type CLEAR_ALBUM_PHOTO_BROWSE = typeof CLEAR_ALBUM_PHOTO_BROWSE;
+
+export const PREV_ALBUM_PHOTO_BROWSE = 'PREV_ALBUM_PHOTO_BROWSE'; // eslint-disable-next-line
+export type PREV_ALBUM_PHOTO_BROWSE = typeof PREV_ALBUM_PHOTO_BROWSE;
+
+export const NEXT_ALBUM_PHOTO_BROWSE = 'NEXT_ALBUM_PHOTO_BROWSE'; // eslint-disable-next-line
+export type NEXT_ALBUM_PHOTO_BROWSE = typeof NEXT_ALBUM_PHOTO_BROWSE;
