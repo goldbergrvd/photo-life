@@ -1,7 +1,7 @@
 import "./videoList.css";
 
 import React from "react";
-import api from "../../api";
+import { APIS as api } from "../../api";
 import { State, Video, VideoBuffer, VideoList } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faExpand, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
