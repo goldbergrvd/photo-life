@@ -2,10 +2,11 @@ import './App.css';
 import AlbumPicker from './containers/AlbumPicker';
 import AlbumCreator from './containers/AlbumCreator';
 import Alert from './containers/Alert';
+import Header from './containers/header/Header';
 import Messages from './containers/Messages';
 import PhotoBrowse from './containers/PhotoBrowse';
 import Toolbar from './containers/toolbar/Toolbar';
-import ViewSwitch from './containers/ViewSwitch';
+import ViewSwitch from './containers/view/ViewSwitch';
 import { detectBrowser } from './native-dom'
 
 function App() {
@@ -14,12 +15,13 @@ function App() {
   return (
     <div className={`App ${browser}`}>
       <ViewSwitch />
-      <Messages />
+      <Header />
       <Toolbar />
-      <PhotoBrowse />
       <Alert />
       <AlbumCreator />
       <AlbumPicker />
+      <Messages />
+      <PhotoBrowse />
     </div>
   );
 }

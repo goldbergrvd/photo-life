@@ -1,11 +1,9 @@
 import "./album.css";
-import AlbumList from "../../containers/fileRepo/AlbumList";
-import FileCount from "../../containers/fileRepo/FileCount";
-import AlbumEditor from "../../containers/fileRepo/AlbumEditor";
-import { setThemeColor } from "../../native-dom";
 import React from "react";
+import AlbumList from "../../containers/listview/AlbumList";
+import AlbumBrowsing from "../../containers/listview/AlbumBrowsing";
+import { setThemeColor } from "../../native-dom";
 import { COLOR_BLACK, COLOR_WHITE } from "../../constants";
-import AlbumBrowsing from "../../containers/fileRepo/AlbumBrowsing";
 
 interface Props {
 
@@ -26,8 +24,6 @@ class Album extends React.Component<Props, object> {
       <div className="album">
         <AlbumList />
         <AlbumBrowsing />
-        <FileCount />
-        <AlbumEditor />
       </div>
     )
   }

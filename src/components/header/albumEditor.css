@@ -4,8 +4,9 @@
   font-weight: bold;
   color: rgb(51, 153, 204);
   user-select: none;
-  position: fixed;
+  position: absolute;
   top:0;
+  pointer-events: initial;
 }
 
 .album-editor .add,

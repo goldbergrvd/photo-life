@@ -5,7 +5,7 @@
   text-align: left;
   position: fixed;
   top: 0;
-  z-index: 4;
+  z-index: 2;
 }
 
 .album-picker .container {

@@ -1,4 +1,4 @@
-import AlbumList from "../containers/fileRepo/AlbumList";
+import AlbumList from "../containers/listview/AlbumList";
 import { State } from "../types";
 import "./albumPicker.css";
 

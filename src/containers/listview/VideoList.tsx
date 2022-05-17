@@ -1,10 +1,10 @@
-import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { connect } from "react-redux";
 import { addErrorMessage, closeVideoControls, DisplayAction, MessagesAction, openVideoControls } from "../../actions";
 import { addVideos, closeVideoFullscreen, openVideoFullscreen, pauseVideo, playVideo, setVideoBuffers, setVideoTime, toggleVideoSelect, VideoAction } from "../../actions/videoList";
 import requests from "../../api";
-import VideoListComponent from "../../components/fileRepo/VideoList";
 import { StoreState, VideoBuffer } from "../../types";
+import VideoListComponent from "../../components/listview/VideoList";
 
 function mapStateToProps(state: StoreState) {
   return {

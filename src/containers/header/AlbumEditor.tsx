@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setState, StateAction } from "../../actions";
 import { AlbumListAction, clearAlbumPhotoSelect, clearBrowseAlbum } from "../../actions/albumList";
-import AlbumEditor from "../../components/fileRepo/AlbumEditor";
+import AlbumEditor from "../../components/header/AlbumEditor";
 import { State, StoreState } from "../../types";
 
 interface StateProps {

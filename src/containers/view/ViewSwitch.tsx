@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { StoreState, Tab } from "../types";
+import { StoreState, Tab } from "../../types";
 
-import ViewSwitch from "../components/view/ViewSwitch";
-import ImageRepo from "../components/view/ImageRepo";
-import VideoRepo from "../components/view/VideoRepo";
-import Album from "../components/view/Album";
+import ViewSwitch from "../../components/view/ViewSwitch";
+import ImageRepo from "../../components/view/ImageRepo";
+import VideoRepo from "../../components/view/VideoRepo";
+import Album from "../../components/view/Album";
 
 function mapStateToProps(state: StoreState) {
   switch(state.tab) {

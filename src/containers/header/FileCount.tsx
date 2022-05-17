@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import FileCount from "../../components/fileRepo/FileCount";
+import FileCount from "../../components/header/FileCount";
 import { StoreState, Tab } from "../../types";
 
 function mapStateToProps(state: StoreState) {

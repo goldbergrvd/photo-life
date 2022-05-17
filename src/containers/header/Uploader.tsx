@@ -5,7 +5,7 @@ import { PhotoListAction, updatePhotos } from "../../actions/photoList";
 import { setState, StateAction } from "../../actions/state";
 import { updateVideos, VideoAction } from "../../actions/videoList";
 import requests from "../../api";
-import Uploader from "../../components/fileRepo/Uploader";
+import Uploader from "../../components/header/Uploader";
 import { State, StoreState } from "../../types";
 
 function mapStateToProps(state: StoreState) {

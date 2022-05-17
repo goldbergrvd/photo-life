@@ -1,10 +1,10 @@
-import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { connect } from "react-redux";
 import { addErrorMessage, addInfoMessage, AlertAction, clearPhotoSelect, MessagesAction, PhotoListAction, setAlert, setState, StateAction } from "../../actions";
 import { addAlbum, AlbumListAction, browseAlbum, updateAlbum, willDeleteAlbum } from "../../actions/albumList";
 import requests from "../../api";
-import AlbumList from "../../components/fileRepo/AlbumList";
 import { Alert, StoreState, State } from "../../types";
+import AlbumList from "../../components/listview/AlbumList";
 
 function mapStateToProps(state: StoreState) {
   return {

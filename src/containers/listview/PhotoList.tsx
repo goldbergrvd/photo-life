@@ -1,10 +1,10 @@
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { addPhotos, openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
-import { StoreState } from "../../types";
-import PhotoList from "../../components/fileRepo/PhotoList";
-import requests from "../../api";
 import { addErrorMessage, MessagesAction } from "../../actions";
+import { addPhotos, openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
+import requests from "../../api";
+import { StoreState } from "../../types";
+import PhotoList from "../../components/listview/PhotoList";
 
 let isFetching = false
 

@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { setState, StateAction } from "../../actions";
 import { clearPhotoSelect, PhotoListAction } from "../../actions/photoList";
 import { clearVideoSelect, VideoAction } from "../../actions/videoList";
-import Pick from "../../components/fileRepo/Pick";
+import Pick from "../../components/header/Pick";
 import { State, StoreState, Tab } from "../../types";
 
 interface StateProps {

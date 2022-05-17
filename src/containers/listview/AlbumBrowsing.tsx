@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { connect } from "react-redux";
 import { AlbumListAction, openAlbumPhotoBrowse, toggleAlbumPhotoSelect } from "../../actions/albumList";
-import AlbumBrowsing from "../../components/fileRepo/AlbumBrowsing";
 import { Album, State, StoreState } from "../../types";
+import AlbumBrowsing from "../../components/listview/AlbumBrowsing";
 
 interface StateProps {
   album: Album | null;

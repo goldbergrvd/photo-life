@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setViewType, ViewTypeAction } from "../../actions";
-import ViewPicker from "../../components/fileRepo/ViewPicker";
+import ViewPicker from "../../components/view/ViewPicker";
 import { StoreState, ViewType } from "../../types";
 
 function mapStateToProps(state: StoreState) {

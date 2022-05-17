@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import reducers from './reducers'
-import { Alert, State, Tab, ViewType } from './types';
+import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { Alert, State, Tab, ViewType } from './types';
+import App from './App';
+import reducers from './reducers'
+import reportWebVitals from './reportWebVitals';
 
 const DEFAULT_STATE = {
   tab: Tab.ImageRepo,
