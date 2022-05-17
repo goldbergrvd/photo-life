@@ -8,7 +8,7 @@ import { State, StoreState } from "../types";
 
 function mapStateToProps(state: StoreState) {
   return {
-    state: state.state
+    open: state.state === State.AddAlbum
   }
 }
 

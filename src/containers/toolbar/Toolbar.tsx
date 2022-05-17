@@ -1,11 +1,22 @@
 import { connect } from "react-redux";
 import Toolbar from "../../components/toolbar/Toolbar";
-import { StoreState } from "../../types";
+import { State, StoreState } from "../../types";
+import PickInfo from "./PickInfo";
+import Tabs from "./Tabs";
+import UploadProgress from "./UploadProgress";
 
 function mapStateToProps(state: StoreState) {
-  return {
-    state: state.state
+  switch(state.state) {
+    case State.Select:
+      return { component: <PickInfo /> }
+    case State.Upload:
+      return { component: <UploadProgress /> }
+    case State.Browse:
+    case State.AddAlbum:
+    case State.DeleteAlbum:
+    default:
+      return { component: <Tabs /> }
   }
 }
 
-export default connect(mapStateToProps)(Toolbar)
+export default connect(mapStateToProps)(Toolbar);

@@ -6,13 +6,17 @@ import { StoreState, Tab } from "../../types";
 
 function mapStateToProps(state: StoreState) {
   return {
-    tab: state.tab
+    isImageRepoTab: state.tab === Tab.ImageRepo,
+    isVideoRepoTab: state.tab === Tab.VideoRepo,
+    isAlbumTab: state.tab === Tab.Album
   }
 }
 
 function mapDispatchToProps(dispatch: Dispatch<TabAction>) {
   return {
-    setTab: (tab: Tab) => dispatch(setTab(tab))
+    toImageRepoTab: () => dispatch(setTab(Tab.ImageRepo)),
+    toVideoRepoTab: () => dispatch(setTab(Tab.VideoRepo)),
+    toAlbumTab: () => dispatch(setTab(Tab.Album))
   }
 }
 

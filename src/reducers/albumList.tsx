@@ -11,7 +11,15 @@ export default function albumListReducer(albumList: AlbumList = [], action: Albu
       return albumList.filter(album => album.id !== action.payload.id)
 
     case UPDATE_ALBUM:
-      return albumList.map(album => album.id === action.payload.id ? action.payload : album)
+      return albumList.map(album => {
+        if (album.id === action.payload.id) {
+           let newAlbum = action.payload
+           newAlbum.browsing = album.browsing
+           return newAlbum
+        } else {
+          return album
+        }
+      })
 
     case TOGGLE_ALBUM_PHOTO_SELECT:
       return albumList.map(album => {

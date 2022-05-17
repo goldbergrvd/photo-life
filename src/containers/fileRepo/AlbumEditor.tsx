@@ -5,7 +5,21 @@ import { AlbumListAction, clearAlbumPhotoSelect, clearBrowseAlbum } from "../../
 import AlbumEditor from "../../components/fileRepo/AlbumEditor";
 import { State, StoreState } from "../../types";
 
-function mapStateToProps(state: StoreState) {
+interface StateProps {
+  addText: string;
+  deleteText: string;
+  selectText: string;
+  state: State;
+  isBrowsing: boolean;
+}
+
+interface DispatchProps {
+  setState: (state: State) => void;
+  closeBrowsing: () => void;
+  clearAlbumPhotoSelect: () => void;
+}
+
+function mapStateToProps(state: StoreState): StateProps {
   return {
     addText: state.state === State.AddAlbum ? '取消' : '新增',
     deleteText: state.state === State.DeleteAlbum ? '取消' : '刪除',
@@ -15,7 +29,7 @@ function mapStateToProps(state: StoreState) {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AlbumListAction | StateAction>) {
+function mapDispatchToProps(dispatch: Dispatch<AlbumListAction | StateAction>): DispatchProps {
   return {
     setState: (state: State) => dispatch(setState(state)),
     closeBrowsing: () => {
@@ -30,5 +44,33 @@ function mapDispatchToProps(dispatch: Dispatch<AlbumListAction | StateAction>) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumEditor);
+function mergeProps(stateProps: StateProps, dispatchProps: DispatchProps) {
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    onAddClick: () => {
+      if (stateProps.state === State.AddAlbum) {
+        dispatchProps.setState(State.Browse)
+      } else {
+        dispatchProps.setState(State.AddAlbum)
+      }
+    },
+    onDeleteClick: () => {
+      if (stateProps.state === State.DeleteAlbum) {
+        dispatchProps.setState(State.Browse)
+      } else {
+        dispatchProps.setState(State.DeleteAlbum)
+      }
+    },
+    onSelectClick: () => {
+      if (stateProps.state === State.Select) {
+        dispatchProps.clearAlbumPhotoSelect()
+      } else {
+        dispatchProps.setState(State.Select)
+      }
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(AlbumEditor);
 

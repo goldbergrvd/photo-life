@@ -5,14 +5,30 @@ import ViewPicker from "../../components/fileRepo/ViewPicker";
 import { StoreState, ViewType } from "../../types";
 
 function mapStateToProps(state: StoreState) {
+  let pickClassName = "day"
+  let pickText = "日"
+
+  if (state.viewType === ViewType.Year) {
+    pickClassName = "year"
+    pickText = "年"
+  }
+
+  if (state.viewType === ViewType.Month) {
+    pickClassName = "month"
+    pickText = "月"
+  }
+
   return {
-    viewType: state.viewType
+    pickText,
+    pickClassName
   }
 }
 
 function mapDispatchToProps(dispatch: Dispatch<ViewTypeAction>) {
   return {
-    setViewType: (viewType: ViewType) => dispatch(setViewType(viewType))
+    toYear: () => dispatch(setViewType(ViewType.Year)),
+    toMonth: () => dispatch(setViewType(ViewType.Month)),
+    toDay: () => dispatch(setViewType(ViewType.Day))
   }
 }
 

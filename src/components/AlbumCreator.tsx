@@ -1,13 +1,12 @@
 import "./albumCreator.css";
-import { State } from "../types";
 
 interface Props {
-  state: State;
+  open: boolean;
   submit: (name: string) => void;
   cancel: () => void;
 }
 
-function AlbumCreator({ state, submit, cancel }: Props) {
+function AlbumCreator({ open, submit, cancel }: Props) {
   let _input: HTMLInputElement;
 
   function onInputMount(input: HTMLInputElement) {
@@ -25,7 +24,7 @@ function AlbumCreator({ state, submit, cancel }: Props) {
   }
 
   return (
-    <div className={`album-creator ${state === State.AddAlbum ? '' : 'hide'}`}>
+    <div className={`album-creator ${open ? '' : 'hide'}`}>
       <div className="modal">
         <div className="content">
           <div className="title">新增相簿</div>
