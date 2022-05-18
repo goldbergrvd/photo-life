@@ -10,7 +10,9 @@ export enum State {
   Select = 3,
   AddAlbum = 4,
   DeleteAlbum = 5,
-  PickAlbum = 6
+  PickAlbum = 6,
+  PickPhoto = 7,
+  UpdateAlbum = 8
 }
 
 export enum ViewType {

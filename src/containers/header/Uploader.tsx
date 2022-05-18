@@ -19,12 +19,11 @@ function mapDispatchToProps(dispatch: Dispatch<StateAction | UploadProgressActio
     upload: (formData: FormData) => {
       dispatch(setState(State.Upload))
 
-      function onUploadProgress (progressEvent: { loaded: number; total: number; }) {
-        var progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+      function uploadProgressUpdater (progress: number) {
         dispatch(setUploadProgress(progress))
       }
 
-      requests.upload(formData, onUploadProgress)
+      requests.upload(formData, uploadProgressUpdater)
         .then(({photos, videos, errorFiles}) => {
           if (photos.length) {
             dispatch(updatePhotos(photos))

@@ -1,0 +1,60 @@
+.picker {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: left;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.picker.show {
+  background-color: rgba(0, 0, 0, .5);
+  pointer-events: initial;
+}
+
+.picker .container {
+  width: inherit;
+  height: calc(100% - 6rem);
+  border-radius: 1rem 1rem 0 0;
+  background-color: white;
+  position: absolute;
+  top: 100%;
+  transition: top .5s ease;
+}
+
+.picker .container.show {
+  top: 6rem;
+}
+
+.picker .head {
+  height: 3rem;
+  border-radius: 1rem 1rem 0 0;
+  line-height: 3rem;
+  font-weight: bold;
+}
+
+.picker .head .title {
+  text-align: center;
+}
+
+.picker .head .submit,
+.picker .head .cancel {
+  padding: 0 1rem;
+  color: rgb(51, 153, 204);
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.picker .head .submit {
+  left: 0;
+}
+.picker .head .cancel {
+  right: 0;
+}
+
+.picker .items {
+  height: calc(100% - 3rem);
+  overflow: scroll;
+}

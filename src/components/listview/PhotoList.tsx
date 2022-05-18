@@ -9,6 +9,7 @@ export interface Props {
   photoList: PhotoList;
   state: State;
   viewType: ViewType;
+  paddingClass: string;
   onTogglePhotoSelect: (index: number) => void;
   onOpenPhotoBrowse: (index: number) => void;
   fetchPhotos: (lastPhotoName: string, amount: number) => void;
@@ -80,7 +81,7 @@ class PhotoListComponent extends React.Component<Props, object> {
       onOpenPhotoBrowse
     } = this.props
 
-    if (state === State.Select) {
+    if (state === State.Select || state === State.PickPhoto) {
       onTogglePhotoSelect(i)
     }
 
@@ -115,10 +116,10 @@ class PhotoListComponent extends React.Component<Props, object> {
   }
 
   render() {
-    const { photoList } = this.props
+    const { photoList, paddingClass } = this.props
 
     return (
-      <div className={`photo-list img-${this.getRowItemCount()}`} ref={c => scrollTrigger = scrollTrigger || new ScrollTrigger(c as HTMLDivElement)}>
+      <div className={`photo-list ${paddingClass} img-${this.getRowItemCount()}`} ref={c => scrollTrigger = scrollTrigger || new ScrollTrigger(c as HTMLDivElement)}>
         {
           photoList.map((photo, i) => (
             <div className="img" key={photo.name} onClick={() => this.onImgClick(i)}>

@@ -1,29 +1,32 @@
 import AlbumList from "../containers/listview/AlbumList";
-import { State } from "../types";
-import "./albumPicker.css";
+import UploadProgress from "../containers/toolbar/UploadProgress";
+import "./picker.css";
 
 interface Props {
-  state: State,
+  displayNone: boolean;
+  show: boolean;
+  submiting: boolean;
   cancel: () => void;
 }
 
-function AlbumPicker({ state, cancel }: Props) {
-  if (state === State.PickAlbum) {
+function AlbumPicker({ displayNone, show, submiting, cancel }: Props) {
+  if (!displayNone) {
     return (
-      <div className="album-picker">
-        <div className="container">
+      <div className={`picker album-picker ${show ? 'show' : ''}`}>
+        <div className={`container ${show ? 'show' : ''}`}>
           <div className="head">
-            <div className="title">加入相簿</div>
-            <div className="cancel" onClick={cancel}>取消</div>
+            {!submiting ? <div className="title">加入相簿</div> : ''}
+            {!submiting ? <div className="cancel" onClick={cancel}>取消</div> : ''}
+            {submiting ? <UploadProgress /> : ''}
           </div>
-          <div className="albums">
+          <div className="items">
             <AlbumList />
           </div>
         </div>
       </div>
     )
   }
-  return <div className="album-picker hide"></div>
+  return <div className="picker album-picker hide"></div>
 }
 
 export default AlbumPicker;

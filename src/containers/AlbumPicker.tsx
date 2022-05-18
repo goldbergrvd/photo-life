@@ -2,11 +2,13 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setState, StateAction } from "../actions";
 import AlbumPicker from "../components/AlbumPicker";
-import { State, StoreState } from "../types";
+import { State, StoreState, Tab } from "../types";
 
 function mapStateToProps(state: StoreState) {
   return {
-    state: state.state
+    displayNone: state.tab !== Tab.ImageRepo,
+    show: [State.PickAlbum, State.UpdateAlbum].includes(state.state) && state.tab === Tab.ImageRepo,
+    submiting: state.state === State.UpdateAlbum
   }
 }
 

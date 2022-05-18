@@ -8,6 +8,7 @@ import PhotoBrowse from './containers/PhotoBrowse';
 import Toolbar from './containers/toolbar/Toolbar';
 import ViewSwitch from './containers/view/ViewSwitch';
 import { detectBrowser } from './native-dom'
+import PhotoPicker from './containers/PhotoPicker';
 
 function App() {
   const browser = detectBrowser()
@@ -20,6 +21,7 @@ function App() {
       <Alert />
       <AlbumCreator />
       <AlbumPicker />
+      <PhotoPicker />
       <Messages />
       <PhotoBrowse />
     </div>

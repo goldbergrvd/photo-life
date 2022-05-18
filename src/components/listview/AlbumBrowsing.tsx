@@ -7,14 +7,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   album: Album | null;
+  onAddPhotoClick: () => void;
   onImgClick: (index: number) => void;
 }
 
-function AlbumBrowsing({ album, onImgClick }: Props) {
+function AlbumBrowsing({ album, onAddPhotoClick, onImgClick }: Props) {
   if (album) {
     return (
       <div className="album-browsing show">
-        <div className="add">
+        <div className="add" onClick={onAddPhotoClick}>
           <FontAwesomeIcon icon={faPlus} />
           <div className="tip">新增相片</div>
         </div>

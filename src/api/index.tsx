@@ -60,8 +60,13 @@ export const REQUESTS = Object.freeze({
     axios.get(APIS.videos(lastVideoName))
     .then(res => res.data)
   ),
-  upload: (formData: FormData, onUploadProgress: (progressEvent: { loaded: number; total: number; }) => void) => (
-    axios.post(APIS.upload, formData, { onUploadProgress })
+  upload: (formData: FormData, uploadProgressUpdator: (progress: number) => void) => (
+    axios.post(APIS.upload, formData, {
+        onUploadProgress: (evt: ProgressEvent) => {
+          const progress = Math.floor((evt.loaded * 100) / evt.total);
+          uploadProgressUpdator(progress)
+        }
+      })
     .then(res => {
       let result = res.data.successResults.reduce((acc: {photos: string[], videos: string[]}, d: string) => {
         if (isImage(d)) {
@@ -112,8 +117,14 @@ export const REQUESTS = Object.freeze({
     axios.delete(APIS.deleteAlbum(id))
     .then(res => res.data + '')
   ),
-  addAlbumPhoto: (id: string, photoNames: string[]) => (
-    axios.put(APIS.addAlbumPhoto(id), photoNames, JSON_CONFIG)
+  addAlbumPhoto: (id: string, photoNames: string[], uploadProgressUpdator: (progress: number) => void) => (
+    axios.put(APIS.addAlbumPhoto(id), photoNames, {
+      ...JSON_CONFIG,
+      onUploadProgress: (evt: ProgressEvent) => {
+        const progress = Math.floor((evt.loaded * 100) / evt.total);
+        uploadProgressUpdator(progress)
+      }
+    })
     .then(res => createAlbum(res.data))
   ),
   deleteAlbumPhoto: (id: string, photoNames: string[]) => (

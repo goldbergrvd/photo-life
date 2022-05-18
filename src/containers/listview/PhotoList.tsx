@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addErrorMessage, MessagesAction } from "../../actions";
 import { addPhotos, openPhotoBrowse, PhotoListAction, togglePhotoSelect } from "../../actions/photoList";
 import requests from "../../api";
-import { StoreState } from "../../types";
+import { StoreState, Tab } from "../../types";
 import PhotoList from "../../components/listview/PhotoList";
 
 let isFetching = false
@@ -12,7 +12,8 @@ function mapStateToProps(state: StoreState) {
   return {
     photoList: state.photoList,
     state: state.state,
-    viewType: state.viewType
+    viewType: state.viewType,
+    paddingClass: state.tab === Tab.Album ? 'no-padding' : ''
   }
 }
 

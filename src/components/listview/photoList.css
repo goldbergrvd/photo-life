@@ -6,6 +6,10 @@
   align-content: flex-start;
 }
 
+.photo-list.no-padding {
+  padding-top: 0;
+}
+
 .photo-list .img {
   margin: .3vw;
   position: relative;

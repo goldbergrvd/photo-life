@@ -24,11 +24,9 @@
 }
 
 .upload-progress .message {
-  width: inherit;
-  height: inherit;
-  line-height: 4rem;
   color: rgb(26, 42, 58);
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
