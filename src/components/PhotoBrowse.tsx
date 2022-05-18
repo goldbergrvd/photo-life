@@ -1,18 +1,23 @@
 import "./photoBrowse.css";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PhotoList } from "../types";
+import { Photo } from "../types";
 import { DOWN, LEFT, RIGHT, UP, useSwipeable } from "react-swipeable";
 import PhotoLoader from "./PhotoLoader";
 
 export interface Props {
-  photoList: PhotoList;
+  currPhoto: Photo | null;
+  prevPhoto: Photo | null;
+  nextPhoto: Photo | null;
+  currCount: number;
+  totalCount: number;
   showInfo: boolean;
   toggleShowInfo: () => void;
   openShowInfo: () => void;
-  onClose: () => void;
-  prevPhotoBrowse: () => void;
-  nextPhotoBrowse: () => void;
+  setThemeColor: () => void;
+  close: () => void;
+  prev: () => void;
+  next: () => void;
 }
 
 let _slider: HTMLDivElement
@@ -52,15 +57,14 @@ const SIBLING_IMG_SLIDE_WIDTH = () => window.innerWidth
 const PREV_IMG_SLIDE_LEFT = () => BASE_PREV_LEFT()
 const NEXT_IMG_SLIDE_LEFT = () => BASE_NEXT_LEFT()
 
+function PhotoBrowse({ currPhoto, prevPhoto, nextPhoto, currCount, totalCount, showInfo, setThemeColor, toggleShowInfo, openShowInfo, close, prev, next }: Props) {
+  setThemeColor()
 
-function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClose, prevPhotoBrowse, nextPhotoBrowse }: Props) {
+  const hasBrowsed = currPhoto !== null
+  const isFirst = prevPhoto === null
+  const isLast = nextPhoto === null
 
-  const photoIndex = photoList.findIndex(photo => photo.browsed)
-  const hasBrowsed = photoIndex >= 0
-  const isFirst = photoIndex === 0
-  const isLast = photoIndex === photoList.length - 1
-
-  if (photoIndex < 0) {
+  if (!hasBrowsed) {
     openShowInfo()
   }
 
@@ -130,11 +134,11 @@ function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClos
         }
 
         if (evt.dir === LEFT) {
-          slideHorizontal(NEXT_PHOTO_SLIDER_LEFT(), restXPercentage, nextPhotoBrowse)
+          slideHorizontal(NEXT_PHOTO_SLIDER_LEFT(), restXPercentage, next)
           return
         }
         if (evt.dir === RIGHT) {
-          slideHorizontal(PREV_PHOTO_SLIDER_LEFT(), restXPercentage, prevPhotoBrowse)
+          slideHorizontal(PREV_PHOTO_SLIDER_LEFT(), restXPercentage, prev)
           return
         }
         revertSlider(restXPercentage)
@@ -203,7 +207,7 @@ function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClos
     _currImg.style.top = imgTop + 'px'
 
     waitTransition(() => {
-      onClose()
+      close()
     }, transitionTime * 1000)
   }
 
@@ -247,27 +251,26 @@ function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClos
   }
 
   function fileName() {
-    if (photoIndex < 0) {
+    if (!hasBrowsed) {
       return ''
     }
-    let photoName = photoList[photoIndex].name
 
-    return photoName.substring(0, 4) + '/' +
-           photoName.substring(4, 6) + '/' +
-           photoName.substring(6, 8) + ' ' +
-           photoName.substring(8, 10) + ':' +
-           photoName.substring(10, 12) + ':' +
-           photoName.substring(12, 14)
+    return currPhoto.name.substring(0, 4) + '/' +
+           currPhoto.name.substring(4, 6) + '/' +
+           currPhoto.name.substring(6, 8) + ' ' +
+           currPhoto.name.substring(8, 10) + ':' +
+           currPhoto.name.substring(10, 12) + ':' +
+           currPhoto.name.substring(12, 14)
   }
 
   return (
-    <div className={'photo' + (photoIndex !== -1 ? '' : ' hide')} onClick={toggleShowInfo} {...swipeHandlers}>
+    <div className={'photo' + (hasBrowsed ? '' : ' hide')} onClick={toggleShowInfo} {...swipeHandlers}>
       <div className="slider" ref={c => _slider = c as HTMLDivElement}>
         {
           hasBrowsed && !isFirst
           ?
           <div className="prev-img" ref={c => _prevImg = c as HTMLDivElement}>
-            <PhotoLoader name={photoList[photoIndex - 1].name} />
+            <PhotoLoader name={prevPhoto.name} />
           </div>
           :
           ''
@@ -276,7 +279,7 @@ function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClos
           hasBrowsed
           ?
           <div className="curr-img" ref={c => _currImg = c as HTMLDivElement}>
-            <PhotoLoader name={photoList[photoIndex].name} />
+            <PhotoLoader name={currPhoto.name} />
           </div>
           :
           ''
@@ -285,18 +288,18 @@ function PhotoBrowse({ photoList, showInfo, toggleShowInfo, openShowInfo, onClos
           hasBrowsed && !isLast
           ?
           <div className="next-img" ref={c => _nextImg = c as HTMLDivElement}>
-            <PhotoLoader name={photoList[photoIndex + 1].name} />
+            <PhotoLoader name={nextPhoto.name} />
           </div>
           :
           ''
         }
       </div>
       <div className={`header` + (showInfo ? '' : ' hide')}>
-        <div className="index">{photoIndex + 1 + '/' + photoList.length}</div>
-        <FontAwesomeIcon className="close" icon={faXmark} onClick={onClose} />
+        <div className="index">{currCount + '/' + totalCount}</div>
+        <FontAwesomeIcon className="close" icon={faXmark} onClick={close} />
       </div>
       <div className={`footer` + (showInfo ? '' : ' hide')}>
-        {photoList[photoIndex] ? <div className="file-name">{fileName()}</div> :  ''}
+        <div className="file-name">{fileName()}</div>
       </div>
     </div>
   )
